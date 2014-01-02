@@ -30,5 +30,15 @@
     "browser-perf",
     "telemetry",
     "gruntplugin"
-  ]
+  ],
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/axemclion/perfjankie.git"
+  },
+  "bugs": {
+    "url": "https://github.com/axemclion/perfjankie/issues"
+  }
 }

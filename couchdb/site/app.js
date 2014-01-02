@@ -2,7 +2,14 @@ $(document).ready(function() {
 
 	var metrics = {}, data = {};
 
-	// Load the name of the components and the available metrics
+	$.getJSON('../meta/_view/suites', {
+		group: true
+	}).done(function(data) {
+		if (data.rows.length == 1 && data.rows[0].key) {
+			$('.page-header > h1').html(data.rows[0].key);
+		}
+	});
+
 	$.when($.getJSON('../meta/_view/names', {
 		group: true
 	}).done(function(data) {
@@ -20,16 +27,34 @@ $(document).ready(function() {
 			}
 			metrics[row.key[0]].push(row.key[1]);
 		});
+		$('#metric').html(_.map(metrics[$("#browser").val()], function(m) {
+			return '<option>' + m + '</option>';
+		}));
 	})).done(function() {
+		var loc = window.location.href;
+		if (loc.indexOf('#') !== -1) {
+			loc = loc.substring(loc.indexOf('#') + 1);
+			var parts = {};
+			_.each(loc.split('&'), function(val) {
+				var part = val.split('=');
+				parts[part[0]] = part[1];
+			});
+			$('#browser').val(parts.browser);
+			$('#name').val(parts.component);
+			$('#metric').val(parts.metric);
+			_.each($('#browser, #name, #metric'), function(el) {
+				if ($(el).children("option:selected").length === 0) {
+					$(el).children("option:eq(0)").prop('selected', true);
+				}
+			});
+		}
 		$('select').prop('disabled', false);
-		$('#browser').change();
-		window.setTimeout(triggerChart, 1000);
+		triggerChart();
 	});
 
+
 	$('#browser').on('change', function() {
-		var metricHTML = [];
-		var browser = $("#browser").val();
-		$('#metric').html(_.map(metrics[browser], function(m) {
+		$('#metric').html(_.map(metrics[$("#browser").val()], function(m) {
 			return '<option>' + m + '</option>';
 		}));
 		triggerChart();
@@ -44,6 +69,9 @@ $(document).ready(function() {
 		var component = $('#name').val();
 		var metric = $('#metric').val();
 		var browser = $('#browser').val();
+		var loc = window.location.href;
+		loc = loc.substring(0, loc.indexOf('#'));
+		window.location = loc + '#browser=' + browser + '&metric=' + metric + '&component=' + component;
 		getStats(browser, component, metric).then(function(res) {
 			$('#chartDiv').empty();
 			drawGraph([res], metric.match(/\([\S]*\)/g));

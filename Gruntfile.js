@@ -32,7 +32,7 @@ module.exports = function(grunt) {
 
 		mochaTest: {
 			options: {
-				reporter: 'spec',
+				reporter: 'dot',
 				timeout: 1000 * 60
 			},
 			unit: {
@@ -59,6 +59,6 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask('build', ['jshint']);
-	grunt.registerTask('test', ['connect', 'mochaTest']);
+	grunt.registerTask('test', ['build', 'connect', 'mochaTest']);
 	grunt.registerTask('dev', ['build', 'test', 'watch']);
 };

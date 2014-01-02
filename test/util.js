@@ -5,6 +5,7 @@ module.exports = {
 
 		var options = {
 			"url": "http://localhost:9000/test1.html",
+			//"url": "https://axemclion.cloudant.com/",
 			"name": "Page - Test1",
 			"suite": 'Suite1',
 			"time": new Date().getTime(),
@@ -18,19 +19,31 @@ module.exports = {
 				name: 'TEST',
 				level: 'debug',
 				stream: bFormat({
-					outputMode: 'short'
-				}),
+					outputMode: 'short',
+					color: false
+				}, require('fs').createWriteStream('test.log', {
+					flags: 'a'
+				})),
 			}),
 			"couch": {
 				server: 'http://localhost:5984',
 				database: 'performance',
-				updateSite: true
+				updateSite: true,
+				onlyUpdateSite: false
 			}
 		};
-		config = config || {};
-		for (var key in config) {
-			options[key] = config[key];
-		}
-		return options;
+
+		var extend = function(options, config) {
+			for (var key in config) {
+				if (typeof options[key] === 'object' && typeof config[key] === 'object') {
+					options[key] = extend(options[key], config[key]);
+				} else {
+					options[key] = config[key];
+				}
+			}
+			return options;
+		};
+
+		return extend(options, config || {});
 	}
 };

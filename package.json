@@ -1,13 +1,13 @@
 {
   "name": "perfjankie",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Browser Performance regression suite",
   "main": "lib/index.js",
   "scripts": {
     "test": "grunt test"
   },
   "author": "Parashuram <code@r.nparashuram.com>",
-  "license": "Apache 2.0",
+  "license": "BSD-2-Clause",
   "dependencies": {
     "browser-perf": "~0.0.5",
     "nano": "~4.2.1",

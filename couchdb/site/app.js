@@ -23,13 +23,13 @@ $(document).ready(function() {
 		_.each(data.rows, function(row) {
 			if (typeof metrics[row.key[0]] === 'undefined') {
 				metrics[row.key[0]] = [];
-				$('#browser').append($('<option>').html(row.key[0]));
+				$('#browser').append($('<option>').html('' + row.key[0]));
 			}
 			metrics[row.key[0]].push(row.key[1]);
 		});
-		$('#metric').html(_.map(metrics[$("#browser").val()], function(m) {
-			return '<option>' + m + '</option>';
-		}));
+		$('#browser>option:first').prop('selected', true);
+		displayBrowserMetrics();
+
 	})).done(function() {
 		var loc = window.location.href;
 		if (loc.indexOf('#') !== -1) {
@@ -52,17 +52,30 @@ $(document).ready(function() {
 		triggerChart();
 	});
 
-
 	$('#browser').on('change', function() {
-		$('#metric').html(_.map(metrics[$("#browser").val()], function(m) {
-			return '<option>' + m + '</option>';
-		}));
+		displayBrowserMetrics();
 		triggerChart();
 	});
 
 	$('#component, #metric').on('change', function() {
 		triggerChart();
 	});
+
+	function displayBrowserMetrics() {
+		var m = metrics[$("#browser").val()];
+		var common = ['dom_content_loaded_time_ms', 'first_paint', 'mean_frame_time', 'load_time_ms'];
+		var html = ['<optgroup label = "Common">'];
+		html.push(_.map(_.intersection(m, common), function(a) {
+			return '<option>' + a + '</option>'
+		}));
+		html.push('</optgroup><optgroup label = "Others">');
+		html.push(_.map(_.difference(m, common), function(a) {
+			return '<option>' + a + '</option>'
+		}));
+		html.push('</optgroup>');
+
+		$('#metric').html(html.join(''));
+	}
 
 	function triggerChart() {
 		$('#chartDiv').html('<center>Loading</center>');
@@ -96,6 +109,10 @@ $(document).ready(function() {
 	}
 
 	function drawGraph(data, yaxisLabel) {
+		if (data.length === 0 || data[0].length === 0) {
+			showModal('Error', 'Could not get results for drawing the graph');
+			return;
+		}
 		$.jqplot("chartDiv", data, {
 			// Turns on animatino for all series in this plot.
 			animate: true,

@@ -5,7 +5,8 @@ var expect = require('chai').expect,
 
 describe('App', function() {
 	var browserPerfStub = sinon.stub();
-	browserPerfStub.callsArgWith(1, null, JSON.parse(fs.readFileSync(__dirname + '/res/sample-perf-results.json', 'utf8')));
+	var sampleData = JSON.parse(fs.readFileSync(__dirname + '/res/sample-perf-results.json', 'utf8'));
+	browserPerfStub.callsArgWith(1, null, sampleData);
 	var util = require('./util'),
 		app = require('../'),
 		config = util.config({});
@@ -21,8 +22,11 @@ describe('App', function() {
 		config.log.info('===========');
 	});
 
-	it('should run performance tests and save results in a database', function(done) {
+	it('should only update data', function(done) {
 		app(util.config({
+			couch: {
+				updateSite: false
+			},
 			callback: function(err, res) {
 				expect(err).to.not.be.ok;
 				expect(res).to.be.ok;
@@ -32,7 +36,7 @@ describe('App', function() {
 		}));
 	});
 
-	it('should only update site when asked to', function(done) {
+	it('should only update site', function(done) {
 		var couchDataStub = sinon.stub();
 		couchDataStub.callsArgWith(2, null, []);
 		app(util.config({
@@ -45,6 +49,17 @@ describe('App', function() {
 				expect(res).to.be.ok;
 				done();
 			}
+		}));
+	});
+
+	it('should run performance tests and save results in a database', function(done) {
+		app(util.config({
+			callback: function(err, res) {
+				expect(err).to.not.be.ok;
+				expect(res).to.be.ok;
+				done();
+			},
+			browserPerf: browserPerfStub
 		}));
 	});
 });

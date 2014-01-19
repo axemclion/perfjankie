@@ -16,6 +16,8 @@
     "describe": false,
     "it": false,
     "beforeEach": false,
-    "before": false
+    "before": false,
+    "xit": false,
+    "xdescribe": false
   }
 }

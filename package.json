@@ -1,6 +1,6 @@
 {
   "name": "perfjankie",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Browser Performance regression suite",
   "main": "lib/index.js",
   "scripts": {
@@ -12,7 +12,8 @@
     "browser-perf": "~0.0.x",
     "nano": "~4.2.1",
     "glob": "~3.2.7",
-    "q": "~1.0.0"
+    "q": "~1.0.0",
+    "commander": "~2.1.0"
   },
   "devDependencies": {
     "mocha": "~1.16.2",

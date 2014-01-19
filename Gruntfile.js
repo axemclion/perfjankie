@@ -38,7 +38,8 @@ module.exports = function(grunt) {
 			unit: {
 				src: ['./test/**/*.spec.js'],
 			}
-		}
+		},
+		clean: ['test.log']
 	});
 
 	require('load-grunt-tasks')(grunt);
@@ -58,7 +59,7 @@ module.exports = function(grunt) {
 		});
 	});
 
-	grunt.registerTask('build', ['jshint']);
+	grunt.registerTask('build', ['clean', 'jshint']);
 	grunt.registerTask('test', ['build', 'connect', 'mochaTest']);
 	grunt.registerTask('dev', ['build', 'test', 'watch']);
 };

@@ -26,7 +26,7 @@ module.exports = {
 				})),
 			}),
 			"couch": {
-				server: 'http://localhost:5984',
+				server: 'http://admin_user:admin_pass@localhost:5984',
 				database: 'performance',
 				updateSite: true,
 				onlyUpdateSite: false

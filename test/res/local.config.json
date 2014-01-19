@@ -1,0 +1,16 @@
+{
+	"browsers": [{
+		"browserName": "chrome",
+		"version": 32,
+		"platform": "Windows 8.1"
+	}],
+	"selenium": {
+		"hostname": "localhost",
+		"port": 4444,
+	},
+
+	"couch": {
+		"server": "http://localhost:5984",
+		"database": "performance",
+	},
+}

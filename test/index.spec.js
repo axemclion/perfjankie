@@ -1,6 +1,3 @@
-/* global describe: false, it: false */
-/* jshint expr: true */
-
 var expect = require('chai').expect,
 	sinon = require('sinon'),
 	fs = require('fs'),
@@ -10,7 +7,19 @@ describe('App', function() {
 	var browserPerfStub = sinon.stub();
 	browserPerfStub.callsArgWith(1, null, JSON.parse(fs.readFileSync(__dirname + '/res/sample-perf-results.json', 'utf8')));
 	var util = require('./util'),
-		app = require('../');
+		app = require('../'),
+		config = util.config({});
+
+	before(function(done) {
+		var server = nano(config.couch.server);
+		server.db.destroy(config.couch.database, function(err, res) {
+			done();
+		});
+	});
+
+	beforeEach(function() {
+		config.log.info('===========');
+	});
 
 	it('should run performance tests and save results in a database', function(done) {
 		app(util.config({

@@ -2,6 +2,10 @@ $(document).ready(function() {
 
 	var metrics = {}, data = {};
 
+	var chartHeight = window.innerHeight - $('.head-container').height() - $('.results > form').height() - 200;
+	chartHeight = chartHeight < 300 ? 300 : chartHeight;
+	$('#chartDiv').height(chartHeight);
+
 	$.getJSON('../meta/_view/suites', {
 		group: true
 	}).done(function(data) {
@@ -62,7 +66,7 @@ $(document).ready(function() {
 	});
 
 	function displayBrowserMetrics() {
-		var m = metrics[$("#browser").val()];
+		var m = _.pluck(metrics[$("#browser").val()], 'key');
 		var common = ['dom_content_loaded_time_ms', 'first_paint', 'mean_frame_time', 'load_time_ms'];
 		var html = ['<optgroup label = "Common">'];
 		html.push(_.map(_.intersection(m, common), function(a) {
@@ -86,11 +90,14 @@ $(document).ready(function() {
 		loc = loc.substring(0, loc.indexOf('#'));
 		window.location = loc + '#browser=' + browser + '&metric=' + metric + '&component=' + component;
 		getStats(browser, component, metric).then(function(res) {
-			$('#chartDiv').empty();
-			drawGraph([res], metric.match(/\([\S]*\)/g));
-		}, function(err) {
-			showModal('Error', 'Could not load results from remote server : ' + err.statusText);
-		});
+				$('#chartDiv').empty();
+				drawGraph([res], _.find(metrics[browser], function(m) {
+					return m.key === metric;
+				}).unit);
+			},
+			function(err) {
+				showModal('Error', 'Could not load results from remote server : ' + err.statusText);
+			});
 	}
 
 	function getStats(browser, component, metric) {
@@ -136,7 +143,7 @@ $(document).ready(function() {
 				// These options will set up the x axis like a category axis.
 				xaxis: {
 					renderer: $.jqplot.CategoryAxisRenderer,
-					label: 'Versions',
+					label: 'Runs',
 					labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
 					tickRenderer: $.jqplot.CanvasAxisTickRenderer,
 					tickOptions: {
@@ -156,7 +163,7 @@ $(document).ready(function() {
 					rendererOptions: {
 						forceTickAt0: false
 					},
-					label: yaxisLabel || '',
+					label: yaxisLabel || 'Y AXIS',
 					labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
 					tickRenderer: $.jqplot.CanvasAxisTickRenderer
 				}

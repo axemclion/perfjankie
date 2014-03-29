@@ -7,8 +7,8 @@
 			map: function(doc) {
 				if (doc.type === 'perfData') {
 					for (var key in doc.data) {
-						if (parseFloat(doc.data[key])) {
-							emit([doc.meta._browserName, doc.name, key, doc.time, doc.run], doc.data[key]);
+						if (parseFloat(doc.data[key].value)) {
+							emit([doc.meta._browserName, doc.name, key, doc.time, doc.run], doc.data[key].value);
 						}
 					}
 				}

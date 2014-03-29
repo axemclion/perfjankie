@@ -18,8 +18,15 @@
 			},
 			map: function(doc) {
 				for (var key in doc.data) {
-					if (parseFloat(doc.data[key]))
-						emit([doc.meta._browserName, key], null);
+					var data = doc.data[key];
+					if (parseFloat(data.value))
+						emit([doc.meta._browserName, {
+							key: key,
+							unit: data.unit,
+							category: data.category,
+							source: data.source,
+							tags: data.tags
+						}], null);
 				}
 			}
 		},

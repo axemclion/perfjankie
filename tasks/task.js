@@ -16,22 +16,22 @@ module.exports = function(grunt) {
       files = options.urls;
 
     options.time = parseFloat(options.time, 10);
-
     if (options.sauceTunnel) {
       var SauceTunnel = require('sauce-tunnel');
       grunt.log.writeln('Starting Saucelabs Tunnel');
       var tunnel = new SauceTunnel(options.SAUCE_USERNAME, options.SAUCE_ACCESSKEY, options.sauceTunnel, true);
       tunnel.start(function(status) {
+        grunt.log.ok('Saucelabs Tunnel started - ' + status);
         if (status === false) {
-          grunt.log.fail('Could not open tunnel to saucelabs to testing');
-        }
-        grunt.log.ok('Saucelabs Tunnel started');
-        runPerfTest(files, options, function(res) {
-          grunt.verbose.writeln('All perf tests completed');
-          tunnel.stop(function() {
-            done(res);
+          done(false);
+        } else {
+          runPerfTest(files, options, function(res) {
+            grunt.verbose.writeln('All perf tests completed');
+            tunnel.stop(function() {
+              done(res);
+            });
           });
-        });
+        }
       });
     } else {
       runPerfTest(files, options, done);
@@ -51,6 +51,7 @@ module.exports = function(grunt) {
           callback: function(err, res) {
             if (err) {
               success = false;
+              console.log(res);
               grunt.log.warn(err);
             } else {
               grunt.log.ok('Saved performance metrics');
@@ -58,9 +59,9 @@ module.exports = function(grunt) {
             runTest(i + 1);
           }
         };
-        ['suite', 'browsers', 'selenium', 'SAUCE_ACCESSKEY', 'SAUCE_USERNAME', 'time', 'run', 'couch'].forEach(function(prop) {
-          config[prop] = options[prop]
-        });
+        for (var key in options) {
+          config[key] = options[key];
+        }
         perfjankie(config);
       } else {
         cb(success);

@@ -75,7 +75,7 @@ The dashboard is also a couch app and looks like the following
 ![PerfJankie Dashboard](https://gist.github.com/axemclion/8228048/raw/21265227543f9efcd3e3ab606a3991b0ae13e0f9/untitled.png "PerfJankie Dashboard")
 
 ## What does it measure? 
-Perfjankie measures page rendering times. It bacically collects metrics like page load time, first paint time, scroll time, etc. It can be used on 
+Perfjankie measures page rendering times. It basically collects metrics like page load time, first paint time, scroll time, etc. It can be used on 
 * long, scrollable web pages (like a search result page, an article page, etc). The impact of changes to CSS, sticky headers and scrolling event handlers can be seen in the results. 
-* components (like bootstrap, Jquery UI components, ReactJS components, AngularJS components, etc). Component developers just have to place the component multiple times on a page and will know if they caused perf refressions as they continue developing the component. 
+* components (like bootstrap, jQuery UI components, ReactJS components, AngularJS components, etc). Component developers just have to place the component multiple times on a page and will know if they caused perf regressions as they continue developing the component. 
 For more information, see the documentation for [browser-perf](http://github.com/axemclion/browser-perf)

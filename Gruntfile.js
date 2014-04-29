@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+	var couchdb = require('./test/util').config().couch;
 	grunt.initConfig({
 		jshint: {
 			all: [
@@ -11,11 +12,33 @@ module.exports = function(grunt) {
 			},
 		},
 		connect: {
-			site: {
+			proxies: [{
+				context: ['/meta', '/data'],
+				changeOrigin: false,
+				host: 'localhost',
+				port: '5984',
+				rewrite: {
+					'/meta': '/' + couchdb.database + '/_design/meta',
+					'/data': '/' + couchdb.database + '/_design/data'
+				}
+			}],
+			dev: {
 				options: {
 					hostname: '*',
 					port: 9000,
-					base: ['test/res', '.', './couchdb/site/']
+					base: ['test/res', '.', './couchdb/site/'],
+					livereload: true,
+					middleware: function(connect, options) {
+						var middlewares = [];
+						if (!Array.isArray(options.base)) {
+							options.base = [options.base];
+						}
+						middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest);
+						options.base.forEach(function(base) {
+							middlewares.push(connect.static(base));
+						});
+						return middlewares;
+					}
 				}
 			}
 		},
@@ -26,7 +49,10 @@ module.exports = function(grunt) {
 			},
 			site: {
 				files: ['./couchdb/site/**/*'],
-				tasks: ['deploySite']
+				tasks: ['deploySite'],
+				options: {
+					livereload: true
+				}
 			}
 		},
 
@@ -61,5 +87,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('build', ['clean', 'jshint']);
 	grunt.registerTask('test', ['build', 'connect', 'mochaTest']);
-	grunt.registerTask('dev', ['build', 'test', 'watch']);
+	grunt.registerTask('dev', ['build', 'configureProxies:server', 'connect:dev', 'watch']);
+
+	grunt.registerTask('default', ['build']);
 };

@@ -67,18 +67,25 @@ $(document).ready(function() {
 
 	function displayBrowserMetrics() {
 		var m = _.pluck(metrics[$("#browser").val()], 'key');
-		var common = ['dom_content_loaded_time_ms', 'first_paint', 'mean_frame_time', 'load_time_ms'];
+		var common = ['meanFrameTime', 'Layout_avg', 'ExpensivePaints'];
+
 		var html = ['<optgroup label = "Common">'];
 		html.push(_.map(_.intersection(m, common), function(a) {
-			return '<option>' + a + '</option>'
+			return '<option value = "' + a + '">' + formatMetrics(a) + '</option>'
 		}));
 		html.push('</optgroup><optgroup label = "Others">');
 		html.push(_.map(_.difference(m, common), function(a) {
-			return '<option>' + a + '</option>'
+			return '<option value = "' + a + '">' + formatMetrics(a) + '</option>'
 		}));
 		html.push('</optgroup>');
 
 		$('#metric').html(html.join(''));
+	}
+
+	function formatMetrics(metric) {
+		metric = metric.replace(/_/g, ' ');
+		metric = metric.replace(/avg/, '(avg)').replace(/max/, '(max)').replace(/count/, '(count)');
+		return metric;
 	}
 
 	function triggerChart() {

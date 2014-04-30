@@ -50,6 +50,9 @@ module.exports = function(grunt) {
 			site: {
 				files: ['./couchdb/site/**/*'],
 				tasks: ['deploySite'],
+			},
+			devSite: {
+				files: ['./couchdb/site/**/*'],
 				options: {
 					livereload: true
 				}
@@ -87,7 +90,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('build', ['clean', 'jshint']);
 	grunt.registerTask('test', ['build', 'connect', 'mochaTest']);
-	grunt.registerTask('dev', ['build', 'configureProxies:server', 'connect:dev', 'watch']);
+	grunt.registerTask('dev', ['build', 'configureProxies:server', 'connect:dev', 'watch:devSite']);
 
 	grunt.registerTask('default', ['build']);
 };

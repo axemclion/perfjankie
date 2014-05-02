@@ -1,8 +1,7 @@
+var meta = {}, selected = {};
+
 $(document).ready(function() {
-
-	var metrics = {}, data = {};
-
-	var chartHeight = window.innerHeight - $('.head-container').height() - $('.results > form').height() - 200;
+	var chartHeight = window.innerHeight - ($('.page-title').position().top + $('.page-title').height()) - 150;
 	chartHeight = chartHeight < 300 ? 300 : chartHeight;
 	$('#chartDiv').height(chartHeight);
 
@@ -10,31 +9,12 @@ $(document).ready(function() {
 		group: true
 	}).done(function(data) {
 		if (data.rows.length == 1 && data.rows[0].key) {
-			$('.page-header > h1').html(data.rows[0].key);
+			$('#pageHeader').html(data.rows[0].key);
 		}
 	});
 
-	$.when($.getJSON('../meta/_view/names', {
-		group: true
-	}).done(function(data) {
-		$('#name').html(_.map(data.rows, function(row) {
-			return '<option>' + row.key + '</option>';
-		}).join(''));
-	}), $.getJSON('../meta/_view/metrics', {
-		group_level: 2
-	}).done(function(data) {
-		$('#browser').empty();
-		_.each(data.rows, function(row) {
-			if (typeof metrics[row.key[0]] === 'undefined') {
-				metrics[row.key[0]] = [];
-				$('#browser').append($('<option>').html('' + row.key[0]));
-			}
-			metrics[row.key[0]].push(row.key[1]);
-		});
-		$('#browser>option:first').prop('selected', true);
-		displayBrowserMetrics();
-
-	})).done(function() {
+	$.when(getMeta()).done(function(m) {
+		meta = m;
 		var loc = window.location.href;
 		if (loc.indexOf('#') !== -1) {
 			loc = loc.substring(loc.indexOf('#') + 1);
@@ -43,68 +23,139 @@ $(document).ready(function() {
 				var part = val.split('=');
 				parts[part[0]] = part[1];
 			});
-			$('#browser').val(parts.browser);
-			$('#name').val(parts.component);
-			$('#metric').val(parts.metric);
-			_.each($('#browser, #name, #metric'), function(el) {
-				if ($(el).children("option:selected").length === 0) {
-					$(el).children("option:eq(0)").prop('selected', true);
-				}
-			});
+			selected = parts;
 		}
-		$('select').prop('disabled', false);
+
+		if (!selected.component || !selected.browser || !selected.metric) {
+			var components = _.keys(meta);
+			selected.component = components[0],
+			selected.browser = _.keys(meta[selected.component])[0];
+			selected.metric = meta[selected.component][selected.browser][0].key;
+		}
+
+		renderComponents();
+		renderBrowsers();
+		renderMetrics();
 		triggerChart();
 	});
 
-	$('#browser').on('change', function() {
-		displayBrowserMetrics();
-		triggerChart();
+	// Filter metrics
+	$('#searchForm').on('submit', function() {
+		window.setTimeout(function() {
+			$('#filter li.active a').click();
+		}, 100);
+		return false;
 	});
 
-	$('#component, #metric').on('change', function() {
-		triggerChart();
-	});
+	var filterTemplate = _.template($('#filter script.template').html());
+	var metricsDiv = $('#metrics'),
+		filter = $('#filter'),
+		resultsList = filter.find('ul.results');
+	$('#searchForm input').on('keyup', function(e) {
+		if (e.keyCode === 40 || e.keyCode === 38) {
+			var active = resultsList.find('li.active');
+			var next = active[e.keyCode === 40 ? 'next' : 'prev']();
+			if (next.length > 0) {
+				active.removeClass('active');
+				next.addClass('active');
+			}
+			return;
+		}
+		var word = $(this).val();
+		metricsDiv.addClass('hide');
+		filter.removeClass('hide');
 
-	function displayBrowserMetrics() {
-		var m = _.pluck(metrics[$("#browser").val()], 'key');
-		var common = ['meanFrameTime', 'Layout_avg', 'ExpensivePaints'];
-
-		var html = ['<optgroup label = "Common">'];
-		html.push(_.map(_.intersection(m, common), function(a) {
-			return '<option value = "' + a + '">' + formatMetrics(a) + '</option>'
-		}));
-		html.push('</optgroup><optgroup label = "Others">');
-		html.push(_.map(_.difference(m, common), function(a) {
-			return '<option value = "' + a + '">' + formatMetrics(a) + '</option>'
-		}));
-		html.push('</optgroup>');
-
-		$('#metric').html(html.join(''));
-	}
-
-	function formatMetrics(metric) {
-		metric = metric.replace(/_/g, ' ');
-		metric = metric.replace(/avg/, '(avg)').replace(/max/, '(max)').replace(/count/, '(count)');
-		return metric;
-	}
-
-	function triggerChart() {
-		$('#chartDiv').html('<center>Loading</center>');
-		var component = $('#name').val();
-		var metric = $('#metric').val();
-		var browser = $('#browser').val();
-		var loc = window.location.href;
-		loc = loc.substring(0, loc.indexOf('#'));
-		window.location = loc + '#browser=' + browser + '&metric=' + metric + '&component=' + component;
-		getStats(browser, component, metric).then(function(res) {
-				$('#chartDiv').empty();
-				drawGraph([res], _.find(metrics[browser], function(m) {
-					return m.key === metric;
-				}).unit);
-			},
-			function(err) {
-				showModal('Error', 'Could not load results from remote server : ' + err.statusText);
+		var term = new RegExp(word, 'i');
+		var html = _.map(_.filter(meta[selected.component][selected.browser], function(m) {
+			return m.key.match(term);
+		}), function(m) {
+			return filterTemplate({
+				id: m.key,
+				name: formatMetrics(m.key)
 			});
+		});
+		if (html.length === 0) {
+			html = ['<li class = "list-group-item"><a>No results found</a></li>'];
+		}
+		resultsList.html(html.join(''));
+		resultsList.find('li:first').addClass('active');
+	});
+
+	$('#filter').on('click', '.filter-metric', function() {
+		selected.metric = $(this).data('metric');
+		$('#filter .close').click();
+		showSelected();
+		triggerChart();
+	}).on('click', '.close', function() {
+		metricsDiv.removeClass('hide');
+		filter.addClass('hide');
+		$('#searchForm input').val('');
+	});
+
+	// Metrics selection
+	$('#metrics').on('click', 'a.category', function() {
+		$('#metrics').find('.categories, .individual-metrics').addClass('hide');
+		$('#metrics').find('.individual-metrics[data-category=' + $(this).attr('href').substring(1) + ']').removeClass('hide');
+		return false;
+	}).on('click', 'a.category-goback', function() {
+		$('#metrics').find('.individual-metrics').addClass('hide');
+		$('#metrics').find('.categories').removeClass('hide');
+		return false;
+	}).on('click', '.individual-metric', function() {
+		selected.metric = $(this).attr('href').substring(1);
+		triggerChart();
+		return false;
+	});
+
+	// Component Name selections
+	$('.component-list').on('click', 'li', function() {
+		selected.component = $(this).data('component');
+		selected.browser = _.keys(meta[selected.component])[0];
+		selected.metric = meta[selected.component][selected.browser][0].key;
+
+		$('.component').removeClass('open');
+		$('#componentName').html(selected.component);
+		renderBrowsers();
+		renderMetrics();
+		showSelected();
+		triggerChart();
+		return false;
+	});
+
+	// Select browser
+	$('.browsers').on('click', 'li', function() {
+		var $this = $(this);
+		var newBrowser = $this.data('browser');
+		if ($this.hasClass('disabled') === false && selected.browser !== newBrowser) {
+			selected.browser = newBrowser;
+			selected.metric = meta[selected.component][newBrowser][0].key;
+			renderMetrics();
+			showSelected();
+			triggerChart();
+		}
+		return false;
+	});
+
+	function getMeta() {
+		return $.getJSON('../meta/_view/metrics', {
+			group_level: 2
+		}).then(function(data) {
+			var meta = {};
+			_.each(data.rows, function(row) {
+				var component = row.key[1].component;
+				var browser = row.key[0];
+				var metric = row.key[1];
+				if (typeof meta[component] === 'undefined') {
+					meta[component] = {};
+				}
+
+				if (typeof meta[component][browser] === 'undefined') {
+					meta[component][browser] = [];
+				}
+				meta[component][browser].push(metric);
+			});
+			return meta;
+		});
 	}
 
 	function getStats(browser, component, metric) {
@@ -120,6 +171,81 @@ $(document).ready(function() {
 				dfd.resolve(result);
 			}, dfd.reject);
 		});
+	}
+
+	function renderComponents() {
+		$('.component-list').html(_.template($('.component-list-template script').html(), {
+			components: _.keys(meta)
+		}));
+		$('#componentName').html(selected.component);
+	}
+
+	function renderBrowsers() {
+		$(_.keys(meta[selected.component]).map(function(b) {
+			return '.' + b;
+		}).join()).removeClass('disabled');
+	}
+
+	function renderMetrics() {
+		var groups = {}
+		_.each(meta[selected.component][selected.browser], function(metric) {
+			var group = metric.source;
+			metric._group = group;
+			if (typeof groups[group] === 'undefined') {
+				groups[group] = {};
+			}
+
+			groups[group][metric.key] = {
+				name: formatMetrics(metric.key)
+			};
+
+		});
+		$('#metrics').html(_.template($('#metricsTemplate').text(), {
+			metrics: groups
+		}));
+	}
+
+	function formatMetrics(metric) {
+		metric = metric.replace(/_/g, ' ');
+		metric = metric.replace(/avg/, '(avg)').replace(/max/, '(max)').replace(/count/, '(count)');
+		return metric;
+	}
+
+	function showSelected() {
+		var m = _.find(meta[selected.component][selected.browser], function(m) {
+			return m.key === selected.metric;
+		});
+		$('#metrics .categories li a[data-group=' + m._group + ']').click();
+	}
+
+	function triggerChart() {
+		$('#chartDiv').html('<center>Loading</center>');
+		var component = selected.component;
+		var metric = selected.metric;
+		var browser = selected.browser;
+
+		var loc = window.location.href;
+		loc = loc.substring(0, loc.indexOf('#'));
+		window.location = loc + '#browser=' + browser + '&metric=' + metric + '&component=' + component;
+		getStats(browser, component, metric).then(function(res) {
+				$('#chartDiv').empty();
+				var metric = _.find(meta[selected.component][selected.browser], function(m) {
+					return m.key === selected.metric;
+				});
+				if (metric) {
+					drawGraph([res], metric.unit);
+				} else {
+					showModal('Error', 'Unknown metric <em>' + selected.metric + '</em> for <em>' + selected.component + '</em> in browser ' + selected.browser);
+				}
+			},
+			function(err) {
+				showModal('Error', 'Could not load results from remote server : ' + err.statusText);
+			});
+
+		$('#metricTitle').html(metric);
+		$('.browsers li, .individual-metric').removeClass('active');
+		$('.browsers li[class=' + browser + ']').addClass('active');
+		$('.individual-metric[data-metric=' + metric + '').addClass('active');
 	}
 
 	function drawGraph(data, yaxisLabel) {
@@ -186,8 +312,7 @@ $(document).ready(function() {
 	}
 
 	function showModal(title, body) {
-		$('.modal .modal-title').html(title);
-		$('.modal .modal-body').html(body);
-		$('.modal').modal(true);
+		var html = ['<center><h1>', title, '</h1><h3>', body, '</h3></center>'];
+		$('#chartDiv').html(html.join(''));
 	}
 });

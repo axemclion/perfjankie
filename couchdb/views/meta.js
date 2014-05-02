@@ -25,7 +25,8 @@
 							unit: data.unit,
 							category: data.category,
 							source: data.source,
-							tags: data.tags
+							tags: data.tags,
+							component: doc.name
 						}], null);
 				}
 			}

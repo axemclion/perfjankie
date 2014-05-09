@@ -165,10 +165,17 @@ $(document).ready(function() {
 				endkey: JSON.stringify([browser, component, metric, {}]),
 				group: true
 			}).then(function(data) {
-				var result = _.map(data.rows, function(obj, index) {
-					return [obj.key[4], obj.value.sum / obj.value.count];
+				var result = [],
+					minBand = [],
+					maxBand = [];
+				_.each(data.rows, function(obj, index) {
+					var key = JSON.stringify(obj.key[4]);
+					result.push([key, obj.value.sum / obj.value.count]);
+					minBand.push([key, obj.value.min]);
+					maxBand.push([key, obj.value.max]);
 				});
-				dfd.resolve(result);
+
+				dfd.resolve([result, minBand, maxBand]);
 			}, dfd.reject);
 		});
 	}
@@ -227,13 +234,13 @@ $(document).ready(function() {
 		var loc = window.location.href;
 		loc = loc.substring(0, loc.indexOf('#'));
 		window.location = loc + '#browser=' + browser + '&metric=' + metric + '&component=' + component;
-		getStats(browser, component, metric).then(function(res) {
+		getStats(browser, component, metric).then(function(res, band) {
 				$('#chartDiv').empty();
 				var metric = _.find(meta[selected.component][selected.browser], function(m) {
 					return m.key === selected.metric;
 				});
 				if (metric) {
-					drawGraph([res], metric.unit);
+					drawGraph(res, band, metric.unit);
 				} else {
 					showModal('Error', 'Unknown metric <em>' + selected.metric + '</em> for <em>' + selected.component + '</em> in browser ' + selected.browser);
 				}
@@ -248,7 +255,7 @@ $(document).ready(function() {
 		$('.individual-metric[data-metric=' + metric + '').addClass('active');
 	}
 
-	function drawGraph(data, yaxisLabel) {
+	function drawGraph(data, band, yaxisLabel) {
 		if (data.length === 0 || data[0].length === 0) {
 			showModal('Error', 'Could not get results for drawing the graph');
 			return;
@@ -258,19 +265,32 @@ $(document).ready(function() {
 			animate: true,
 			// Will animate plot on calls to plot1.replot({resetAxes:true})
 			animateReplot: true,
-			series: [],
+			series: [{
+				lineWidth: 1,
+				color: "rgb(67, 142, 185)",
+				markerOptions: {
+					size: 2,
+					style: "circle"
+				}
+			}, {
+				show: false
+			}, {
+				show: false
+			}],
 			axesDefaults: {
 				pad: 0
 			},
 			seriesDefaults: {
 				rendererOptions: {
 					smooth: true
-				},
-				lineWidth: 1,
-				markerOptions: {
-					size: 2,
-					style: "circle"
 				}
+			},
+			fillBetween: {
+				series1: 1,
+				series2: 2,
+				color: "rgba(67, 142, 185, 0.2)",
+				baseSeries: 0,
+				fill: true
 			},
 			axes: {
 				// These options will set up the x axis like a category axis.

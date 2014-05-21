@@ -1,4 +1,5 @@
-var meta = {}, selected = {};
+var meta = {},
+	selected = {};
 
 $(document).ready(function() {
 	var chartHeight = window.innerHeight - ($('.page-title').position().top + $('.page-title').height()) - 150;
@@ -194,7 +195,16 @@ $(document).ready(function() {
 	}
 
 	function renderMetrics() {
-		var groups = {}
+		var common = ['ExpensiveEventHandlers', 'RecalculateStyles_avg', 'mean_frame_time'];
+		var groups = {
+			Common: {}
+		};
+		_.each(common, function(metric) {
+			groups['Common'][metric] = {
+				name: formatMetrics(metric)
+			};
+		});
+
 		_.each(meta[selected.component][selected.browser], function(metric) {
 			var group = metric.source;
 			metric._group = group;
@@ -205,8 +215,8 @@ $(document).ready(function() {
 			groups[group][metric.key] = {
 				name: formatMetrics(metric.key)
 			};
-
 		});
+
 		$('#metrics').html(_.template($('#metricsTemplate').text(), {
 			metrics: groups
 		}));
@@ -249,7 +259,7 @@ $(document).ready(function() {
 				showModal('Error', 'Could not load results from remote server : ' + err.statusText);
 			});
 
-		$('#metricTitle').html(metric);
+		$('#metricTitle').html(formatMetrics(metric));
 		$('.browsers li, .individual-metric').removeClass('active');
 		$('.browsers li[class=' + browser + ']').addClass('active');
 		$('.individual-metric[data-metric=' + metric + '').addClass('active');

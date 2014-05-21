@@ -21,13 +21,11 @@ module.exports = {
 				stream: bFormat({
 					outputMode: 'short',
 					color: false
-				}, require('fs').createWriteStream('test.log', {
-					flags: 'a'
-				})),
+				}, require('fs').createWriteStream('./test.log')),
 			}),
 			"couch": {
 				server: 'http://admin_user:admin_pass@localhost:5984',
-				database: 'performance',
+				database: 'perfjankie-test',
 				updateSite: true,
 				onlyUpdateSite: false
 			}

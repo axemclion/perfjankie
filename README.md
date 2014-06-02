@@ -22,7 +22,7 @@ perfjankie({
   suite: "optional suite name", // Displayed as the title in the dashboard. Only 1 suite name for all components
   time: new Date().getTime(), // Used to sort the data when displaying graph. Can be the time when a commit was made
   run: "commit#Hash", // A hash for the commit, displayed in the x-axis in the dashboard
-
+  repeat: 3, // Run the tests 3 times. Default is 1 time
   /* Properties identifying the test environment */
   browsers: [{ // This can also be a ["chrome", "firefox"] or "chrome,firefox"
     browserName: "chrome",

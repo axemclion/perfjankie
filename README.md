@@ -8,7 +8,7 @@ Checking for performance regressions is hard. Though most modern browsers have e
 Perfjankie is inspired by the work done with [topcoat](http://bench.topcoat.io). 
 
 ## How ? (Usage)
-Perfjankie is a node module and can be installed using `npm --save-dev perfjankie`. Once installed, it can be integrated into a build process (like [Grunt](http://gruntjs.com)). The API call looks like
+Perfjankie is a node module and can be installed using `npm --save-dev install perfjankie`. Once installed, it can be integrated into a build process (like [Grunt](http://gruntjs.com)). The API call looks like
 
 
 ```javascript

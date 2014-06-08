@@ -1,64 +1,747 @@
 [{
-  "total_deferred_image_decoding_time": 0,
-  "mean_frame_time": 17.012612244912557,
-  "CompositeLayers_avg": 1.0104293823242188,
-  "first_paint": 53.999900817871094,
-  "average_image_gathering_time": 0,
-  "average_commit_time": 0.8307894736842105,
-  "Program_avg": 1.2510875355113635,
-  "FunctionCall_max": 3,
-  "load_time_ms": 11,
-  "CompositeLayers": 97.001220703125,
-  "_userAgent": "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36",
-  "PaintSetup_avg": 0,
-  "total_deferred_image_decode_count": 0,
-  "texture_upload_count": 262,
-  "CompositeLayers_max": 3,
-  "percent_impl_scrolled": 100,
-  "FireAnimationFrame_max": 2.000244140625,
-  "average_num_missing_tiles": 0,
-  "dom_content_loaded_time_ms": 10,
-  "jank": 51.16170834007649,
-  "Program": 578.00244140625,
-  "_timelineBackend": true,
-  "FireAnimationFrame": 3.000244140625,
-  "PaintSetup_max": 0,
-  "_usedExtension": true,
-  "total_texture_upload_time": 0.028907,
-  "FunctionCall_avg": 0.73330078125,
-  "Layout_avg": 0,
-  "average_num_layers_drawn": 2,
-  "mostly_smooth": 17.907999992370605,
-  "total_image_cache_hit_count": 0,
-  "Program_max": 34.000244140625,
-  "FireAnimationFrame_avg": 1.5001220703125,
-  "FunctionCall": 10.99951171875,
-  "dropped_percent": 4.081632653061225,
-  "_mean_frame_time-old": 17.275510203777525,
-  "Paint_max": 29,
-  "PaintSetup": 0,
-  "Layout": 0,
-  "Paint": 152.999267578125,
-  "Layout_max": 0,
-  "_tracingBackend": true,
-  "Paint_avg": 10.199951171875,
-  "_browserName": "chrome"
-}, {
-  "total_texture_upload_time": 0,
-  "total_deferred_image_decoding_time": 0,
-  "mean_frame_time": 16.491833118541447,
-  "average_num_layers_drawn": 0,
-  "total_image_cache_hit_count": 0,
-  "first_paint": 1225,
-  "average_image_gathering_time": 0,
-  "average_commit_time": 0,
-  "dropped_percent": 7.6923076923076925,
-  "load_time_ms": 402,
-  "total_deferred_image_decode_count": 0,
-  "texture_upload_count": 0,
-  "_userAgent": "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0",
-  "percent_impl_scrolled": 0,
-  "average_num_missing_tiles": 0,
-  "dom_content_loaded_time_ms": 397,
-  "_browserName": "firefox"
+	"numAnimationFrames": {
+		"value": 386,
+		"unit": "count",
+		"category": "rendering",
+		"source": "RafBenchmarkingRenderingStats",
+		"tags": [],
+		"importance": 0
+	},
+	"numFramesSentToScreen": {
+		"value": 386,
+		"unit": "count",
+		"category": "rendering",
+		"source": "RafBenchmarkingRenderingStats",
+		"tags": [],
+		"importance": 0
+	},
+	"droppedFrameCount": {
+		"value": 392,
+		"unit": "count",
+		"category": "rendering",
+		"source": "RafBenchmarkingRenderingStats",
+		"tags": [],
+		"importance": 2
+	},
+	"meanFrameTime": {
+		"value": 20.50645994828672,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "RafBenchmarkingRenderingStats",
+		"tags": [],
+		"importance": 2
+	},
+	"firstPaint": {
+		"value": 470.0000286102295,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"fetchStart": {
+		"value": 286,
+		"unit": "ms",
+		"category": "navigation",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"domainLookupStart": {
+		"value": 4,
+		"unit": "ms",
+		"category": "navigation",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"domainLookupEnd": {
+		"value": 1,
+		"unit": "ms",
+		"category": "navigation",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"connectStart": {
+		"value": 0,
+		"unit": "ms",
+		"category": "navigation",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"connectEnd": {
+		"value": 84,
+		"unit": "ms",
+		"category": "navigation",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"requestStart": {
+		"value": 0,
+		"unit": "ms",
+		"category": "navigation",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"responseStart": {
+		"value": 112,
+		"unit": "ms",
+		"category": "navigation",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"domLoading": {
+		"value": 8,
+		"unit": "ms",
+		"category": "navigation",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"domInteractive": {
+		"value": 1878,
+		"unit": "ms",
+		"category": "navigation",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"domContentLoadedEventStart": {
+		"value": 0,
+		"unit": "ms",
+		"category": "navigation",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"domContentLoadedEventEnd": {
+		"value": 267,
+		"unit": "ms",
+		"category": "navigation",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"domComplete": {
+		"value": 2054,
+		"unit": "ms",
+		"category": "navigation",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"loadEventStart": {
+		"value": 0,
+		"unit": "ms",
+		"category": "navigation",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"loadEventEnd": {
+		"value": 79,
+		"unit": "ms",
+		"category": "navigation",
+		"source": "NavTimingMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"Program": {
+		"value": 1450.9931640625,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"Program_avg": {
+		"value": 0.3650297268081761,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"Program_max": {
+		"value": 140.999755859375,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"Program_count": {
+		"value": 3975,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"FireAnimationFrame": {
+		"value": 24,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"FireAnimationFrame_avg": {
+		"value": 0.060759493670886074,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"FireAnimationFrame_max": {
+		"value": 1.000244140625,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"FireAnimationFrame_count": {
+		"value": 395,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"FunctionCall": {
+		"value": 373.0009765625,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"FunctionCall_avg": {
+		"value": 0.24620526505775578,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"FunctionCall_max": {
+		"value": 22,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"FunctionCall_count": {
+		"value": 1515,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"RecalculateStyles": {
+		"value": 30.99951171875,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"RecalculateStyles_avg": {
+		"value": 0.7380836123511905,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"RecalculateStyles_max": {
+		"value": 19.999755859375,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"RecalculateStyles_count": {
+		"value": 42,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"Layout": {
+		"value": 23.000244140625,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"Layout_avg": {
+		"value": 1.6428745814732142,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"Layout_max": {
+		"value": 7,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"Layout_count": {
+		"value": 14,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"Paint": {
+		"value": 165.000732421875,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"Paint_avg": {
+		"value": 3.9285888671875,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"Paint_max": {
+		"value": 25,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"Paint_count": {
+		"value": 42,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"CompositeLayers": {
+		"value": 124.997314453125,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"CompositeLayers_avg": {
+		"value": 0.3140636041535804,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"CompositeLayers_max": {
+		"value": 4,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"CompositeLayers_count": {
+		"value": 398,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"TimerFire": {
+		"value": 54.9990234375,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"TimerFire_avg": {
+		"value": 0.6395235283430233,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"TimerFire_max": {
+		"value": 22,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"TimerFire_count": {
+		"value": 86,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"PaintSetup": {
+		"value": 4.92431640625,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"PaintSetup_avg": {
+		"value": 0.7034737723214286,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"PaintSetup_max": {
+		"value": 2.489990234375,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"PaintSetup_count": {
+		"value": 7,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"DecodeImage": {
+		"value": 12,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"DecodeImage_avg": {
+		"value": 0.4,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"DecodeImage_max": {
+		"value": 4,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"DecodeImage_count": {
+		"value": 30,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"EvaluateScript": {
+		"value": 163.999755859375,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"EvaluateScript_avg": {
+		"value": 2.6031707279265874,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"EvaluateScript_max": {
+		"value": 119,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"EvaluateScript_count": {
+		"value": 63,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"ParseHTML": {
+		"value": 20,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"ParseHTML_avg": {
+		"value": 1.1764705882352942,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"ParseHTML_max": {
+		"value": 13,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"ParseHTML_count": {
+		"value": 17,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"GCEvent": {
+		"value": 45,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"GCEvent_avg": {
+		"value": 9,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"GCEvent_max": {
+		"value": 41,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"GCEvent_count": {
+		"value": 5,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"EventDispatch": {
+		"value": 226.99951171875,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"EventDispatch_avg": {
+		"value": 1.13499755859375,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"EventDispatch_max": {
+		"value": 16,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"EventDispatch_count": {
+		"value": 200,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"XHRReadyStateChange": {
+		"value": 0,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"XHRReadyStateChange_avg": {
+		"value": 0,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"XHRReadyStateChange_max": {
+		"value": 0,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"XHRReadyStateChange_count": {
+		"value": 9,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"ResizeImage": {
+		"value": 4.00048828125,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 0
+	},
+	"ResizeImage_avg": {
+		"value": 0.50006103515625,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"ResizeImage_max": {
+		"value": 2,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"ResizeImage_count": {
+		"value": 8,
+		"unit": "count",
+		"category": "rendering",
+		"source": "ChromeTimelineMetrics",
+		"tags": [],
+		"importance": 1
+	},
+	"mean_frame_time": {
+		"value": 12.81334101377819,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTracingMetrics",
+		"tags": [],
+		"importance": 5
+	},
+	"jank": {
+		"value": 1249.9021180669884,
+		"unit": "ms",
+		"category": "rendering",
+		"source": "ChromeTracingMetrics",
+		"tags": [],
+		"importance": 5
+	},
+	"mostly_smooth": {
+		"value": 19.407899993658067,
+		"unit": "percentile",
+		"category": "rendering",
+		"source": "ChromeTracingMetrics",
+		"tags": [],
+		"importance": 5
+	},
+	"Layers": {
+		"value": 2,
+		"unit": "count",
+		"category": "rendering",
+		"source": "RuntimePerfMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"PaintedArea_total": {
+		"value": 7892625,
+		"unit": "sq pixels",
+		"category": "rendering",
+		"source": "RuntimePerfMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"PaintedArea_avg": {
+		"value": 187919.64285714287,
+		"unit": "sq pixels",
+		"category": "rendering",
+		"source": "RuntimePerfMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"NodePerLayout_avg": {
+		"value": 628.5714285714286,
+		"unit": "count",
+		"category": "rendering",
+		"source": "RuntimePerfMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"ExpensivePaints": {
+		"value": 3,
+		"unit": "count",
+		"category": "rendering",
+		"source": "RuntimePerfMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"GCInsideAnimation": {
+		"value": 0,
+		"unit": "count",
+		"category": "rendering",
+		"source": "RuntimePerfMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"ExpensiveEventHandlers": {
+		"value": 0,
+		"unit": "count",
+		"category": "rendering",
+		"source": "RuntimePerfMetrics",
+		"tags": [],
+		"importance": 2
+	},
+	"_browserName": "chrome"
 }]

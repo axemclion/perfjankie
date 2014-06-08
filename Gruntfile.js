@@ -88,7 +88,7 @@ module.exports = function(grunt) {
 		});
 	});
 
-	grunt.registerTask('build', ['clean', 'jshint']);
+	grunt.registerTask('build', ['jshint']);
 	grunt.registerTask('test', ['build', 'connect', 'mochaTest']);
 	grunt.registerTask('dev', ['build', 'configureProxies:server', 'connect:dev', 'watch:devSite']);
 

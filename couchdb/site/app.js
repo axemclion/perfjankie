@@ -170,7 +170,7 @@ $(document).ready(function() {
 					minBand = [],
 					maxBand = [];
 				_.each(data.rows, function(obj, index) {
-					var key = JSON.stringify(obj.key[4]);
+					var key = JSON.stringify(obj.key[4]).replace(/\"/g, '');
 					result.push([key, obj.value.sum / obj.value.count]);
 					minBand.push([key, obj.value.min]);
 					maxBand.push([key, obj.value.max]);
@@ -291,7 +291,7 @@ $(document).ready(function() {
 				show: false
 			}],
 			axesDefaults: {
-				pad: 0
+				pad: 1.2
 			},
 			seriesDefaults: {
 				rendererOptions: {
@@ -314,7 +314,7 @@ $(document).ready(function() {
 					tickRenderer: $.jqplot.CanvasAxisTickRenderer,
 					tickOptions: {
 						angle: -90,
-						mark: 'outside',
+						mark: 'inside',
 						showMark: true,
 						showGridline: true,
 						markSize: 4,

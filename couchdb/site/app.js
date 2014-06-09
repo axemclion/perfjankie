@@ -252,10 +252,12 @@ $(document).ready(function() {
 				if (metric) {
 					drawGraph(res, band, metric.unit);
 				} else {
+					document.location.hash = "";
 					showModal('Error', 'Unknown metric <em>' + selected.metric + '</em> for <em>' + selected.component + '</em> in browser ' + selected.browser);
 				}
 			},
 			function(err) {
+				document.location.hash = "";
 				showModal('Error', 'Could not load results from remote server : ' + err.statusText);
 			});
 
@@ -267,6 +269,7 @@ $(document).ready(function() {
 
 	function drawGraph(data, band, yaxisLabel) {
 		if (data.length === 0 || data[0].length === 0) {
+			document.location.hash = "";
 			showModal('Error', 'Could not get results for drawing the graph');
 			return;
 		}

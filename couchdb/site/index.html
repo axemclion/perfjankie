@@ -36,29 +36,11 @@
 	</div>
 	<div class = "container-fluid content">
 		<div class = "row">
-			<div class = "col-sm-9 col-md-9 main">
+			<div class = "col-md-9 col-lg-9 col-sm-12 main">
 				<div class = "row component-title">
-					<div class = "col-sm-9 col-md-9 col-lg-9">
-						<div class = "component">
-							<a href = "#"  data-toggle="dropdown">
-							<span id = "componentName"></span>
-								<span class="caret"></span>
-							</a>
-							<ul class="component-list dropdown-menu" role="menu" aria-labelledby="componentList"></ul>
-							<ul class = "component-list-template">
-								<script type = "text/template" >
-								<% _.each(components, function(component){%>
-								<li class = "component-list-item" data-component = "<%= component %>">
-									<a role="menuitem" href="#">
-										<%= component %></a>
-								</li>
-								<% }); %></script>
-							</ul>
-						</div>
-					</div>
-					<div class = "col-sm-3 col-md-3 col-lg-3">
+					<div class = "col-md-12 col-lg-12">
 						<div class="browsers">
-							<ul class = "row list-inline browsers">
+							<ul class = "row list-inline">
 								<li data-browser = "chrome" class = "chrome disabled">
 									<a href = "#" data-browser = "chrome" class = "thumbnail">
 										<span class = "sr-only">Chrome</span>
@@ -76,7 +58,22 @@
 								</li>
 							</ul>
 						</div>
-
+						<div class = "component">
+							<a href = "#"  data-toggle="dropdown">
+								<span id = "componentName"></span>
+								<span class="caret"></span>
+							</a>
+							<ul class="component-list dropdown-menu" role="menu" aria-labelledby="componentList"></ul>
+							<ul class = "component-list-template">
+								<script type = "text/template" >
+								<% _.each(components, function(component){%>
+								<li class = "component-list-item" data-component = "<%= component %>">
+									<a role="menuitem" href="#">
+										<%= component %></a>
+								</li>
+								<% }); %></script>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class = "page-title row">
@@ -84,7 +81,7 @@
 				</div>
 				<div id = "chartDiv"></div>
 			</div>
-			<div class = "pull-right col-md-3 sidebar">
+			<div class = "col-md-3 col-lg-3 col-sm-12 sidebar">
 				<div class="search input-group input-group-sm">
 					<form id = "searchForm" class = "form-inline" role = "form">
 						<div class = "input-group">

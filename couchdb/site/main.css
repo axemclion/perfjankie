@@ -29,12 +29,12 @@ h1, body {
 	overflow-x: hidden;
 }
 .browsers {
-	margin: -17px 0 0 0;
-	text-align: center;
 	padding: 0;
 	position: absolute;
-	width: 100%;
+	right: 20px;
+	top: -35px;
 }
+
 .browsers li {
 	padding: 10px 0 0 0;
 	box-shadow: 0 0 10px 0 #666;
@@ -136,7 +136,6 @@ h1, body {
 	margin: 2px 0 0 15px;
 }
 .main {
-	position: fixed;
 	height: 100%;
 	border-right: SOLID 1px #ccc;
 	background-color: white;

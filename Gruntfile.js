@@ -73,24 +73,14 @@ module.exports = function(grunt) {
 
 	require('load-grunt-tasks')(grunt);
 
-	grunt.registerTask('deploySite', function() {
+	grunt.registerTask('seedData', function() {
 		var done = this.async();
-		require('./lib/couchSite')(require('./test/util.js').config(), function(err, res) {
-			done(!err);
-		});
-	});
-
-	grunt.registerTask('deployViews', function() {
-		var done = this.async();
-		require('./lib/couchViews')(require('./test/util.js').config(), function(err, res) {
-			console.log(err, res);
-			done(!err);
-		});
+		require('./test/seedData')(done, 100);
 	});
 
 	grunt.registerTask('build', ['jshint']);
-	grunt.registerTask('test', ['build', 'connect', 'mochaTest']);
-	grunt.registerTask('dev', ['build', 'configureProxies:server', 'connect:dev', 'watch:devSite']);
+	grunt.registerTask('test', ['build', 'mochaTest']);
+	grunt.registerTask('dev', ['test', 'seedData', 'configureProxies:server', 'connect:dev', 'watch:devSite']);
 
 	grunt.registerTask('default', ['build']);
 };

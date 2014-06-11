@@ -5,7 +5,8 @@ module.exports = function(grunt) {
 			all: [
 				'Gruntfile.js',
 				'lib/**/*.js',
-				'test/**/*.js'
+				'test/**/*.js',
+				'www/index.js'
 			],
 			options: {
 				jshintrc: '.jshintrc'
@@ -26,7 +27,7 @@ module.exports = function(grunt) {
 				options: {
 					hostname: '*',
 					port: 9000,
-					base: ['test/res', '.', './couchdb/site/'],
+					base: ['test/res', './bin', './www'],
 					livereload: true,
 					middleware: function(connect, options) {
 						var middlewares = [];
@@ -44,12 +45,12 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			views: {
-				files: ['./couchdb/views/**/*.js'],
+				files: ['./couchdb/**/*.js'],
 				tasks: ['deployViews']
 			},
-			site: {
-				files: ['./couchdb/site/**/*'],
-				tasks: ['deploySite'],
+			less: {
+				files: ['./www/main.less'],
+				tasks: ['less'],
 			},
 			devSite: {
 				files: ['./couchdb/site/**/*'],
@@ -78,9 +79,31 @@ module.exports = function(grunt) {
 		require('./test/seedData')(done, 100);
 	});
 
+	grunt.registerTask('deployViews', function() {
+		var done = this.async();
+		require('./lib/couchViews')(require('./test/util.js').config(), function(err, res) {
+			console.log(err, res);
+			done(!err);
+		});
+	});
+
+	grunt.registerTask('less', function() {
+		var done = this.async();
+		try {
+			require('fs').mkdirSync('./bin');
+		} catch (e) {
+			grunt.log.writeln(e);
+		}
+		require('./www/index').tasks.less('./bin').then(function() {
+			done(true);
+		}, function() {
+			done(false);
+		});
+	});
+
 	grunt.registerTask('build', ['jshint']);
 	grunt.registerTask('test', ['build', 'mochaTest']);
-	grunt.registerTask('dev', ['test', 'seedData', 'configureProxies:server', 'connect:dev', 'watch:devSite']);
+	grunt.registerTask('dev', ['configureProxies:server', 'connect:dev', 'watch:devSite']);
 
 	grunt.registerTask('default', ['build']);
 };

@@ -14,7 +14,9 @@
     "q": "~1.0.1",
     "commander": "~2.2.0",
     "browser-perf": "^0.1.11",
-    "sauce-tunnel": "^2.0.6"
+    "sauce-tunnel": "^2.0.6",
+    "less": "^1.7.1",
+    "ncp": "^0.5.1"
   },
   "devDependencies": {
     "mocha": "~1.20.1",

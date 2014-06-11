@@ -135,6 +135,13 @@ h1, body {
 	display: block;
 	margin: 2px 0 0 15px;
 }
+
+@media (min-width: 992px) { 
+	.main{
+		position: fixed;
+	} 
+}
+
 .main {
 	height: 100%;
 	border-right: SOLID 1px #ccc;

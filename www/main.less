@@ -44,21 +44,12 @@ h1, body {
 		background-color: white;
 		-webkit-transition: 0.2s;
 		transition: 0.2s;
-		&.disabled {
-			box-shadow: 0 0 1px #666;
-			opacity: 0.4;
-			&:hover {
-				-webkit-transform: translateY(0px);
-			}
-			a {
-				cursor: no-drop;
-			}
-		}
+
 		&:hover {
 			-webkit-transform: translateY(6px);
 			transform: translateY(6px);
 		}
-		&:active {
+		&.active {
 			-webkit-transform: translateY(10px);
 			transform: translateY(10px);
 		}
@@ -68,18 +59,21 @@ h1, body {
 			width: 40px;
 			background-image: url('img/browsers.png');
 			background-repeat: no-repeat;
-			background-size: 120px;
+			background-size: 160px;
 			border: none;
 			margin-bottom: 0;
 			background-position: 0px 30px;
 			background-color: transparent;
+			&.firefox {
+				background-position: -40px 30px;
+			}
+			&.chrome {
+				background-position: -80px 30px;
+			}
+			&.ie {
+				background-position: -120px 30px;
+			}
 		}
-	}
-	.ie .thumbnail {
-		background-position: -80px 30px;
-	}
-	.chrome .thumbnail {
-		background-position: -40px 30px;
 	}
 }
 .search {
@@ -136,9 +130,13 @@ h1, body {
 		padding-top: 5px;
 		display: block;
 		margin: 2px 0 0 15px;
+		.breadcrumb {
+			margin-bottom: 0;
+			padding: 0;
+			background: transparent;
+		}
 	}
 }
-
 @media (min-width:992px) {
 	.main {
 		position: fixed;
@@ -152,5 +150,16 @@ h1, body {
 		margin-bottom: 10px;
 		margin-top: 10px;
 		padding-left: 70px;
+	}
+	.chart-container {
+		margin-top: 40px;
+		#chartDiv {
+			width: 100%;
+			height: 100%;
+		}
+		.loading, .error{
+			text-align: center;
+			margin-top: 10%;
+		}
 	}
 }

@@ -1,4 +1,5 @@
 node_modules/
 bin/
+www/lib/
 *.log
 .DS_Store

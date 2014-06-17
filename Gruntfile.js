@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 				options: {
 					hostname: '*',
 					port: 9000,
-					base: ['test/res', './bin', './www'],
+					base: ['test/res', './www', './bin'],
 					livereload: true,
 					middleware: function(connect, options) {
 						var middlewares = [];
@@ -51,12 +51,6 @@ module.exports = function(grunt) {
 			less: {
 				files: ['./www/main.less'],
 				tasks: ['less'],
-			},
-			devSite: {
-				files: ['./couchdb/site/**/*'],
-				options: {
-					livereload: true
-				}
 			}
 		},
 
@@ -69,7 +63,7 @@ module.exports = function(grunt) {
 				src: ['./test/**/*.spec.js'],
 			}
 		},
-		clean: ['test.log']
+		clean: ['bin', 'test.log']
 	});
 
 	require('load-grunt-tasks')(grunt);
@@ -89,21 +83,27 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('less', function() {
 		var done = this.async();
-		try {
-			require('fs').mkdirSync('./bin');
-		} catch (e) {
-			grunt.log.writeln(e);
-		}
+		grunt.file.mkdir('./bin');
 		require('./www/index').tasks.less('./bin').then(function() {
 			done(true);
 		}, function() {
 			done(false);
-		});
+		}).done();
 	});
 
-	grunt.registerTask('build', ['jshint']);
+	grunt.registerTask('genSite', function() {
+		var done = this.async();
+		grunt.file.mkdir('./bin');
+		require('./www/index')('./bin').then(function() {
+			done(true);
+		}, function() {
+			done(false);
+		}).done();
+	});
+
+	grunt.registerTask('build', ['jshint', 'less', 'genSite']);
 	grunt.registerTask('test', ['build', 'mochaTest']);
-	grunt.registerTask('dev', ['configureProxies:server', 'connect:dev', 'watch:devSite']);
+	grunt.registerTask('dev', ['build', 'configureProxies:server', 'connect:dev', 'watch:less']);
 
 	grunt.registerTask('default', ['build']);
 };

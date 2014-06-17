@@ -29,7 +29,7 @@ var copyTask = {
 	html: copy('./*.html'),
 	lib: copy('./lib'),
 	img: copy('./img'),
-	js: copy('./*.js')
+	js: copy('./js')
 };
 
 module.exports = function(dest) {

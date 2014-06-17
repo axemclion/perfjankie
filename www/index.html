@@ -18,19 +18,39 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">perfJankie</a>
+				<a class="navbar-brand" href="#">
+					<span class = "glyphicon glyphicon-stats"></span>
+					perfJankie
+				</a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a href="/_utils">Database</a>
+						<a href="/_utils">
+							<span class = "glyphicon glyphicon-hdd"></span>
+							&nbsp;Database
+						</a>
 					</li>
-					<li>
-						<a href="http://github.com/axemclion/browser-perf"  target="_blank">browser-perf</a>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<span class = "glyphicon glyphicon-list-alt"></span>
+							Source Code <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="http://github.com/axemclion/browser-perf"  target="_blank">browser-perf</a>
+							</li>
+							<li>
+								<a href="http://github.com/axemclion/perfjankie"  target="_blank">perfJankie</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="http://nparashuram.com/contact.html"  target="_blank">Contact</a>
+							</li>
+						</ul>
 					</li>
-					<li>
-						<a href="http://github.com/axemclion/perfjankie"  target="_blank">Source</a>
-					</li>
+					<li></li>
+					<li></li>
 				</ul>
 			</div>
 		</div>
@@ -71,10 +91,10 @@
 				<div ng-controller = "ChartController" class = "chart-container">
 					<div id= "chartDiv" ng-hide="error || loading"></div>
 					<div ng-show="error" ng-cloak ng-show = "error && !loading" class = "error">
-						<h2><span class = "glyphicon glyphicon-warning-sign"></span></h2>
-						<h3>
-						Cannot display the chart
-						</h3>
+						<h2>
+							<span class = "glyphicon glyphicon-warning-sign"></span>
+						</h2>
+						<h3>Cannot display the chart</h3>
 						<p>{{error}}</p>
 					</div>
 					<div class = "loading" ng-show="loading && !error">

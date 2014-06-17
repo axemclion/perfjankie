@@ -1,8 +1,24 @@
 (function() {
 	var app = angular.module('Perfjankie', ['Backend']);
 
-	app.controller('MainController', ['$scope', 'Backend',
-		function($scope, Backend) {}
+	app.controller('MainController', ['$scope', '$location', 'Backend',
+		function($scope, $location, Backend) {
+			$scope.selected = Backend.selected;
+			$scope.$watch('selected', function(selected, old, scope) {
+				if (!selected.browser || !selected.component || !selected.metric) {
+					return;
+				}
+				scope.$broadcast('selected', selected);
+				window.setTimeout(function() {
+					window.location.hash = "";
+					$location.search({
+						component: selected.component,
+						browser: selected.browser,
+						metric: selected.metric
+					})
+				}, 1);
+			}, true);
+		}
 	]);
 
 	app.controller('ComponentsController', ['$scope', 'Backend',
@@ -31,15 +47,8 @@
 
 	app.controller('MetricsController', ['$scope', 'Backend',
 		function($scope, Backend) {
-			$scope.metadata = Backend.metadata;
-			$scope.selected = Backend.selected;
-
-			$scope.$watch('selected', function(selected, oldValue, scope) {
-				var meta = scope.metadata;
-				if (!selected.browser || !selected.component) {
-					return;
-				}
-
+			$scope.$on('selected', function(e, selected) {
+				var meta = Backend.metadata;
 				var common = ['ExpensiveEventHandlers', 'RecalculateStyles_avg', 'mean_frame_time'];
 				var groups = {
 					Common: {}
@@ -59,46 +68,35 @@
 
 					groups[group][metric.key] = metric;
 				});
-				scope.groups = groups;
-			}, true);
+				e.currentScope.groups = groups;
+			});
 		}
 	]);
 
 	app.controller('SearchController', ['$scope', 'Backend', '$filter',
 		function($scope, Backend, $filter) {
-			$scope.metadata = Backend.metadata;
-			$scope.selected = Backend.selected;
-
 			$scope.change = function(metric) {
 				$scope.selected.search = "";
 				$scope.selected.metric = metric;
 				return false;
 			}
-
-			$scope.$watch('selected', function(selected, old, scope) {
-				if (!selected.browser || !selected.component) {
-					return;
-				}
+			$scope.$on('selected', function(e, selected) {
 				var metrics = [];
-				angular.forEach(scope.metadata[selected.component][selected.browser], function(val) {
+				angular.forEach(Backend.metadata[selected.component][selected.browser], function(val) {
 					metrics.push($filter('formatMetric')(val.key));
 				});
-				scope.metrics = metrics;
+				e.currentScope.metrics = metrics;
 			}, true);
 		}
 	]);
 
 	app.controller('ChartController', ['$scope', 'Backend',
 		function($scope, Backend) {
-			$scope.selected = Backend.selected;
 			$scope.loading = true;
-			$scope.$watch('selected', function(selected, old, scope) {
-				if (selected.error){
+			$scope.$on('selected', function(e, selected) {
+				var scope = e.currentScope;
+				if (selected.error) {
 					scope.error = "Could not load metadata";
-					return;
-				}
-
-				if (!selected.browser || !selected.component || !selected.browser) {
 					return;
 				}
 

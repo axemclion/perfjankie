@@ -1,9 +1,8 @@
 (function() {
 	var app = angular.module('Backend', []);
 
-	app.factory('Backend', ['$q', '$http',
-		function($q, $http) {
-
+	app.factory('Backend', ['$q', '$http', '$location',
+		function($q, $http, $location) {
 			var pickOne = function(prop) {
 				function pick(obj) {
 					var res = null;
@@ -77,9 +76,16 @@
 						}
 					});
 					angular.copy(meta, backend.metadata);
-					pickOne('component');
-					pickOne('browser');
-					pickOne('metric');
+					var location = $location.search();
+					if (location.component && location.browser && location.metric) {
+						backend.selected.component = location.component;
+						backend.selected.metric = location.metric;
+						backend.selected.browser = location.browser;
+					} else {
+						pickOne('component');
+						pickOne('browser');
+						pickOne('metric');
+					}
 				}).error(function(e) {
 					backend.selected.error = "Could not fetch metadata " + e;
 				});

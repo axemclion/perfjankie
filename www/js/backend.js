@@ -80,7 +80,9 @@
 					pickOne('component');
 					pickOne('browser');
 					pickOne('metric');
-				}).error(function() {});
+				}).error(function(e) {
+					backend.selected.error = "Could not fetch metadata " + e;
+				});
 			};
 
 			fetchMetadata();

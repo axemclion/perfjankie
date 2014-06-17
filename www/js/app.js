@@ -93,6 +93,11 @@
 			$scope.selected = Backend.selected;
 			$scope.loading = true;
 			$scope.$watch('selected', function(selected, old, scope) {
+				if (selected.error){
+					scope.error = "Could not load metadata";
+					return;
+				}
+
 				if (!selected.browser || !selected.component || !selected.browser) {
 					return;
 				}

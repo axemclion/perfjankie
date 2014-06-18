@@ -19,6 +19,6 @@
   "dependencies": {
     "angular": "~1.2.18",
     "bootstrap": "~3.1.1",
-    "underscore": "~1.6.0"
+    "jqplot-bower": "~1.0.8"
   }
 }

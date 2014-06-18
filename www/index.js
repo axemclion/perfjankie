@@ -87,6 +87,7 @@ var copyTask = {
 	lib: copy([
 		'lib/angular/*.+(js|css|map)',
 		'lib/bootstrap/dist/**',
+		'lib/jquery/dist/*.min.*',
 		'lib/jqplot-bower/dist/*.+(js|css)',
 		'lib/jqplot-bower/dist/plugins/*.+(js|css)'
 	])

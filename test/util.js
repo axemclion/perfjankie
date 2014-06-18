@@ -20,7 +20,8 @@ module.exports = {
 				level: 'debug',
 				stream: bFormat({
 					outputMode: 'short',
-					color: false
+					color: false,
+					level: 'debug'
 				}, require('fs').createWriteStream('./test.log')),
 			}),
 			"couch": {

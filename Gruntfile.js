@@ -57,7 +57,7 @@ module.exports = function(grunt) {
 		mochaTest: {
 			options: {
 				reporter: 'dot',
-				timeout: 1000 * 60
+				timeout: 1000 * 60 * 10
 			},
 			unit: {
 				src: ['./test/**/*.spec.js'],
@@ -101,7 +101,7 @@ module.exports = function(grunt) {
 		}).done();
 	});
 
-	grunt.registerTask('build', ['jshint', 'less', 'genSite']);
+	grunt.registerTask('build', ['jshint', 'genSite']);
 	grunt.registerTask('test', ['build', 'mochaTest']);
 	grunt.registerTask('dev', ['build', 'configureProxies:server', 'connect:dev', 'watch:less']);
 

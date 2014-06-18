@@ -1,8 +1,5 @@
 module.exports = {
 	config: function(config) {
-		var bunyan = require('bunyan'),
-			bFormat = require('bunyan-format');
-
 		var options = {
 			"url": "http://localhost:9000/test1.html",
 			//"url": "https://axemclion.cloudant.com/",
@@ -15,14 +12,14 @@ module.exports = {
 				hostname: "localhost",
 				port: 4444
 			},
-			"log": bunyan.createLogger({
-				name: 'TEST',
+			"log": require('bunyan').createLogger({
+				name: 'test',
+				src: true,
 				level: 'debug',
-				stream: bFormat({
-					outputMode: 'short',
-					color: false,
-					level: 'debug'
-				}, require('fs').createWriteStream('./test.log')),
+				//stream: process.stdout,
+				streams: [{
+					path: 'test.log'
+				}]
 			}),
 			"couch": {
 				server: 'http://admin_user:admin_pass@localhost:5984',

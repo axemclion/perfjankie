@@ -106,7 +106,7 @@
 					<div class="search input-group input-group-sm">
 						<form class = "form-inline" role = "form">
 							<div class = "input-group">
-								<input type="text" class="form-control" ng-model="search">
+								<input type="text" class="form-control" ng-model="search.display">
 								<span class="input-group-btn">
 									<button class="btn btn-default" type="button">
 										<span class = "glyphicon glyphicon-search"></span>
@@ -115,16 +115,16 @@
 							</div>
 						</form>
 					</div>
-					<div class="panel panel-default metrics-list" ng-show="2 < search.length" ng-cloak>
+					<div class="panel panel-default metrics-list" ng-show="2 < search.display.length" ng-cloak>
 						<div class="panel-heading"> <strong><span class = "glyphicon glyphicon-filter"></span>
 								Filter</strong> 
 							<button type="button" class="close" aria-hidden="true" ng-click="search=''">&times;</button>
 						</div>
 						<ul class="list-group results" ng-switch>
-							<li class="list-group-item" ng-repeat = "val in metrics | filter:search">
-								<a title = "{{val}}" href = "#{{val}}" ng-click = "change(val)" class = "individual-metric">
+							<li class="list-group-item" ng-repeat = "val in metrics | filter:{display:search.display}">
+								<a title = "{{val.key}}" href = "#{{val}}" ng-click = "change(val.key)" class = "individual-metric">
 									<span class = "glyphicon glyphicon-chevron-left"></span>
-									{{val}}
+									{{val.key | formatMetric }}
 								</a>
 							</li>
 							<li class = "list-group-item" ng-hide="(metrics | filter:search).length">
@@ -136,7 +136,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class = "metrics-list" ng-controller = "MetricsController" ng-cloak ng-hide="2 < search.length">
+				<div class = "metrics-list" ng-controller = "MetricsController" ng-cloak ng-hide="2 < search.display.length">
 					<div class="panel panel-default categories" ng-hide = "selectedGroup">
 						<div class="panel-heading"> <strong><span class = "glyphicon glyphicon-flag"></span>
 								Metrics</strong> 

@@ -28,7 +28,7 @@ module.exports = function(grunt) {
 					hostname: '*',
 					port: 9000,
 					base: ['test/res', './www', './bin'],
-					livereload: true,
+					//livereload: true,
 					middleware: function(connect, options) {
 						var middlewares = [];
 						if (!Array.isArray(options.base)) {

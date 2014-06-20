@@ -83,7 +83,8 @@
 			$scope.$on('selected', function(e, selected) {
 				var metrics = [];
 				angular.forEach(Backend.metadata[selected.component][selected.browser], function(val) {
-					metrics.push($filter('formatMetric')(val.key));
+					val.display = $filter('formatMetric')(val.key);
+					metrics.push(val);
 				});
 				e.currentScope.metrics = metrics;
 			}, true);

@@ -195,5 +195,9 @@
 		var chartHeight = window.innerHeight - ($('.navbar').height(), $('.component-title').outerHeight()) - 100;
 		chartHeight = chartHeight < 300 ? 300 : chartHeight;
 		$('#chartDiv').parent().height(chartHeight);
+		if (window.location !== top.location){
+			$('.navbar').remove();
+			$('.content').css('padding-top', 0);
+		}
 </script></body>
 </html>

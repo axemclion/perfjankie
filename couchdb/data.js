@@ -13,13 +13,6 @@
 					}
 				}
 			}
-		},
-		data: {
-			map: function(doc) {
-				if (doc.type === 'perfData') {
-					emit(doc.name, doc.data);
-				}
-			}
 		}
 	}
 }

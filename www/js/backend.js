@@ -31,7 +31,8 @@
 				if (!component || !browser || !metric) {
 					dfd.reject('Component, Browser or Metric are not defined');
 				} else {
-					$http.get(SERVER.stats, {
+					$http.get(SERVER.stats.url, {
+						transformResponse: SERVER.stats.transformResponse,
 						params: {
 							startkey: JSON.stringify([browser, component, metric]),
 							endkey: JSON.stringify([browser, component, metric, {}]),
@@ -56,7 +57,9 @@
 			};
 
 			var fetchMetadata = function() {
-				$http.get(SERVER.metadata).success(function(data) {
+				$http.get(SERVER.metadata.url, {
+					transformResponse: SERVER.metadata.transformResponse
+				}).success(function(data) {
 					var meta = {};
 					angular.forEach(data.rows, function(row) {
 						if (!angular.isArray(row.key)) {

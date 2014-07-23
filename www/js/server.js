@@ -1,4 +1,14 @@
 SERVER = {
-	metadata: '../meta/_view/metrics?group=true',
-	stats: '../data/_view/metrics'
+	metadata: {
+		url: '../meta/_view/metrics?group=true',
+		transformResponse: function(data, headersGetter) {
+			return JSON.parse(data);
+		}
+	},
+	stats: {
+		url: '../data/_view/metrics',
+		transformResponse: function(data, headersGetter) {
+			return JSON.parse(data);
+		}
+	}
 }

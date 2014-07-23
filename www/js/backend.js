@@ -39,16 +39,7 @@
 							group: true
 						}
 					}).success(function(data) {
-						var result = [],
-							minBand = [],
-							maxBand = [];
-						angular.forEach(data.rows, function(obj, index) {
-							var key = JSON.stringify(obj.key[4]).replace(/\"/g, '');
-							result.push([key, obj.value.sum / obj.value.count]);
-							minBand.push([key, obj.value.min]);
-							maxBand.push([key, obj.value.max]);
-						});
-						dfd.resolve([result, minBand, maxBand]);
+						dfd.resolve(data);
 					}).error(function(err) {
 						dfd.reject('Could not get data for ' + component + ' ' + browser + ' ' + metric);
 					});
@@ -60,25 +51,7 @@
 				$http.get(SERVER.metadata.url, {
 					transformResponse: SERVER.metadata.transformResponse
 				}).success(function(data) {
-					var meta = {};
-					angular.forEach(data.rows, function(row) {
-						if (!angular.isArray(row.key)) {
-							deferred.resolve({});
-						} else {
-							var component = row.key[1].component;
-							var browser = row.key[0];
-							var metric = row.key[1];
-							if (typeof meta[component] === 'undefined') {
-								meta[component] = {};
-							}
-
-							if (typeof meta[component][browser] === 'undefined') {
-								meta[component][browser] = [];
-							}
-							meta[component][browser].push(metric);
-						}
-					});
-					angular.copy(meta, backend.metadata);
+					angular.copy(data, backend.metadata);
 					var location = $location.search();
 					if (location.component && location.browser && location.metric) {
 						backend.selected.component = location.component;

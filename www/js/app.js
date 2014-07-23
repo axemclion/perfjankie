@@ -91,8 +91,8 @@
 		}
 	]);
 
-	app.controller('ChartController', ['$scope', 'Backend',
-		function($scope, Backend) {
+	app.controller('ChartController', ['$scope', '$timeout', 'Backend',
+		function($scope, $timeout, Backend) {
 			$scope.loading = true;
 			$scope.$on('selected', function(e, selected) {
 				var scope = e.currentScope;
@@ -101,14 +101,14 @@
 					return;
 				}
 
-				Backend.getStats().then(function(data) {
+				Backend.getStats().then(function(result) {
 					scope.error = scope.loading = null;
 					$('#chartDiv').empty();
-					window.setTimeout(function() {
+					$timeout(function() {
 						try {
-							drawGraph(data, "");
+							drawGraph([result.data, result.min, result.max], "");
 						} catch (e) {
-							scope.error = 'Error drawing graph - ' + e.message + '. Specified data points were ' + data[0].length;
+							scope.error = 'Error drawing graph - ' + e.message + '. Specified data points were ' + result.data.length;
 							scope.$digest();
 						}
 					}, 1);

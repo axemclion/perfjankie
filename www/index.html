@@ -90,12 +90,12 @@
 				</div>
 				<div ng-controller = "ChartController" class = "chart-container">
 					<div id= "chartDiv" ng-hide="error || loading"></div>
-					<div ng-show="error" ng-cloak ng-show = "error && !loading" class = "error">
+					<div ng-show="error || selected.error" ng-cloak ng-show = "error && !loading" class = "error">
 						<h2>
 							<span class = "glyphicon glyphicon-warning-sign"></span>
 						</h2>
 						<h3>Cannot display the chart</h3>
-						<p>{{error}}</p>
+						<p>{{error || selected.error}}</p>
 					</div>
 					<div class = "loading" ng-show="loading && !error">
 						<img src = "img/loading.gif"></div>

@@ -51,16 +51,20 @@
 				$http.get(SERVER.metadata.url, {
 					transformResponse: SERVER.metadata.transformResponse
 				}).success(function(data) {
-					angular.copy(data, backend.metadata);
-					var location = $location.search();
-					if (location.component && location.browser && location.metric) {
-						backend.selected.component = location.component;
-						backend.selected.metric = location.metric;
-						backend.selected.browser = location.browser;
+					if ($.isEmptyObject(data)) {
+						backend.selected.error = 'No metrics available';
 					} else {
-						pickOne('component');
-						pickOne('browser');
-						pickOne('metric');
+						angular.copy(data, backend.metadata);
+						var location = $location.search();
+						if (location.component && location.browser && location.metric) {
+							backend.selected.component = location.component;
+							backend.selected.metric = location.metric;
+							backend.selected.browser = location.browser;
+						} else {
+							pickOne('component');
+							pickOne('browser');
+							pickOne('metric');
+						}
 					}
 				}).error(function(e) {
 					backend.selected.error = "Could not fetch metadata " + e;

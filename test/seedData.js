@@ -1,6 +1,7 @@
 module.exports = function(callback, count) {
 	count = count || 100;
-	var sampleData = require('fs').readFileSync(__dirname + '/res/sample-perf-results.json', 'utf8');
+	var path = require('path');
+	var sampleData = require('fs').readFileSync(path.join(__dirname, '/res/sample-perf-results.json'), 'utf8');
 
 	var browsers = ['firefox', 'chrome'],
 		components = ['component1', 'component2'],
@@ -32,6 +33,6 @@ module.exports = function(callback, count) {
 			}
 		}, function() {
 			callback(false);
-		});
+		}).done();
 	}(0));
 };

@@ -1,0 +1,22 @@
+<div class="page-select">
+	<h1 class="page-header">Pages/Components</h1>
+	<p class="lead">Select a page/component to view metrics</p>
+	<ul class="list-unstyled col-md-5">
+		<li ng-repeat="(suite, pages) in pageselect.pagelist">
+			<h3>
+				<span class="fa fa-folder-open"></span>
+				{{suite}}
+			</h3>
+			<ul class="list-group">
+				<li class = "list-group-item" ng-repeat="(page, browsers) in pages">
+					<span class="fa fa-file-code-o"></span>
+					{{page}} -
+					<span ng-repeat="val in browsers">
+						<a ng-href="#/summary?pagename={{page}}&browser={{val.browser}}" >{{val.browser}}</a>
+						({{val.runCount}})&nbsp;
+					</span>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>

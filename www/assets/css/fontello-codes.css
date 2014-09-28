@@ -1,0 +1,13 @@
+
+.icon-firefox:before { content: '\e800'; } /* '' */
+.icon-chrome:before { content: '\e801'; } /* '' */
+.icon-ie:before { content: '\e802'; } /* '' */
+.icon-sort-alphabet-outline:before { content: '\e803'; } /* '' */
+.icon-brush:before { content: '\e804'; } /* '' */
+.icon-signal:before { content: '\e805'; } /* '' */
+.icon-file-code:before { content: '\e806'; } /* '' */
+.icon-github:before { content: '\e807'; } /* '' */
+.icon-spin6:before { content: '\e808'; } /* '' */
+.icon-database:before { content: '\e809'; } /* '' */
+.icon-gauge:before { content: '\e80a'; } /* '' */
+.icon-cog-alt:before { content: '\e80b'; } /* '' */

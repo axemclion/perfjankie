@@ -1,15 +1,112 @@
 module.exports = function(grunt) {
-	var couchdb = require('./test/util').config().couch;
+
+	var couchdb = require('./test/util').config({
+		log: 1
+	}).couch;
+
 	grunt.initConfig({
 		jshint: {
 			all: [
 				'Gruntfile.js',
-				'lib/**/*.js',
+				'lib/*.js',
 				'test/**/*.js',
-				'www/index.js'
+				'www/**/*.js'
 			],
 			options: {
 				jshintrc: '.jshintrc'
+			},
+		},
+
+		uglify: {
+			options: {
+				mangle: false,
+				sourceMap: true,
+				sourceMapName: 'site/main.js.map',
+			},
+			js: {
+				files: {
+					'site/main.js': ['www/**/*.js']
+				}
+			}
+		},
+
+		concat: {
+			less: {
+				src: ['www/app/**/*.less', 'www/assets/css/*.css'],
+				dest: 'site/main.less'
+			}
+		},
+
+		less: {
+			dev: {
+				files: {
+					'site/main.css': 'site/main.less'
+				}
+			},
+			dist: {
+				options: {
+					compress: true
+				},
+				files: {
+					'site/main.css': 'site/main.less'
+				}
+			}
+		},
+		copy: {
+			partials: {
+				expand: true,
+				cwd: 'www/app',
+				src: ['**/*.html'],
+				dest: 'site/app'
+			},
+			fonts: {
+				expand: true,
+				cwd: 'www/assets',
+				src: ['fonts/*.*'],
+				dest: 'site/assets'
+			},
+			endpoints: {
+				src: ['www/endpoints.js'],
+				dest: 'site/endpoints.js'
+			}
+		},
+
+		processhtml: {
+			dev: {
+				options: {
+					strip: true,
+					data: {
+						scripts: grunt.file.expand({
+							cwd: 'www'
+						}, 'app/**/*.js'),
+					}
+				},
+				files: {
+					'site/index.html': 'www/index.html'
+				}
+			},
+			dist: {
+				options: {
+					data: {
+						scripts: ['main.js']
+					}
+				},
+				files: {
+					'site/index.html': 'www/index.html'
+				}
+			}
+		},
+		htmlmin: {
+			dist: {
+				options: {
+					removeComments: true,
+					collapseWhitespace: true,
+					conservativeCollapse: true,
+					collapseBooleanAttributes: true
+				},
+				files: {
+					'site/index.html': 'site/index.html'
+				}
 			},
 		},
 		connect: {
@@ -27,8 +124,8 @@ module.exports = function(grunt) {
 				options: {
 					hostname: '*',
 					port: 9000,
-					base: ['test/res', './www', './bin'],
-					//livereload: true,
+					base: ['test/res', 'bower_components', 'site', 'www'],
+					livereload: true,
 					middleware: function(connect, options) {
 						var middlewares = [];
 						if (!Array.isArray(options.base)) {
@@ -39,18 +136,30 @@ module.exports = function(grunt) {
 							middlewares.push(connect.static(base));
 						});
 						return middlewares;
-					}
+					},
+					useAvailablePort: true,
 				}
 			}
 		},
 		watch: {
+			options: {
+				livereload: true,
+			},
 			views: {
-				files: ['./couchdb/**/*.js'],
+				files: ['couchdb/**/*.js'],
 				tasks: ['deployViews']
 			},
 			less: {
-				files: ['./www/main.less'],
-				tasks: ['less'],
+				files: ['www/**/*.less'],
+				tasks: ['concat', 'less']
+			},
+			html: {
+				files: ['www/index.html'],
+				tasks: ['processhtml:dev']
+			},
+			others: {
+				files: ['www/app/**/*.html', 'www/app/**/*.js'],
+				tasks: []
 			}
 		},
 
@@ -60,10 +169,10 @@ module.exports = function(grunt) {
 				timeout: 1000 * 60 * 10
 			},
 			unit: {
-				src: ['./test/**/*.spec.js'],
+				src: ['test/**/*.spec.js'],
 			}
 		},
-		clean: ['bin', 'test.log']
+		clean: ['site', 'test.log']
 	});
 
 	require('load-grunt-tasks')(grunt);
@@ -81,29 +190,10 @@ module.exports = function(grunt) {
 		});
 	});
 
-	grunt.registerTask('less', function() {
-		var done = this.async();
-		grunt.file.mkdir('./bin');
-		require('./www/index').tasks.less('./bin').then(function() {
-			done(true);
-		}, function() {
-			done(false);
-		}).done();
-	});
+	grunt.registerTask('test', ['clean', 'mochaTest']);
+	grunt.registerTask('dev', ['jshint', 'concat', 'less:dev', 'processhtml:dev', 'configureProxies:server', 'connect:dev', 'watch']);
 
-	grunt.registerTask('genSite', function() {
-		var done = this.async();
-		grunt.file.mkdir('./bin');
-		require('./www/index')('./bin').then(function() {
-			done(true);
-		}, function() {
-			done(false);
-		}).done();
-	});
+	grunt.registerTask('dist', ['jshint', 'concat', 'uglify', 'less:dist', 'copy', 'processhtml:dist', 'htmlmin']);
 
-	grunt.registerTask('build', ['jshint', 'genSite']);
-	grunt.registerTask('test', ['build', 'mochaTest']);
-	grunt.registerTask('dev', ['build', 'configureProxies:server', 'connect:dev', 'watch:less']);
-
-	grunt.registerTask('default', ['build']);
+	grunt.registerTask('default', ['dev']);
 };

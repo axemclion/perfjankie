@@ -1,4 +1,8 @@
 node_modules/
+bower_components/
 Gruntfile.js
 test/
-bin/
+www/
+bower.json
+.jshintrc
+.gitignore

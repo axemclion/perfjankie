@@ -1,5 +1,6 @@
 module.exports = {
 	config: function(config) {
+		config = config || {};
 		var options = {
 			"url": "http://localhost:9000/test1.html",
 			//"url": "https://axemclion.cloudant.com/",
@@ -12,7 +13,7 @@ module.exports = {
 				hostname: "localhost",
 				port: 4444
 			},
-			"log": require('bunyan').createLogger({
+			"log": config.log || require('bunyan').createLogger({
 				name: 'test',
 				src: true,
 				level: 'debug',

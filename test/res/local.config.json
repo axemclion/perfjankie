@@ -10,6 +10,8 @@
 
 	"couch": {
 		"server": "http://localhost:5984",
-		"database": "performance"
+		"username": "admin_user",
+		"pwd": "admin_pass",
+		"database": "perfjankie-test"
 	}
 }

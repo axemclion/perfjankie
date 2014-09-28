@@ -13,6 +13,10 @@
   "shadow": true,
   "expr": true,
   "globals": {
+    "angular": false,
+    "$": false,
+    "window": false,
+    "ENDPOINTS": false,
     "describe": false,
     "it": false,
     "beforeEach": false,

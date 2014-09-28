@@ -1,203 +1,61 @@
 <!DOCTYPE HTML>
-<html ng-app="Perfjankie">
+<html ng-app="perfjankie">
 <head>
 	<title>PerfJankie - Rendering Performance Analysis</title>
-	<link rel="stylesheet" type='text/css' href='http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Serif'>
 
-	<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="lib/jqplot-bower/dist/jquery.jqplot.css" />
+	<!-- build:remove:dist -->
+	<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.min.css"/>
+	<!-- /build -->
+
+	<!-- build:remove:dev -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<!-- /build -->
+
+	<!--link rel="stylesheet" type="text/css" href="jqplot-bower/dist/jquery.jqplot.css" /-->
 	<link rel="stylesheet" type="text/css" href="main.css" />
 </head>
-<body>
-	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">
-					<span class = "glyphicon glyphicon-stats"></span>
-					perfJankie
-				</a>
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<a href="/_utils">
-							<span class = "glyphicon glyphicon-hdd"></span>
-							&nbsp;Database
-						</a>
-					</li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<span class = "glyphicon glyphicon-list-alt"></span>
-							Source Code <b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu">
-							<li>
-								<a href="http://github.com/axemclion/browser-perf"  target="_blank">browser-perf</a>
-							</li>
-							<li>
-								<a href="http://github.com/axemclion/perfjankie"  target="_blank">perfJankie</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="http://nparashuram.com/contact.html"  target="_blank">Contact</a>
-							</li>
-						</ul>
-					</li>
-					<li></li>
-					<li></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class = "container-fluid content" ng-controller = "MainController">
-		<div class = "row">
-			<div class = "col-md-9 col-lg-9 col-sm-12 main">
-				<div class = "row component-title">
-					<div class = "col-md-12 col-lg-12">
-						<div class="browsers" ng-controller = "BrowsersController">
-							<ul class = "row list-inline">
-								<li ng-repeat = "(browser, val) in metadata[selected.component]" ng-class = "{active: selected.browser==browser}">
-									<a ng-click = "change(browser)" href = "#" data-browser = "{{browser}}" class = "thumbnail {{browser}}" title = "{{browser}}">
-										<span class = "sr-only">{{browser}}</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-						<div class = "component" ng-controller = "ComponentsController">
-							<ol class="breadcrumb" ng-cloak>
-								<li>
-									<a href = "#"  data-toggle="dropdown">
-										<span>{{selected.component}}</span>
-										<span class="caret"></span>
-									</a>
-									<ul class="component-list dropdown-menu">
-										<li class = "component-list-item" ng-repeat = "(component, val) in metadata">
-											<a href="#{{component}}" ng-click="change(component)">{{component}}</a>
-										</li>
-									</ul>
-								</li>
-								<li>{{selected.browser}}</li>
-								<li class="active">{{selected.metric | formatMetric}}</li>
-							</ol>
-						</div>
-					</div>
-				</div>
-				<div ng-controller = "ChartController" class = "chart-container">
-					<div id= "chartDiv" ng-hide="error || loading"></div>
-					<div ng-show="error || selected.error" ng-cloak ng-show = "error && !loading" class = "error">
-						<h2>
-							<span class = "glyphicon glyphicon-warning-sign"></span>
-						</h2>
-						<h3>Cannot display the chart</h3>
-						<p>{{error || selected.error}}</p>
-					</div>
-					<div class = "loading" ng-show="loading && !error">
-						<img src = "img/loading.gif"></div>
-				</div>
-			</div>
-			<div class = "col-md-3 col-lg-3 col-sm-12 col-md-offset-9 col-lg-offset-9 sidebar" ng-controller = "SearchController">
-				<div >
-					<div class="search input-group input-group-sm">
-						<form class = "form-inline" role = "form">
-							<div class = "input-group">
-								<input type="text" class="form-control" ng-model="search.display">
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="button">
-										<span class = "glyphicon glyphicon-search"></span>
-									</button>
-								</span>
-							</div>
-						</form>
-					</div>
-					<div class="panel panel-default metrics-list" ng-show="2 < search.display.length" ng-cloak>
-						<div class="panel-heading"> <strong><span class = "glyphicon glyphicon-filter"></span>
-								Filter</strong> 
-							<button type="button" class="close" aria-hidden="true" ng-click="search=''">&times;</button>
-						</div>
-						<ul class="list-group results" ng-switch>
-							<li class="list-group-item" ng-repeat = "val in metrics | filter:{display:search.display}">
-								<a title = "{{val.key}}" href = "#{{val}}" ng-click = "change(val.key)" class = "individual-metric">
-									<span class = "glyphicon glyphicon-chevron-left"></span>
-									{{val.key | formatMetric }}
-								</a>
-							</li>
-							<li class = "list-group-item" ng-hide="(metrics | filter:search).length">
-								<a class = "individual-metric">
-									<span class = "glyphicon glyphicon-zoom-out"></span>
-									No Results found
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class = "metrics-list" ng-controller = "MetricsController" ng-cloak ng-hide="2 < search.display.length">
-					<div class="panel panel-default categories" ng-hide = "selectedGroup">
-						<div class="panel-heading"> <strong><span class = "glyphicon glyphicon-flag"></span>
-								Metrics</strong> 
-						</div>
-						<ul class="list-group">
-							<li class="list-group-item" ng-repeat = "(key, val) in groups">
-								<a ng-click = "$parent.selectedGroup = key" title = "{{ key }}" href = "#{{key}}" data-group = "{{key}}" class = "category">
-									<span class = "glyphicon glyphicon-chevron-left"></span>
-									{{key}}
-								</a>
-							</li>
-						</ul>
-					</div>
-					<div ng-repeat = "(groupName, metrics) in groups">
-						<div class = "panel panel-default individual-metrics" ng-show="selectedGroup === groupName">
-							<div class="panel-heading">
-								<strong>
-									<a class = "category-goback" ng-click = "$parent.selectedGroup=null" href = "#metrics">
-										<span class = "glyphicon glyphicon-chevron-up"></span>
-										{{groupName | formatMetric }}
-									</a>
-								</strong>
-							</div>
-							<ul class="list-group">
-								<li class="list-group-item" ng-repeat = "val in metrics">
-									<a title = "{{val.key}}" href = "#{{val.key}}" ng-click = "selected.metric=val.key" class = "individual-metric" ng-class = "{active: selected.metric === val.key}">
-										<span class = "glyphicon glyphicon-chevron-left"></span>
-										{{val.key | formatMetric }}
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
+
+<body ng-controller="MainPageCtrl">
+	<!-- build:include:dist app/main-page/navbar.html -->
+	<div ng-include="'app/main-page/navbar.html'"></div>
+	<!-- /build -->
+
+	<!-- build:include:dist app/main-page/sidebar.html -->
+	<div ng-include="'app/main-page/sidebar.html'"></div>
+	<!-- /build -->
+
+	<div class="container-fluid content-container">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-2 content" ng-view></div>
 		</div>
 	</div>
 
-	<script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
-	<script type="text/javascript" src="lib/angular/angular.min.js"></script>
-	<script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- build:remove:dist -->
+	<script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="angular/angular.min.js"></script>
+	<script type="text/javascript" src="angular-route/angular-route.min.js"></script>
+	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- /build -->
 
-	<script type="text/javascript" src="lib/jqplot-bower/dist/jquery.jqplot.min.js"></script>
-	<script type="text/javascript" src="lib/jqplot-bower/dist//plugins/jqplot.categoryAxisRenderer.min.js"></script>
-	<script type="text/javascript" src="lib/jqplot-bower/dist//plugins/jqplot.highlighter.min.js"></script>
-	<script type="text/javascript" src="lib/jqplot-bower/dist//plugins/jqplot.canvasTextRenderer.min.js"></script>
-	<script type="text/javascript" src="lib/jqplot-bower/dist//plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
-	<script type="text/javascript" src="lib/jqplot-bower/dist//plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+	<!-- build:remove:dev -->
+	<script type="text/javascript" src = "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src = "//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"></script>
+	<script type="text/javascript" src = "//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.js"></script>
+	<script type="text/javascript" src = "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<!-- /build -->
 
-	<script type="text/javascript" src="js/server.js"></script>
-	<script type="text/javascript" src="js/graph.js"></script>
-	<script type="text/javascript" src="js/app.js"></script>
-	<script type="text/javascript" src="js/backend.js"></script>
+	<!--script type="text/javascript" src="jqplot-bower/dist/jquery.jqplot.min.js"></script>
+	<script type="text/javascript" src="jqplot-bower/dist/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+	<script type="text/javascript" src="jqplot-bower/dist/plugins/jqplot.highlighter.min.js"></script>
+	<script type="text/javascript" src="jqplot-bower/dist/plugins/jqplot.canvasTextRenderer.min.js"></script>
+	<script type="text/javascript" src="jqplot-bower/dist/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+	<script type="text/javascript" src="jqplot-bower/dist/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script-->
 
-	<script type="text/javascript">
-		var chartHeight = window.innerHeight - ($('.navbar').height(), $('.component-title').outerHeight()) - 100;
-		chartHeight = chartHeight < 300 ? 300 : chartHeight;
-		$('#chartDiv').parent().height(chartHeight);
-		if (window.location !== top.location){
-			$('.navbar').remove();
-			$('.content').css('padding-top', 0);
-		}
-</script></body>
+	<script type="text/javascript" src="endpoints.js"></script>
+	<!-- build:template
+	<% _.each(scripts, function(script){ %>
+	<script type="text/javascript" src="<%= script%>"></script>
+	<% }); %>
+	/build -->
+	</body>
 </html>

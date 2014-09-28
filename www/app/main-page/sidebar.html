@@ -1,0 +1,54 @@
+<div class="sidebar col-md-2">
+	<div ng-if="!pagename || !browser" class="page-select">
+		<h4>Select a page to view metrics</h4>
+		<hr/>
+	</div>
+	<div ng-if="pagename && browser">
+		<div class="metadata">
+			<h4> <strong title="{{pagename}}">{{pagename}}
+					<a class="dropdown-toggle" data-toggle="dropdown"> 
+					</a></strong> 
+				<span class="browser icon-{{browser}}" title="Metrics collected on {{browser}}"></span>
+			</h4>
+		</div>
+		<ul class="nav">
+			<li>
+				<a href="#/summary?pagename={{pagename}}&browser={{browser}}">
+					<span class = "icon-gauge"></span>
+					Summary
+				</a>
+			</li>
+			<li>
+				<a href="#/nav-metrics?pagename={{pagename}}&browser={{browser}}">
+					<span class = "icon-signal"></span>
+					Navigation Timings
+				</a>
+			</li>
+			<li>
+				<a href="#/paint-metrics?pagename={{pagename}}&browser={{browser}}">
+					<span class = "icon-brush"></span>
+					Paint
+				</a>
+			</li>
+			<li>
+				<a href="#/js-metrics?pagename={{pagename}}&browser={{browser}}">
+					<span class = "icon-file-code"></span>
+					Content
+				</a>
+			</li>
+			<li>
+				<a href="#/js-metrics?pagename={{pagename}}&browser={{browser}}">
+					<span class = "icon-cog-alt"></span>
+					Javascript
+				</a>
+			</li>
+			<li>
+				<a href="#/all-metrics?pagename={{pagename}}&browser={{browser}}">
+					<span class = "icon-sort-alphabet-outline"></span>
+					All metrics
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="help">Help</div>
+</div>

@@ -3,6 +3,8 @@ var expect = require('chai').expect,
 	fs = require('fs'),
 	nano = require('nano');
 
+require('q').longStackSupport = true;
+
 describe('App', function() {
 	var browserPerfStub = sinon.stub();
 	var sampleData = JSON.parse(fs.readFileSync(__dirname + '/res/sample-perf-results.json', 'utf8'));

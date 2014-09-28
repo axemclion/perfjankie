@@ -1,5 +1,6 @@
 node_modules/
+bower_components/
 bin/
-www/lib/
+site/
 *.log
 .DS_Store

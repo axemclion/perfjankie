@@ -1,0 +1,50 @@
+.sidebar {
+	background: #f8f8f8;
+	border: SOLID 1px #e7e7e7;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	margin-top: 50px;
+	padding: 0;
+	overflow-x: hidden;
+	.page-select {
+		padding: 10px;
+		h4 {
+			text-align: center;
+			font-size: 2.5em;
+			color: #ccc;
+			font-weight: bold;
+		}
+	}
+	.metadata {
+		padding: 10px 15px;
+		strong {
+			white-space: nowrap;
+			width: 100%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			text-transform: uppercase;
+			vertical-align: middle;
+		}
+		.browser {
+			color: #aaa;
+			vertical-align: middle;
+			font-size: 3em;
+			float: right;
+			margin: -0.6em -0.6em 0 0;
+		}
+	}
+	ul.nav {
+		border-top: 1px solid #e7e7e7;
+		li {
+			border-bottom: 1px solid #e7e7e7;
+			&.active {
+				background-color: #eee;
+			}
+		}
+	}
+	.help {
+		padding: 10px;
+	}
+}

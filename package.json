@@ -12,6 +12,7 @@
     "browser-perf": "^1.0.2",
     "commander": "~2.3.0",
     "glob": "~4.0.6",
+    "grunt-autoprefixer": "^1.0.1",
     "less": "^1.7.5",
     "nano": "~5.11.2",
     "q": "~1.0.1",

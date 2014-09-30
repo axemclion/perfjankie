@@ -58,6 +58,14 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+
+		autoprefixer: {
+			less: {
+				src: 'site/main.css',
+				dest: 'site/main.css'
+			}
+		},
+
 		copy: {
 			partials: {
 				expand: true,
@@ -156,7 +164,7 @@ module.exports = function(grunt) {
 			},
 			less: {
 				files: ['www/**/*.less'],
-				tasks: ['concat', 'less']
+				tasks: ['concat', 'less:dev', 'autoprefixer']
 			},
 			html: {
 				files: ['www/index.html'],
@@ -197,9 +205,9 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask('test', ['clean', 'mochaTest']);
-	grunt.registerTask('dev', ['jshint', 'concat', 'metricsgen', 'less:dev', 'processhtml:dev', 'configureProxies:server', 'connect:dev', 'watch']);
+	grunt.registerTask('dev', ['jshint', 'concat', 'metricsgen', 'less:dev', 'autoprefixer', 'processhtml:dev', 'configureProxies:server', 'connect:dev', 'watch']);
 
-	grunt.registerTask('dist', ['jshint', 'concat', 'metricsgen', 'uglify', 'less:dist', 'copy', 'processhtml:dist', 'htmlmin']);
+	grunt.registerTask('dist', ['jshint', 'concat', 'metricsgen', 'uglify', 'less:dist', 'autoprefixer', 'copy', 'processhtml:dist', 'htmlmin']);
 
 	grunt.registerTask('default', ['dev']);
 };

@@ -15,7 +15,7 @@
 		</div>
 
 		<ul class="list-unstyled metric-names row">
-			<li ng-repeat="(name, metric) in metrics.metricNames | metricFilter:query" class="col-sm-6 col-md-4" ng-class="{'disabled': metric.browsers.indexOf(browser) === -1}">
+			<li ng-repeat="(name, metric) in metrics.metricNames | metricFilter:query" class="col-xs-12 col-sm-6 col-md-4" ng-class="{'disabled': metric.browsers.indexOf(browser) === -1}">
 				<div class="list-group-item">
 					<h4 class="list-group-item-heading">{{name | formatMetric}}</h4>
 					<p class="list-group-item-text">{{metric.summary}}</p>

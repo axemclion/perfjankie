@@ -17,6 +17,12 @@ module.exports = function(grunt) {
 			},
 		},
 
+		metricsgen: {
+			files: {
+				dest: 'site/metrics.js'
+			}
+		},
+
 		uglify: {
 			options: {
 				mangle: false,
@@ -25,7 +31,7 @@ module.exports = function(grunt) {
 			},
 			js: {
 				files: {
-					'site/main.js': ['www/**/*.js']
+					'site/main.js': ['www/**/*.js', 'site/**/*.js']
 				}
 			}
 		},
@@ -66,8 +72,8 @@ module.exports = function(grunt) {
 				dest: 'site/assets'
 			},
 			endpoints: {
-				src: ['www/endpoints.js'],
-				dest: 'site/endpoints.js'
+				src: ['www/server/endpoints.js'],
+				dest: 'site/server/endpoints.js'
 			}
 		},
 
@@ -111,13 +117,12 @@ module.exports = function(grunt) {
 		},
 		connect: {
 			proxies: [{
-				context: ['/meta', '/data'],
+				context: ['/metadata'],
 				changeOrigin: false,
 				host: 'localhost',
 				port: '5984',
 				rewrite: {
-					'/meta': '/' + couchdb.database + '/_design/meta',
-					'/data': '/' + couchdb.database + '/_design/data'
+					'/metadata/_view': '/' + couchdb.database + '/_design/metadata/_view'
 				}
 			}],
 			dev: {
@@ -176,6 +181,7 @@ module.exports = function(grunt) {
 	});
 
 	require('load-grunt-tasks')(grunt);
+	require('./tasks/metricsgen')(grunt);
 
 	grunt.registerTask('seedData', function() {
 		var done = this.async();
@@ -191,9 +197,9 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask('test', ['clean', 'mochaTest']);
-	grunt.registerTask('dev', ['jshint', 'concat', 'less:dev', 'processhtml:dev', 'configureProxies:server', 'connect:dev', 'watch']);
+	grunt.registerTask('dev', ['jshint', 'concat', 'metricsgen', 'less:dev', 'processhtml:dev', 'configureProxies:server', 'connect:dev', 'watch']);
 
-	grunt.registerTask('dist', ['jshint', 'concat', 'uglify', 'less:dist', 'copy', 'processhtml:dist', 'htmlmin']);
+	grunt.registerTask('dist', ['jshint', 'concat', 'metricsgen', 'uglify', 'less:dist', 'copy', 'processhtml:dist', 'htmlmin']);
 
 	grunt.registerTask('default', ['dev']);
 };

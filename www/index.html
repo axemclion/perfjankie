@@ -44,18 +44,14 @@
 	<script type="text/javascript" src = "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<!-- /build -->
 
-	<!--script type="text/javascript" src="jqplot-bower/dist/jquery.jqplot.min.js"></script>
-	<script type="text/javascript" src="jqplot-bower/dist/plugins/jqplot.categoryAxisRenderer.min.js"></script>
-	<script type="text/javascript" src="jqplot-bower/dist/plugins/jqplot.highlighter.min.js"></script>
-	<script type="text/javascript" src="jqplot-bower/dist/plugins/jqplot.canvasTextRenderer.min.js"></script>
-	<script type="text/javascript" src="jqplot-bower/dist/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
-	<script type="text/javascript" src="jqplot-bower/dist/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script-->
+	<!-- build:remove:dist -->
+	<script type="text/javascript" src="server/endpoints.js"></script>
+	<script type="text/javascript" src="metrics.js"></script>
+	<!-- /build -->
 
-	<script type="text/javascript" src="endpoints.js"></script>
 	<!-- build:template
 	<% _.each(scripts, function(script){ %>
 	<script type="text/javascript" src="<%= script%>"></script>
 	<% }); %>
-	/build -->
-	</body>
+	/build --></body>
 </html>

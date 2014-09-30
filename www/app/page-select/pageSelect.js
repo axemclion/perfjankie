@@ -18,6 +18,6 @@ angular
 	])
 	.controller('PageSelectCtrl', ['PageList',
 		function(PageList) {
-			this.pagelist = PageList.data;
+			this.pagelist = PageList;
 		}
 	]);

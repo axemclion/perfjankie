@@ -10,13 +10,17 @@ angular
 							url: opts
 						};
 					}
-					return $http(opts);
+					return $http(opts).then(function(resp) {
+						return resp.data;
+					});
 				};
 			}
 
 			return {
 				pagelist: get(ENDPOINTS.pagelist),
-				getAllMetrics: get(ENDPOINTS.getAllMetrics)
+				getAllMetrics: function() {
+					return window.METRICS_LIST;
+				}
 			};
 		}
 	])

@@ -1,6 +1,13 @@
 window.ENDPOINTS = {
 	metricNames: {
-		url: '../metadata/_view/metricNames'
+		url: '../../metadata-metrics',
+		transformResponse: function(resp, headersGetter){
+			var data = JSON.parse(resp);
+			delete data._id;
+			delete data._rev;
+			delete data.type;
+			return data;
+		}
 	},
 	pagelist: {
 		url: '../metadata/_view/pagelist?group=true',

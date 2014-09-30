@@ -1,0 +1,36 @@
+.page.all-metrics {
+	.metric-names {
+		li {
+			margin: 30px 0 0 0;
+			.list-group-item{
+				float: left;
+				padding: 10px;
+				border: SOLID 1px #ccc;
+				display: block;
+				width: 100%;
+				border-radius: 5px;
+				p{
+					height: 70px;
+				}
+				.browser-icons{
+					font-size: 1.1em;
+					color: #333;
+					span.disabled{
+						color: #ccc;
+					}
+				}
+
+			}
+			&.disabled{
+				opacity: 0.5;
+				.list-group-item{
+					background: #ccc;
+					cursor: not-allowed;
+					.btn{
+						visibility: hidden;
+					}
+				}
+			}
+		}
+	}
+}

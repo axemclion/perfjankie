@@ -1,9 +1,35 @@
-<div class="page summary">
+<div class="page all-metrics">
 	<h1 class = "page-header">
 		All Metrics
 		<small class="page-details pull-right">
-			{{pagename}} (<span title="{{browser}}" class="icon-{{browser}}"></span>)
+			{{pagename}} (
+			<span title="{{browser}}" class="icon-{{browser}}"></span>
+			)
 			<a class="btn btn-xs btn-primary" href="#/page-select" title="Select a different page or browser">change</a>
 		</small>
 	</h1>
+	<div>
+		<div class="input-group input-group-lg col-md-4">
+			<input type="text" class="form-control" ng-model="query" placeholder="Filter Metrics"/>
+			<span class="input-group-addon">@</span>
+		</div>
+
+		<ul class="list-unstyled metric-names row">
+			<li ng-repeat="(name, metric) in metrics.metricNames | metricFilter:query" class="col-sm-6 col-md-4" ng-class="{'disabled': metric.browsers.indexOf(browser) === -1}">
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">{{name | formatMetric}}</h4>
+					<p class="list-group-item-text">{{metric.summary}}</p>
+					<div class="pull-left browser-icons">
+						<span class="icon-{{browser}}" title="{{browser}}" ng-class="{'disabled': metric.browsers.indexOf(browser) === -1}" ng-repeat="browser in ['chrome', 'safari', 'ie', 'firefox']"></span>
+					</div>
+					<div class="pull-right">
+						<a class="btn btn-xs btn-info" ng-href="#/metric-detail?pagename={{pagename}}&browser={{browser}}&metric={{name}}">
+							View Graph &raquo;
+						</a>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</li>
+		</ul>
+	</div>
 </div>

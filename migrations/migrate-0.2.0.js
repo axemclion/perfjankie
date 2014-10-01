@@ -20,7 +20,7 @@ module.exports = function(oldDb, newDb, config) {
 			doc.data[key] = d.value;
 		}
 		doc.url = null;
-		doc.browser = doc.meta._browser || null;
+		doc.browser = doc.meta._browserName || null;
 		return doc;
 	});
 };

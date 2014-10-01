@@ -21,10 +21,10 @@ module.exports = function(callback, count) {
 		config.time = parseInt(commit.substring(commit.indexOf('#') + 1), 10);
 		config.suite = 'Test Suite 1';
 		var data = JSON.parse(sampleData);
-		data[0]._browserName = rand(browsers);
 		for (var key in data[0]) {
-			data[0][key].value = data[0][key].value * Math.random() * 3;
+			data[0][key] = data[0][key] * Math.random() * 3;
 		}
+		data[0]._browserName = rand(browsers);
 		couchData(config, data).then(function() {
 			if (i < count) {
 				genData(i + 1);

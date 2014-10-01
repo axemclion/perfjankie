@@ -7,8 +7,7 @@ require('q').longStackSupport = true;
 
 describe('App', function() {
 	var browserPerfStub = sinon.stub();
-	var sampleData = JSON.parse(fs.readFileSync(__dirname + '/res/sample-perf-results.json', 'utf8'));
-	browserPerfStub.callsArgWith(1, null, sampleData);
+	var sampleData;
 	var util = require('./util'),
 		app = require('../'),
 		config = util.config({});
@@ -22,6 +21,8 @@ describe('App', function() {
 
 	beforeEach(function() {
 		config.log.info('===========');
+		sampleData = JSON.parse(fs.readFileSync(__dirname + '/res/sample-perf-results.json', 'utf8'));
+		browserPerfStub.callsArgWith(1, null, sampleData);
 	});
 
 	it('should only update data', function(done) {

@@ -125,12 +125,13 @@ module.exports = function(grunt) {
 		},
 		connect: {
 			proxies: [{
-				context: ['/metadata'],
+				context: ['/metadata', '/data'],
 				changeOrigin: false,
 				host: 'localhost',
 				port: '5984',
 				rewrite: {
-					'/metadata/_view': '/' + couchdb.database + '/_design/metadata/_view'
+					'/metadata/_view': '/' + couchdb.database + '/_design/metadata/_view',
+					'/data/_view': '/' + couchdb.database + '/_design/data/_view',
 				}
 			}],
 			dev: {
@@ -159,7 +160,7 @@ module.exports = function(grunt) {
 				livereload: true,
 			},
 			views: {
-				files: ['couchdb/**/*.js'],
+				files: ['lib/couch-views/*.js'],
 				tasks: ['deployViews']
 			},
 			less: {

@@ -1,4 +1,4 @@
-<div class="page all-metrics">
+<div class="page metric-detail">
 	<h1 class = "page-header">
 		{{metric.name | formatMetric}}
 		<small class="page-details pull-right">
@@ -8,7 +8,7 @@
 			<a class="btn btn-xs btn-primary" href="#/page-select" title="Select a different page or browser">change</a>
 		</small>
 	</h1>
-	<div>
-		Metric Details
+	<div class="graph">
+		<metrics-detail-graph data="metric.data"></metrics-detail-graph>
 	</div>
 </div>

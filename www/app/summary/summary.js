@@ -7,6 +7,7 @@ angular
 				controller: 'SummaryCtrl',
 				controllerAs: 'summary',
 				resolve: {
+					// TODO - get actual summary data					
 					Summary: ['Data',
 						function(Data) {
 							return Data.summary();

@@ -4,6 +4,8 @@ module.exports = function(grunt) {
 		log: 1
 	}).couch;
 
+	// TODO - concat jqplot files
+
 	grunt.initConfig({
 		jshint: {
 			all: [
@@ -206,7 +208,7 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask('test', ['clean', 'mochaTest']);
-	grunt.registerTask('dev', ['jshint', 'concat', 'metricsgen', 'less:dev', 'autoprefixer', 'processhtml:dev', 'configureProxies:server', 'connect:dev', 'watch']);
+	grunt.registerTask('dev', ['metricsgen', 'concat:less', 'less:dev', 'autoprefixer', 'processhtml:dev', 'configureProxies:server', 'connect:dev', 'watch']);
 
 	grunt.registerTask('dist', ['jshint', 'concat', 'metricsgen', 'uglify', 'less:dist', 'autoprefixer', 'copy', 'processhtml:dist', 'htmlmin']);
 

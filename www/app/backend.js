@@ -38,7 +38,6 @@ angular
 						},
 						transformResponse: ENDPOINTS.metricsData.transformResponse
 					}).then(function(resp) {
-						console.log(resp.data);
 						return resp.data;
 					});
 				}

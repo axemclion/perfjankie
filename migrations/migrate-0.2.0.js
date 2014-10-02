@@ -21,6 +21,8 @@ module.exports = function(oldDb, newDb, config) {
 		}
 		doc.url = null;
 		doc.browser = doc.meta._browserName || null;
+
+		// Reset Nav timings from absolute
 		return doc;
 	});
 };

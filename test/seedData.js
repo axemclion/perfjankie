@@ -1,11 +1,11 @@
 module.exports = function(callback, count) {
-	count = count || 100;
+	count = count || 1000;
 	var path = require('path');
 	var sampleData = require('fs').readFileSync(path.join(__dirname, '/res/sample-perf-results.json'), 'utf8');
 
 	var browsers = ['firefox', 'chrome'],
 		components = ['component1', 'component2'],
-		commits = ['commit#1', 'commit#2', 'commit#3', 'commit#4'];
+		commits = ['commit#1', 'commit#2', 'commit#3', 'commit#4', 'commit#5', 'commit#3'];
 
 	var couchData = require('./../lib/couchData'),
 		config = require('./util').config();
@@ -15,10 +15,9 @@ module.exports = function(callback, count) {
 	};
 
 	(function genData(i) {
-		var commit = rand(commits);
 		config.name = rand(components);
-		config.run = commit;
-		config.time = parseInt(commit.substring(commit.indexOf('#') + 1), 10);
+		config.time = 7 + Math.floor(Math.random() * 100 % 6);
+		config.run = commits[config.time - 7];
 		config.suite = 'Test Suite 1';
 		var data = JSON.parse(sampleData);
 		for (var key in data[0]) {

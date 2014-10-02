@@ -3,20 +3,11 @@ window.ENDPOINTS = {
 		url: '../data/_view/metrics',
 		transformResponse: function(result, headersGetter) {
 			var data = JSON.parse(result);
-			var result = [],
-				minBand = [],
-				maxBand = [];
 			angular.forEach(data.rows, function(obj, index) {
-				var key = JSON.stringify(obj.key[4]).replace(/\"/g, '');
-				result.push([key, obj.value.sum / obj.value.count]);
-				minBand.push([key, obj.value.min]);
-				maxBand.push([key, obj.value.max]);
+				obj.label = obj.key[4];
+				obj.key = obj.key[3];
 			});
-			return {
-				data: result,
-				min: minBand,
-				max: maxBand
-			};
+			return data.rows;
 		}
 	},
 	pagelist: {

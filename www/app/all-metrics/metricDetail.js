@@ -9,12 +9,13 @@ angular
 			});
 		}
 	])
-	.controller('MetricDetailCtrl', ['$routeParams', 'Data',
-		function($routeParams, Data) {
+	.controller('MetricDetailCtrl', ['$routeParams', 'Data', 'Metadata',
+		function($routeParams, Data, Metadata) {
 			this.name = $routeParams.metric;
 			var self = this;
 			Data.metricsData($routeParams.browser, $routeParams.pagename, this.name).then(function(data) {
 				self.data = data;
+				self.unit = Metadata.getAllMetrics()[self.name].unit;
 			}, function(err) {
 				self.error = err;
 			});

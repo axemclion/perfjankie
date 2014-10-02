@@ -11,7 +11,7 @@ angular
 				if (!val) {
 					return;
 				} else {
-					drawGraph(id, val);
+					drawGraph(id, prepareData(val), scope.unit);
 				}
 			});
 		}
@@ -22,32 +22,25 @@ angular
 			canvas.width('100%');
 		}
 
-		function drawGraph(el, result, unit) {
-			$.jqplot(el, [result.data, result.min, result.max], {
-				// Turns on animatino for all series in this plot.
-				animate: true,
-				// Will animate plot on calls to plot1.replot({resetAxes:true})
-				animateReplot: true,
-				series: [{
-					lineWidth: 1,
-					color: "rgb(67, 142, 185)",
-					markerOptions: {
-						size: 2,
-						style: "circle"
-					}
-				}, {
-					show: false
-				}, {
-					show: false
-				}],
-				axesDefaults: {
-					pad: 1.2
-				},
-				seriesDefaults: {
-					rendererOptions: {
-						smooth: true
-					}
-				},
+		function prepareData(val) {
+			var result = {
+				series: [],
+				max: [],
+				min: [],
+				xaxis: {}
+			};
+			angular.forEach(val, function(p) {
+				var xaxis = [p.label, p.key];
+				result.series.push([p.key, p.value.sum / p.value.count, p.value.min, p.value.max]);
+				result.min.push([p.key, p.value.min]);
+				result.max.push([p.key, p.value.max]);
+				result.xaxis[p.key] = p.label;
+			});
+			return result;
+		}
+
+		function drawGraph(el, data, unit) {
+			$.jqplot(el, [data.series, data.min, data.max], {
 				fillBetween: {
 					series1: 1,
 					series2: 2,
@@ -55,21 +48,48 @@ angular
 					baseSeries: 0,
 					fill: true
 				},
+				series: [{
+					show: true,
+					shadow: false,
+					breakOnNull: true,
+					rendererOptions: {
+						smooth: false,
+					},
+					trendline: {
+						show: true,
+						shadow: false,
+						color: '#333',
+						lineWidth: 2,
+						linePattern: 'dashed',
+						label: 'trend'
+					}
+				}],
+				seriesDefaults: {
+					show: false,
+					rendererOptions: {
+						smooth: true
+					}
+				},
 				axes: {
-					// These options will set up the x axis like a category axis.
 					xaxis: {
 						renderer: $.jqplot.CategoryAxisRenderer,
 						label: 'Runs',
 						labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
 						tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+						rendererOptions: {
+							sortMergedLabels: false
+						},
 						tickOptions: {
-							angle: -90,
-							mark: 'inside',
+							mark: 'cross',
 							showMark: true,
 							showGridline: true,
-							markSize: 4,
+							markSize: 5,
+							angle: -90,
 							show: true,
 							showLabel: true,
+							formatter: function(formatString, value) {
+								return data.xaxis[value];
+							}
 						},
 						showTicks: true, // wether or not to show the tick labels,
 						showTickMarks: true,
@@ -83,6 +103,10 @@ angular
 						labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
 						tickRenderer: $.jqplot.CanvasAxisTickRenderer
 					}
+				},
+				grid: {
+					shadow: false,
+					borderWidth: 0
 				},
 				highlighter: {
 					show: true,
@@ -98,7 +122,8 @@ angular
 			link: link,
 			restrict: 'E',
 			scope: {
-				data: "="
+				data: "=",
+				unit: "="
 			},
 			template: '<div></div>'
 		};

@@ -26,13 +26,14 @@
 
 	<div class="container-fluid content-container">
 		<div class="row">
-			<div class="col-md-10 col-md-offset-2 content" ng-view></div>
+			<div class="col-md-10 col-md-offset-2">
+				<div class="content" ng-view ng-hide="pageLoadingError"></div>
+			</div>
 		</div>
 	</div>
-
 	<div class="page-loading" ng-show="pageLoading">
 		<div class="spin-container">
-			<span class="icon-spin6 animate-spin"></span>
+			<span class="icon-spin5 animate-spin"></span>
 		</div>
 	</div>
 
@@ -57,6 +58,5 @@
 	<% _.each(scripts, function(script){ %>
 	<script type="text/javascript" src="<%= script%>"></script>
 	<% }); %>
-	/build -->
-	</body>
+	/build --></body>
 </html>

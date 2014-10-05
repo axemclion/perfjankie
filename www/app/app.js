@@ -19,12 +19,8 @@ angular
 				$scope.pageLoading = true;
 			});
 
-			$scope.$on('$routeChangeError', function() {
+			$scope.$on('$routeChangeError', function(a, b, c, err) {
 				$scope.pageLoading = false;
-			});
-
-			$scope.$on('pageLoading', function(type) {
-				$scope.pageLoading = type;
 			});
 		}
 	]).filter("formatMetric", function() {

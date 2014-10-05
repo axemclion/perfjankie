@@ -13,7 +13,6 @@ angular
 		function($routeParams, Data, Metadata) {
 			this.name = $routeParams.metric;
 			var self = this;
-			this.loading = true;
 			this.error = false;
 
 			var metric = Metadata.getAllMetrics()[self.name];
@@ -26,6 +25,7 @@ angular
 			};
 
 			this.getData = function() {
+				this.loading = true;
 				Data.metricsData($routeParams.browser, $routeParams.pagename, this.name + this.modifier.stat, this.modifier.limit).then(function(data) {
 					self.loading = false;
 					self.data = data;

@@ -4,7 +4,15 @@ module.exports = function(grunt) {
 		log: 1
 	}).couch;
 
-	// TODO - concat jqplot files
+	var jqplot = [
+		'jquery.jqplot.min.js',
+		'plugins/jqplot.categoryAxisRenderer.min.js',
+		'plugins/jqplot.highlighter.min.js',
+		'plugins/jqplot.canvasTextRenderer.min.js',
+		'plugins/jqplot.canvasAxisTickRenderer.min.js',
+		'plugins/jqplot.canvasAxisLabelRenderer.min.js',
+		'plugins/jqplot.trendline.min.js'
+	];
 
 	grunt.initConfig({
 		jshint: {
@@ -39,8 +47,14 @@ module.exports = function(grunt) {
 		},
 
 		concat: {
+			jqplot: {
+				src: jqplot.map(function(file) {
+					return 'bower_components/jqplot-bower/dist/' + file;
+				}),
+				dest: 'site/jqplot.js'
+			},
 			less: {
-				src: ['www/app/**/*.less', 'www/assets/css/*.css'],
+				src: ['bower_components/jqplot-bower/dist/jquery.jqplot.min.css', 'www/app/**/*.less', 'www/assets/css/*.css'],
 				dest: 'site/main.less'
 			}
 		},
@@ -92,9 +106,11 @@ module.exports = function(grunt) {
 				options: {
 					strip: true,
 					data: {
-						scripts: grunt.file.expand({
+						scripts: jqplot.map(function(file) {
+							return 'jqplot-bower/dist/' + file;
+						}).concat(grunt.file.expand({
 							cwd: 'www'
-						}, 'app/**/*.js'),
+						}, 'app/**/*.js')),
 					}
 				},
 				files: {
@@ -167,7 +183,7 @@ module.exports = function(grunt) {
 			},
 			less: {
 				files: ['www/**/*.less'],
-				tasks: ['concat', 'less:dev', 'autoprefixer']
+				tasks: ['concat:less', 'less:dev', 'autoprefixer']
 			},
 			html: {
 				files: ['www/index.html'],

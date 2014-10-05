@@ -15,4 +15,13 @@
 	<div class="graph">
 		<metrics-detail-graph data="metric.data" unit="metric.unit"></metrics-detail-graph>
 	</div>
+	<div class="error" ng-show="metric.error">
+		<h3>Error</h3>
+		<p>Could not load data</p>
+	</div>
+	<div class="page-loading" ng-show="metric.loading">
+		<div class="spin-container">
+			<span class="icon-spin6 animate-spin"></span>
+		</div>
+	</div>
 </div>

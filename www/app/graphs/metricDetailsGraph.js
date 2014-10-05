@@ -11,7 +11,11 @@ angular
 				if (!val) {
 					return;
 				} else {
-					drawGraph(id, prepareData(val), scope.unit);
+					try {
+						drawGraph(id, prepareData(val), scope.unit);
+					} catch (e) {
+						scope.error = true;
+					}
 				}
 			});
 		}
@@ -125,6 +129,6 @@ angular
 				data: "=",
 				unit: "="
 			},
-			template: '<div></div>'
+			template: '<span class="graph-error" ng-show="error"><em><span class="icon-attention"></span>Error</em>Could not plot graph due to error in data</span><div></div>'
 		};
 	});

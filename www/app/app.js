@@ -12,10 +12,19 @@ angular
 			$scope.$on('$routeChangeSuccess', function(scope, next, current) {
 				$scope.pagename = $routeParams.pagename;
 				$scope.browser = $routeParams.browser;
+				$scope.pageLoading = false;
+			});
+
+			$scope.$on('$routeChangeStart', function() {
+				$scope.pageLoading = true;
 			});
 
 			$scope.$on('$routeChangeError', function() {
-				// TODO - add what happens when routing fails
+				$scope.pageLoading = false;
+			});
+
+			$scope.$on('pageLoading', function(type) {
+				$scope.pageLoading = type;
 			});
 		}
 	]).filter("formatMetric", function() {

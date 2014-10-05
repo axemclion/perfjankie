@@ -14,6 +14,7 @@ angular
 					try {
 						drawGraph(id, prepareData(val), scope.unit);
 					} catch (e) {
+						canvas.css('display', 'none');
 						scope.error = true;
 					}
 				}
@@ -129,6 +130,6 @@ angular
 				data: "=",
 				unit: "="
 			},
-			template: '<span class="graph-error" ng-show="error"><em><span class="icon-attention"></span>Error</em>Could not plot graph due to error in data</span><div></div>'
+			template: '<div></div><span class="graph-error" ng-show="error"><em><span class="icon-attention"></span>Error</em>Could not plot graph due to error in data</span>'
 		};
 	});

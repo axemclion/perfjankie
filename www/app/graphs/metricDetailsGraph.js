@@ -12,6 +12,7 @@ angular
 					return;
 				} else {
 					try {
+						canvas.empty();
 						drawGraph(id, prepareData(val), scope.unit);
 					} catch (e) {
 						canvas.css('display', 'none');

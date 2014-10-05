@@ -28,8 +28,8 @@ angular
 		function($http) {
 			return {
 				summary: function() {},
-				metricsData: function(browser, pagename, metric) {
-					return $http({
+				metricsData: function(browser, pagename, metric, limit) {
+					var opts = {
 						url: ENDPOINTS.metricsData.url,
 						params: {
 							startkey: JSON.stringify([browser, pagename, metric, null]),
@@ -37,7 +37,12 @@ angular
 							group: true
 						},
 						transformResponse: ENDPOINTS.metricsData.transformResponse
-					}).then(function(resp) {
+					};
+					limit = parseInt(limit, 10);
+					if (!isNaN(limit)) {
+						opts.params.limit = limit;
+					}
+					return $http(opts).then(function(resp) {
 						return resp.data;
 					});
 				}

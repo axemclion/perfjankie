@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 
 		for (var key in apiDocs.metrics) {
 			var modifier = null;
-			if (key.match(regex)) {
+			if (apiDocs.metrics[key].source === 'TimelineMetrics' && key.match(regex)) {
 				var idx = key.lastIndexOf('_');
 				modifier = key.substr(idx + 1);
 				key = key.substr(0, idx);

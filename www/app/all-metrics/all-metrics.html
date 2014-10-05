@@ -23,7 +23,7 @@
 						<span class="icon-{{browser}}" title="{{browser}}" ng-class="{'disabled': metric.browsers.indexOf(browser) === -1}" ng-repeat="browser in ['chrome', 'safari', 'ie', 'firefox']"></span>
 					</div>
 					<div class="pull-right">
-						<a class="btn btn-xs btn-info" ng-href="#/metric-detail?pagename={{pagename}}&browser={{browser}}&metric={{name}}">
+						<a class="btn btn-xs btn-info" ng-href="#/detail/{{pagename}}/{{browser}}/{{name}}">
 							View Graph &raquo;
 						</a>
 					</div>

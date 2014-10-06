@@ -1,4 +1,5 @@
 
+.icon-spin5:before { content: '\25cc'; } /* '◌' */
 .icon-firefox:before { content: '\e800'; } /* '' */
 .icon-chrome:before { content: '\e801'; } /* '' */
 .icon-safari:before { content: '\e802'; } /* '' */
@@ -7,7 +8,6 @@
 .icon-signal:before { content: '\e805'; } /* '' */
 .icon-file-code:before { content: '\e806'; } /* '' */
 .icon-github:before { content: '\e807'; } /* '' */
-.icon-spin5:before { content: '\e808'; } /* '' */
 .icon-database:before { content: '\e809'; } /* '' */
 .icon-gauge:before { content: '\e80a'; } /* '' */
 .icon-cog-alt:before { content: '\e80b'; } /* '' */
@@ -17,3 +17,6 @@
 .icon-cog:before { content: '\e80f'; } /* '' */
 .icon-code:before { content: '\e810'; } /* '' */
 .icon-attention:before { content: '\e811'; } /* '' */
+.icon-layers:before { content: '\e813'; } /* '' */
+.icon-calendar:before { content: '\e814'; } /* '' */
+.icon-movie:before { content: '\e815'; } /* '' */

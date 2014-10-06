@@ -37,7 +37,7 @@
     {
       "uid": "5d2d07f112b8de19f2c0dbfec3e42c05",
       "css": "spin5",
-      "code": 59400,
+      "code": 9676,
       "src": "fontelico"
     },
     {
@@ -89,6 +89,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "531bc468eecbb8867d822f1c11f1e039",
+      "css": "calendar",
+      "code": 59412,
+      "src": "fontawesome"
+    },
+    {
       "uid": "4109c474ff99cad28fd5a2c38af2ec6f",
       "css": "filter",
       "code": 59404,
@@ -129,6 +135,18 @@
       "css": "brush",
       "code": 59396,
       "src": "iconic"
+    },
+    {
+      "uid": "d2c499942f8a7c037d5a94f123eeb478",
+      "css": "layers",
+      "code": 59411,
+      "src": "iconic"
+    },
+    {
+      "uid": "eea613bc40c77b7eab137b29dba0c62f",
+      "css": "movie",
+      "code": 59413,
+      "src": "mfglabs"
     }
   ]
 }

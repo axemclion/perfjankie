@@ -16,6 +16,7 @@ module.exports = function migrate(data, targetDbName) {
 	config.couch.database = targetDbName;
 
 	return dbInit(config).then(function() {
+		config.log.info('Migrating from ', config.couch.oldDb, 'to', config.couch.database);
 		return Q.ninvoke(currentDb, 'get', 'version');
 	}).then(function(version) {
 		return version[0].version;
@@ -38,5 +39,8 @@ module.exports = function migrate(data, targetDbName) {
 			config.log.info('\nRunning migration - %s', file);
 			return script(currentDb, server.use(targetDbName), config);
 		}).reduce(Q.when, Q());
+	}).then(function() {
+		config.log.info('Updating views');
+		return require('../lib/couchViews.js')(config);
 	});
 };

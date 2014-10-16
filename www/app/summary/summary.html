@@ -2,110 +2,64 @@
 	<h1 class = "page-header">
 		Summary
 		<small class="page-details pull-right">
-			{{pagename}} (<span title="{{browser}}" class="icon-{{browser}}"></span>)
+			{{pagename}} (
+			<span title="{{browser}}" class="icon-{{browser}}"></span>
+			)
 			<a class="btn btn-xs btn-primary" href="#/page-select" title="Select a different page or browser">change</a>
 		</small>
 	</h1>
 	<div class="row callouts">
-		<div class="col-md-3 col-sm-6">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<div class="row">
-						<div class="col-xs-3"> <i class="fa fa-film fa-5x"></i>
-						</div>
-						<div class="col-xs-9 text-right">
-							<div class="huge">26</div>
-							<div>frames per second</div>
-						</div>
-					</div>
-				</div>
-				<a href="#">
-					<div class="panel-footer">
-						<span class="pull-left">View Details</span>
-						<span class="pull-right"> <i class="fa fa-arrow-circle-right"></i>
-						</span>
-						<div class="clearfix"></div>
-					</div>
-				</a>
-			</div>
-		</div>
-
-		<div class="col-md-3 col-sm-6">
-			<div class="panel panel-green">
+		<div class="col-md-3 col-sm-6" ng-repeat="tile in summary.tiles">
+			<div class="panel" ng-class="'panel-' + $index">
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-film fa-5x"></i>
+							<span class = "icon icon-movie"></span>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">1.45 K</div>
-							<div>
-								pixel <sup>2</sup>
-								redrawn
-							</div>
+							<div class="huge">{{tile.value | formatMetricValue: tile.unit}}</div>
+							<div class="unit">{{tile.unit}}</div>
 						</div>
 					</div>
 				</div>
 				<a href="#">
 					<div class="panel-footer">
-						<span class="pull-left">View Details</span>
-						<span class="pull-right">
-							<i class="fa fa-arrow-circle-right"></i>
-						</span>
-						<div class="clearfix"></div>
-					</div>
-				</a>
-			</div>
-		</div>
-
-		<div class="col-md-3 col-sm-6">
-			<div class="panel panel-yellow">
-				<div class="panel-heading">
-					<div class="row">
-						<div class="col-xs-3">
-							<i class="fa fa-sitemap fa-5x"></i>
-						</div>
-						<div class="col-xs-9 text-right">
-							<div class="huge">231</div>
-							<div>nodes changed/layout cycle</div>
-						</div>
-					</div>
-				</div>
-				<a href="#">
-					<div class="panel-footer">
-						<span class="pull-left">View Details</span>
-						<span class="pull-right">
-							<i class="fa fa-arrow-circle-right"></i>
-						</span>
-						<div class="clearfix"></div>
-					</div>
-				</a>
-			</div>
-		</div>
-
-		<div class="col-md-3 col-sm-6">
-			<div class="panel panel-red">
-				<div class="panel-heading">
-					<div class="row">
-						<div class="col-xs-3">
-							<i class="fa fa-paint-brush fa-5x"></i>
-						</div>
-						<div class="col-xs-9 text-right">
-							<div class="huge">26</div>
-							<div>ms for first paint</div>
-						</div>
-					</div>
-				</div>
-				<a href="#">
-					<div class="panel-footer">
-						<span class="pull-left">View Details</span>
-						<span class="pull-right">
-							<i class="fa fa-arrow-circle-right"></i>
-						</span>
+						<span class="pull-left">{{tile.metric |formatMetric}}</span>
+						<span class="pull-right">&raquo;</span>
 						<div class="clearfix"></div>
 					</div>
 				</a>
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-lg-7 col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">Network</div>
+				<div class="panel-body">
+					<!-- TODO Waterfall chart for network -->
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-5 col-sm-12">
+			<ul class="list-group">
+				<li class="list-group-item">
+					Page tested
+					<span class="pull-right"> <em>{{summary.meta.url || 'unknown'}}</em>
+					</span>
+				</li>
+				<li class="list-group-item">
+					Last tested time
+					<span class="pull-right"> <em>{{summary.time || 'unknown'}}</em>
+					</span>
+				</li>
+				<li class="list-group-item">
+					Last tested tag
+					<span class="pull-right"> <em>{{summary.run || 'unknown'}}</em>
+					</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- TODO Pie chart for paints, layout, compsite and JS-->
 </div>

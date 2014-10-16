@@ -1,49 +1,32 @@
 angular
-	.module('Backend', [])
-	.factory('Metadata', ['$http',
-		function($http) {
-			function get(opts) {
-				return function() {
-					opts = opts || {};
-					if (typeof opts === 'string') {
-						opts = {
-							url: opts
-						};
-					}
-					return $http(opts).then(function(resp) {
-						return resp.data;
-					});
-				};
-			}
-
+	.module('Backend', ['Endpoints'])
+	.factory('Metadata', ['Resource',
+		function(resource) {
 			return {
-				pagelist: get(ENDPOINTS.pagelist),
+				pagelist: function() {
+					return resource('/pagelist')
+				},
 				getAllMetrics: function() {
-					return window.METRICS_LIST;
+					return resource('/all-metrics');
 				}
-			};
+			}
 		}
 	])
-	.factory('Data', ['$http',
-		function($http) {
+	.factory('Data', ['Resource', 'Metadata',
+		function(resource, Metadata) {
 			return {
-				summary: function() {},
-				metricsData: function(browser, pagename, metric, limit) {
-					var opts = {
-						url: ENDPOINTS.metricsData.url,
-						params: {
-							startkey: JSON.stringify([browser, pagename, metric, null]),
-							endkey: JSON.stringify([browser, pagename, metric, {}]),
-							group: true
-						},
-						transformResponse: ENDPOINTS.metricsData.transformResponse
-					};
-					limit = parseInt(limit, 10);
-					if (!isNaN(limit)) {
-						opts.params.limit = limit;
-					}
-					return $http(opts).then(function(resp) {
-						return resp.data;
+				metricsData: function(opts) {
+					return resource('/metrics-data', {
+						browser: opts.browser,
+						pagename: opts.pagename,
+						metric: opts.metric,
+						limit: opts.limit
+					});
+				},
+				summary: function(opts) {
+					return resource('/summary', {
+						browser: opts.browser,
+						pagename: opts.pagename
 					});
 				}
 			};

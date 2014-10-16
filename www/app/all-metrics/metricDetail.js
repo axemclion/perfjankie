@@ -5,17 +5,24 @@ angular
 			$routeProvider.when('/detail/:pagename/:browser/:metric', {
 				templateUrl: 'app/all-metrics/metric-detail.html',
 				controller: 'MetricDetailCtrl',
-				controllerAs: 'metric'
+				controllerAs: 'metric',
+				resolve: {
+					MetricsList: ['Metadata',
+						function(Metadata) {
+							return Metadata.getAllMetrics();
+						}
+					]
+				}
 			});
 		}
 	])
-	.controller('MetricDetailCtrl', ['$routeParams', 'Data', 'Metadata',
-		function($routeParams, Data, Metadata) {
+	.controller('MetricDetailCtrl', ['$routeParams', 'Data', 'MetricsList',
+		function($routeParams, Data, metricsList) {
 			this.name = $routeParams.metric;
 			var self = this;
 			this.error = false;
 
-			var metric = Metadata.getAllMetrics()[self.name];
+			var metric = metricsList[self.name];
 			this.unit = metric.unit;
 			this.stats = metric.stats;
 
@@ -26,12 +33,17 @@ angular
 
 			this.getData = function() {
 				this.loading = true;
-				Data.metricsData($routeParams.browser, $routeParams.pagename, this.name + this.modifier.stat, this.modifier.limit).then(function(data) {
-					self.loading = false;
+				Data.metricsData({
+					browser: $routeParams.browser,
+					pagename: $routeParams.pagename,
+					metric: this.name + this.modifier.stat,
+					limit: this.modifier.limit
+				}).then(function(data) {
 					self.data = data;
 				}, function(err) {
-					self.loading = false;
 					self.error = err;
+				}).finally(function() {
+					self.loading = false;
 				});
 			};
 			this.getData();

@@ -5,7 +5,18 @@ module.exports = function(grunt) {
 	grunt.registerMultiTask('metricsgen', 'Generates the names of metrics', function() {
 		var apiDocs = new browserPerf.docs();
 		var regex = /(_avg|_max|_count)$/;
-		var doc = {};
+		var doc = {
+			fps: {
+				type: 'total',
+				tags: ['Frames'],
+				unit: 'fps',
+				source: 'ChromeTracingMetrics',
+				variance: 0.5,
+				summary: 'Number of Frames per second (fps) drawn on the screen. 60 fps is a good benchmark for a smooth experience',
+				details: '',
+				browsers: ['chrome', 'firefox', 'safari', 'ie']
+			}
+		};
 
 		for (var key in apiDocs.metrics) {
 			var modifier = null;

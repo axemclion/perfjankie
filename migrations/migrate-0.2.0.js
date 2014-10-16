@@ -20,7 +20,6 @@ module.exports = function(oldDb, newDb, config) {
 			doc.data[key] = doc.data[key].value;
 		}
 
-
 		doc.data[events[0]] = 0;
 		for (var i = 1; i < events.length; i++) {
 			if (typeof doc.data[events[i]] === 'undefined') {

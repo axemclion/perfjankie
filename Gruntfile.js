@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 	var couchdb = require('./test/util').config({
 		log: 1
 	}).couch;
-
+	var path = require('path');
 	var jqplot = [
 		'jquery.jqplot.min.js',
 		'plugins/jqplot.categoryAxisRenderer.min.js',
@@ -143,14 +143,20 @@ module.exports = function(grunt) {
 		},
 		connect: {
 			proxies: [{
-				context: ['/metadata', '/data'],
 				changeOrigin: false,
 				host: 'localhost',
 				port: '5984',
-				rewrite: {
-					'/metadata/_view': '/' + couchdb.database + '/_design/metadata/_view',
-					'/data/_view': '/' + couchdb.database + '/_design/data/_view',
-				}
+				context: grunt.file.expand('lib/couch-views/**/*.js').map(function(file) {
+					return '/' + path.basename(file, '.js');
+				}),
+				rewrite: (function(files) {
+					var res = {};
+					files.forEach(function(file) {
+						var view = path.basename(file, '.js');
+						res[view + '/_view'] = ['/', couchdb.database, '/_design/', view, '/_view'].join('');
+					});
+					return res;
+				}(grunt.file.expand('lib/couch-views/**/*.js')))
 			}],
 			dev: {
 				options: {

@@ -9,34 +9,24 @@
 		</small>
 	</h1>
 	<div class="graph-modifiers">
-		<div ng-show="metric.stats.length >
-			1" class="pull-left"> <strong>Stat Type :</strong>
+		<div ng-show="1 < metric.stats.length " class="pull-left"> <strong>Stat Type :</strong>
 			<label class="radio-inline">
-				<input type="radio" name="stat" value="" ng-model="metric.modifier.stat" ng-change="metric.getData()"/>
+				<input type="radio" name="stat" value="" ng-model="modifier.stat"/>
 				total
 			</label>
-			<label class="radio-inline" ng-repeat="stat in metric.stats" >
-				<input type="radio" name="stat" value="_{{stat}}" ng-model="metric.modifier.stat" ng-change="metric.getData()"/>
-				{{stat}}
+			<label class="radio-inline" ng-repeat="statval in metric.stats" >
+				<input type="radio" name="stat" value="_{{statval}}" ng-model="modifier.stat"/>
+				{{statval}}
 			</label>
 		</div>
 		<div class="pull-right"> <strong>Limit :</strong>
 			<label class="radio-inline" ng-repeat="limit in [10,20,40,'all']" >
-				<input type="radio" name="limit" value="{{limit}}" ng-model="metric.modifier.limit" ng-change="metric.getData()"/>
+				<input type="radio" name="limit" value="{{limit}}" ng-model="modifier.limit"/>
 				{{limit}}
 			</label>
 		</div>
 	</div>
 	<div class="graph clearfix">
 		<metrics-detail-graph data="metric.data" unit="metric.unit"></metrics-detail-graph>
-	</div>
-	<div class="error" ng-show="metric.error">
-		<h3>Error</h3>
-		<p>Could not load data</p>
-	</div>
-	<div class="page-loading" ng-show="metric.loading">
-		<div class="spin-container">
-			<span class="icon-spin5 animate-spin"></span>
-		</div>
 	</div>
 </div>

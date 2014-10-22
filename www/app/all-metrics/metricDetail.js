@@ -11,41 +11,46 @@ angular
 						function(Metadata) {
 							return Metadata.getAllMetrics();
 						}
+					],
+					Data: ['Data', '$route',
+						function(Data, $route) {
+							$route.current.params.limit = $route.current.params.limit || 10;
+							$route.current.params.stat = $route.current.params.stat || '';
+
+							var params = $route.current.params;
+							return Data.metricsData({
+								browser: params.browser,
+								pagename: params.pagename,
+								metric: params.metric + params.stat,
+								limit: params.limit === 'all' ? undefined : params.limit
+							});
+						}
 					]
 				}
 			});
 		}
 	])
-	.controller('MetricDetailCtrl', ['$routeParams', 'Data', 'MetricsList',
-		function($routeParams, Data, metricsList) {
+	.controller('MetricDetailCtrl', ['$routeParams', '$scope', '$location', 'Data', 'MetricsList',
+		function($routeParams, $scope, $location, data, metricsList) {
 			this.name = $routeParams.metric;
-			var self = this;
-			this.error = false;
+			this.data = data;
+			var metric = metricsList[this.name];
+			if (metric) {
+				this.unit = metric.unit;
+				this.stats = metric.stats;
+			}
 
-			var metric = metricsList[self.name];
-			this.unit = metric.unit;
-			this.stats = metric.stats;
-
-			this.modifier = {
-				limit: 10,
-				stat: ''
+			$scope.modifier = {
+				limit: $routeParams.limit,
+				stat: $routeParams.stat
 			};
 
-			this.getData = function() {
-				this.loading = true;
-				Data.metricsData({
-					browser: $routeParams.browser,
-					pagename: $routeParams.pagename,
-					metric: this.name + this.modifier.stat,
-					limit: this.modifier.limit
-				}).then(function(data) {
-					self.data = data;
-				}, function(err) {
-					self.error = err;
-				}).finally(function() {
-					self.loading = false;
-				});
-			};
-			this.getData();
+			$scope.$watchCollection('modifier', function(val, old, scope) {
+				if ($routeParams.stat !== val.stat) {
+					$location.search('stat', val.stat);
+				} else if ($routeParams.limit !== val.limit) {
+					$location.search('limit', val.limit);
+				}
+			});
 		}
 	]);

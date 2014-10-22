@@ -33,7 +33,14 @@ angular
 						data: window.METRICS_LIST
 					});
 				},
-				'/summary': function(opts) {
+				'/summary-commits': function() {
+					return $http.get('../summary/_view/commits', {
+						params: {
+							
+						}
+					})
+				},
+				'/summary-data': function(opts) {
 					return fetch('/all-metrics').then(function(metricsList) {
 						var count = 0;
 						for (var key in metricsList) {
@@ -42,7 +49,7 @@ angular
 							}
 							count += metricsList[key].stats ? metricsList[key].stats.length : 0;
 						}
-						return $http.get('../data/_view/summary', {
+						return $http.get('../summary/_view/data', {
 							params: {
 								endkey: JSON.stringify([opts.browser, opts.pagename, null]),
 								startkey: JSON.stringify([opts.browser, opts.pagename, {}]),
@@ -84,7 +91,7 @@ angular
 					if (!isNaN(limit)) {
 						config.params.limit = limit;
 					}
-					return $http.get('../data/_view/metrics', config);
+					return $http.get('../metrics_data/_view/stats', config);
 				}
 			};
 

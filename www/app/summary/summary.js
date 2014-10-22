@@ -7,9 +7,9 @@ angular
 				controller: 'SummaryCtrl',
 				controllerAs: 'summary',
 				resolve: {
-					MetricsList: ['Metadata',
-						function(Metadata) {
-							return Metadata.getAllMetrics();
+					MetricsList: ['Data',
+						function(data) {
+							return data.getAllMetrics();
 						}
 					]
 				}

@@ -7,9 +7,9 @@ angular
 				controller: 'PageSelectCtrl',
 				controllerAs: 'pageselect',
 				resolve: {
-					PageList: ['Metadata',
-						function(Metadata) {
-							return Metadata.pagelist();
+					PageList: ['Data',
+						function(data) {
+							return data.pagelist();
 						}
 					]
 				}

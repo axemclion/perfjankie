@@ -1,6 +1,6 @@
 angular
 	.module('Backend', ['Endpoints'])
-	.factory('Metadata', ['Resource',
+	.factory('Data', ['Resource',
 		function(resource) {
 			return {
 				pagelist: function() {
@@ -8,13 +8,7 @@ angular
 				},
 				getAllMetrics: function() {
 					return resource('/all-metrics');
-				}
-			}
-		}
-	])
-	.factory('Data', ['Resource', 'Metadata',
-		function(resource, Metadata) {
-			return {
+				},
 				metricsData: function(opts) {
 					return resource('/metrics-data', {
 						browser: opts.browser,

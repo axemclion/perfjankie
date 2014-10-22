@@ -7,9 +7,9 @@ angular
 				controller: 'AllMetricsCtrl',
 				controllerAs: 'metrics',
 				resolve: {
-					MetricNames: ['Metadata',
-						function(Metadata, $routeParams) {
-							return Metadata.getAllMetrics();
+					MetricNames: ['Data',
+						function(data, $routeParams) {
+							return data.getAllMetrics();
 						}
 					]
 				}

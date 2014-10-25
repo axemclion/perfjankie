@@ -1,9 +1,9 @@
 angular
-	.module('metricdetail', ['ngRoute', 'Backend', 'graphs'])
+	.module('metricdetail', ['ngRoute', 'metricsGraphDetails', 'Backend'])
 	.config(['$routeProvider',
 		function($routeProvider) {
 			$routeProvider.when('/detail/:pagename/:browser/:metric', {
-				templateUrl: 'app/all-metrics/metric-detail.html',
+				templateUrl: 'app/metric-details/metric-detail.html',
 				controller: 'MetricDetailCtrl',
 				controllerAs: 'metric',
 				resolve: {
@@ -44,6 +44,9 @@ angular
 				limit: $routeParams.limit,
 				stat: $routeParams.stat
 			};
+
+			var pos = $('.graph').position();
+			this.height = window.innerHeight - pos.top - 100;
 
 			$scope.$watchCollection('modifier', function(val, old, scope) {
 				if ($routeParams.stat !== val.stat) {

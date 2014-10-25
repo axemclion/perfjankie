@@ -2,73 +2,65 @@ angular
 	.module('Endpoints', [])
 	.factory('Resource', ['$http', '$q',
 		function($http, $q) {
+			function rowsToObj(row, keys, val) {
+				var res = {};
+				res[val] = row.value;
+				angular.forEach(keys, function(key, i) {
+					res[key] = row.key[i];
+				});
+				return res;
+			}
+
 			var server = {
 				'/pagelist': function() {
-					return $http.get('../metadata/_view/pagelist?group=true', {
-						transformResponse: function(data, headersGetter) {
-							var result = {};
-							angular.forEach(JSON.parse(data).rows, function(row) {
-								var suite = row.key[0],
-									pagename = row.key[1],
-									browser = row.key[2] || 'unknown',
-									runCount = row.value;
-
-								if (typeof result[suite] === 'undefined') {
-									result[suite] = {};
-								}
-								if (typeof result[suite][pagename] === 'undefined') {
-									result[suite][pagename] = [];
-								}
-								result[suite][pagename].push({
-									browser: browser,
-									runCount: runCount
-								});
+					return $http.get('../pagelist/_view/pages?group=true').then(function(resp) {
+						var result = {};
+						angular.forEach(resp.data.rows, function(row) {
+							var res = rowsToObj(row, ['suite', 'pagename', 'browser'], 'runCount');
+							result[res.suite] = result[res.suite] || {};
+							result[res.suite][res.pagename] = result[res.suite][res.pagename] || [];
+							result[res.suite][res.pagename].push({
+								browser: res.browser,
+								runCount: res.runCount
 							});
-							return result;
-						}
+						});
+						return result;
 					});
 				},
 				'/all-metrics': function() {
-					return $q.when({
-						data: window.METRICS_LIST
+					return $q.when(window.METRICS_LIST);
+				},
+				'/runList': function(opts) {
+					return $http.get('../runs/_view/list', {
+						params: {
+							endkey: JSON.stringify([opts.browser, opts.pagename, null]),
+							startkey: JSON.stringify([opts.browser, opts.pagename, {}]),
+							group: true,
+							descending: true
+						}
+					}).then(function(resp) {
+						var res = [];
+						angular.forEach(resp.data.rows, function(row) {
+							res.push(rowsToObj(row, ['browser', 'pagename', 'time', 'run'], 'runCount'));
+						});
+						return res;
 					});
 				},
-				'/summary-commits': function() {
-					return $http.get('../summary/_view/commits', {
+				'/runData': function(opts) {
+					opts.time = parseInt(opts.time, 10);
+					return $http.get('../runs/_view/data', {
 						params: {
-							
+							startkey: JSON.stringify([opts.browser, opts.pagename, opts.time, null]),
+							endkey: JSON.stringify([opts.browser, opts.pagename, opts.time, {}]),
+							group: true
 						}
-					})
-				},
-				'/summary-data': function(opts) {
-					return fetch('/all-metrics').then(function(metricsList) {
-						var count = 0;
-						for (var key in metricsList) {
-							if (metricsList.hasOwnProperty(key)) {
-								count++;
-							}
-							count += metricsList[key].stats ? metricsList[key].stats.length : 0;
-						}
-						return $http.get('../summary/_view/data', {
-							params: {
-								endkey: JSON.stringify([opts.browser, opts.pagename, null]),
-								startkey: JSON.stringify([opts.browser, opts.pagename, {}]),
-								group: true,
-								limit: count,
-								descending: true
-							},
-							transformResponse: function(result, headersGetter) {
-								var data = JSON.parse(result);
-								var res = {
-									url: data.rows[0].key[5],
-									commit: data.rows[0].key[3]
-								};
-								angular.forEach(data.rows, function(obj, index) {
-									res[obj.key[4]] = obj.value;
-								});
-								return res;
-							}
+					}).then(function(resp) {
+						var res = {};
+						angular.forEach(resp.data.rows, function(row) {
+							var obj = rowsToObj(row, ['browser', 'pagename', 'time', 'run', 'metric'], 'value');
+							res[obj.metric] = obj;
 						});
+						return res;
 					});
 				},
 				'/metrics-data': function(opts) {
@@ -77,28 +69,26 @@ angular
 							startkey: JSON.stringify([opts.browser, opts.pagename, opts.metric, null]),
 							endkey: JSON.stringify([opts.browser, opts.pagename, opts.metric, {}]),
 							group: true
-						},
-						transformResponse: function(result, headersGetter) {
-							var data = JSON.parse(result);
-							angular.forEach(data.rows, function(obj, index) {
-								obj.label = obj.key[4];
-								obj.key = obj.key[3];
-							});
-							return data.rows;
 						}
 					};
 					var limit = parseInt(opts.limit, 10);
 					if (!isNaN(limit)) {
 						config.params.limit = limit;
 					}
-					return $http.get('../metrics_data/_view/stats', config);
+					return $http.get('../metrics_data/_view/stats', config).then(function(resp) {
+						var res = [];
+						angular.forEach(resp.data.rows, function(obj, index) {
+							obj.label = obj.key[4];
+							obj.key = obj.key[3];
+							res.push(obj);
+						});
+						return res;
+					});
 				}
 			};
 
 			var fetch = function(url, params) {
-				return server[url](params).then(function(resp) {
-					return resp.data;
-				});
+				return server[url](params);
 			};
 
 			return fetch;

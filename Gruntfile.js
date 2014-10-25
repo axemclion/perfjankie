@@ -11,7 +11,8 @@ module.exports = function(grunt) {
 		'plugins/jqplot.canvasTextRenderer.min.js',
 		'plugins/jqplot.canvasAxisTickRenderer.min.js',
 		'plugins/jqplot.canvasAxisLabelRenderer.min.js',
-		'plugins/jqplot.trendline.min.js'
+		'plugins/jqplot.trendline.min.js',
+		'plugins/jqplot.pieRenderer.min.js'
 	];
 
 	grunt.initConfig({

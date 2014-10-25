@@ -1,0 +1,24 @@
+<div class="row callouts">
+	<div class="col-md-3 col-sm-6" ng-repeat="tile in tiles">
+		<div class="panel" ng-class="'panel-' + $index">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<span class = "icon icon-movie"></span>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div class="huge">{{tile.value | formatMetricValue: tile.unit}}</div>
+						<div class="unit">{{tile.unit}}</div>
+					</div>
+				</div>
+			</div>
+			<a href="#">
+				<div class="panel-footer">
+					<span class="pull-left">{{tile.metric |formatMetric}}</span>
+					<span class="pull-right">&raquo;</span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>

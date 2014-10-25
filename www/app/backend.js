@@ -4,7 +4,20 @@ angular
 		function(resource) {
 			return {
 				pagelist: function() {
-					return resource('/pagelist')
+					return resource('/pagelist');
+				},
+				runList: function(opts) {
+					return resource('/runList', {
+						browser: opts.browser,
+						pagename: opts.pagename
+					});
+				},
+				runData: function(opts) {
+					return resource('/runData', {
+						browser: opts.browser,
+						pagename: opts.pagename,
+						time: opts.time
+					});
 				},
 				getAllMetrics: function() {
 					return resource('/all-metrics');
@@ -15,12 +28,6 @@ angular
 						pagename: opts.pagename,
 						metric: opts.metric,
 						limit: opts.limit
-					});
-				},
-				summary: function(opts) {
-					return resource('/summary', {
-						browser: opts.browser,
-						pagename: opts.pagename
 					});
 				}
 			};

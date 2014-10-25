@@ -26,7 +26,14 @@
 			</label>
 		</div>
 	</div>
-	<div class="graph clearfix">
-		<metrics-detail-graph data="metric.data" unit="metric.unit"></metrics-detail-graph>
-	</div>
+	<pj-metrics-details-graph class="clearfix graph" style="height:{{metric.height}}px" data="metric.data" unit="metric.unit">
+		<span class="graph-error">
+			<h1>
+				{{data}}
+				<span class="icon-attention"></span>
+				Error
+			</h1>
+			Could not plot graph due to error in data
+		</span>
+	</pj-metrics-details-graph>
 </div>

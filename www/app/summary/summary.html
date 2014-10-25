@@ -8,30 +8,7 @@
 			<a class="btn btn-xs btn-primary" href="#/page-select" title="Select a different page or browser">change</a>
 		</small>
 	</h1>
-	<div class="row callouts">
-		<div class="col-md-3 col-sm-6" ng-repeat="tile in summary.tiles">
-			<div class="panel" ng-class="'panel-' + $index">
-				<div class="panel-heading">
-					<div class="row">
-						<div class="col-xs-3">
-							<span class = "icon icon-movie"></span>
-						</div>
-						<div class="col-xs-9 text-right">
-							<div class="huge">{{tile.value | formatMetricValue: tile.unit}}</div>
-							<div class="unit">{{tile.unit}}</div>
-						</div>
-					</div>
-				</div>
-				<a href="#">
-					<div class="panel-footer">
-						<span class="pull-left">{{tile.metric |formatMetric}}</span>
-						<span class="pull-right">&raquo;</span>
-						<div class="clearfix"></div>
-					</div>
-				</a>
-			</div>
-		</div>
-	</div>
+	<pj-summary-tiles data="summary.data"></pj-summary-tiles>
 	<div class="row">
 		<div class="col-lg-7 col-sm-12">
 			<div class="panel panel-default">
@@ -40,26 +17,36 @@
 					<!-- TODO Waterfall chart for network -->
 				</div>
 			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">Paint Cycle</div>
+				<div class="panel-body">
+					<pj-paint-cycle-graph data="summary.data">
+						<span class="graph-error">
+							<h1>
+								{{data}}
+								<span class="icon-attention"></span>
+								Error
+							</h1>
+							Could not plot graph due to error in data
+						</span>
+					</pj-paint-cycle-graph>
+				</div>
+			</div>
 		</div>
 		<div class="col-lg-5 col-sm-12">
-			<ul class="list-group">
-				<li class="list-group-item">
-					Page tested
-					<span class="pull-right"> <em>{{summary.meta.url || 'unknown'}}</em>
-					</span>
-				</li>
-				<li class="list-group-item">
-					Last tested time
-					<span class="pull-right"> <em>{{summary.time || 'unknown'}}</em>
-					</span>
-				</li>
-				<li class="list-group-item">
-					Last tested tag
-					<span class="pull-right"> <em>{{summary.run || 'unknown'}}</em>
-					</span>
-				</li>
-			</ul>
+			<div class="panel panel-default">
+				<div class="panel-heading">Runs</div>
+				<div class="panel-body">
+					<ul class="list-group">
+						<li class="list-group-item" ng-repeat="run in summary.runList">
+							<a ng-href="#/summary?pagename={{run.pagename}}&browser={{run.browser}}&time={{run.time}}">
+								{{run.run}} [{{run.time}}]
+								<span class="badge pull-right" title="Number of commits/deploys">{{run.runCount}}</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
-	<!-- TODO Pie chart for paints, layout, compsite and JS-->
 </div>

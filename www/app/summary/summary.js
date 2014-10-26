@@ -1,5 +1,5 @@
 angular
-	.module('summary', ['ngRoute', 'paintCycleGraph', 'summaryTiles', 'Backend'])
+	.module('summary', ['ngRoute', 'paintCycleGraph', 'summaryTiles', 'networkTiming', 'Backend'])
 	.config(['$routeProvider',
 		function($routeProvider) {
 			$routeProvider.when('/summary', {

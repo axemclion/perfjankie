@@ -26,7 +26,7 @@ angular
 								tiles.push({
 									metric: metric,
 									unit: metricsList[metric].unit,
-									value: val[metric].value.sum / val[metric].value.count
+									value: val[metric].sum / val[metric].count
 								});
 							}
 						});
@@ -42,7 +42,7 @@ angular
 					data: "="
 				},
 				link: link,
-				templateUrl: 'app/summary/tiles.html'
+				templateUrl: 'app/summary/tiles.tpl.html'
 			};
 		}
 	]);

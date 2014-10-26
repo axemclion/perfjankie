@@ -58,7 +58,7 @@ angular
 						var res = {};
 						angular.forEach(resp.data.rows, function(row) {
 							var obj = rowsToObj(row, ['browser', 'pagename', 'time', 'run', 'metric'], 'value');
-							res[obj.metric] = obj;
+							res[obj.metric] = obj.value;
 						});
 						return res;
 					});

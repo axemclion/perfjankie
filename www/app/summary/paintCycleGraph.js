@@ -7,7 +7,7 @@ angular
 			// TODO - pickout loading, scripting, rendering, paint
 			var paints = [];
 			angular.forEach(['Layout', 'CompositeLayers', 'Paint', 'RecalculateStyles'], function(key) {
-				paints.push([key, data[key].value.sum]);
+				paints.push([key, data[key].sum]);
 			});
 			return paints;
 		}

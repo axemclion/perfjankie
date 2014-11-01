@@ -7,11 +7,10 @@ var dbInit = require('../lib/init.js');
 
 module.exports = function migrate(data, targetDbName) {
 	var config = require('../lib/options')(data);
-
 	var server = nano(config.couch.server);
 	var currentDb = server.use(config.couch.database);
 
-
+	config.couch.updateSite = true;
 	config.couch.oldDb = config.couch.database;
 	config.couch.database = targetDbName;
 

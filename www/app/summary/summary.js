@@ -35,6 +35,7 @@ angular
 	])
 	.controller('SummaryCtrl', ['$routeParams', 'summary',
 		function($routeParams, summary) {
+			this.time = parseFloat($routeParams.time, 10);
 			this.runList = summary.runList;
 			this.data = summary.data;
 		}

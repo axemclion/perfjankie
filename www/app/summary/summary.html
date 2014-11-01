@@ -37,14 +37,12 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Runs</div>
 				<div class="panel-body">
-					<ul class="list-group">
-						<li class="list-group-item" ng-repeat="run in summary.runList">
-							<a ng-href="#/summary?pagename={{run.pagename}}&browser={{run.browser}}&time={{run.time}}">
-								{{run.run}} [{{run.time}}]
-								<span class="badge pull-right" title="Number of commits/deploys">{{run.runCount}}</span>
-							</a>
-						</li>
-					</ul>
+					<div class="list-group">
+						<a class="list-group-item" ng-repeat="run in summary.runList" ng-class="{active:run.time===summary.time}" ng-href="#/summary?pagename={{run.pagename}}&browser={{run.browser}}&time={{run.time}}">
+							{{run.run}} [{{run.time}}]
+							<span class="badge pull-right" title="Number of commits/deploys">{{run.runCount}}</span>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>

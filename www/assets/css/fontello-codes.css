@@ -8,6 +8,7 @@
 .icon-signal:before { content: '\e805'; } /* '' */
 .icon-file-code:before { content: '\e806'; } /* '' */
 .icon-github:before { content: '\e807'; } /* '' */
+.icon-flow-tree:before { content: '\e808'; } /* '' */
 .icon-database:before { content: '\e809'; } /* '' */
 .icon-gauge:before { content: '\e80a'; } /* '' */
 .icon-cog-alt:before { content: '\e80b'; } /* '' */
@@ -17,6 +18,7 @@
 .icon-cog:before { content: '\e80f'; } /* '' */
 .icon-code:before { content: '\e810'; } /* '' */
 .icon-attention:before { content: '\e811'; } /* '' */
+.icon-flag:before { content: '\e812'; } /* '' */
 .icon-layers:before { content: '\e813'; } /* '' */
 .icon-calendar:before { content: '\e814'; } /* '' */
 .icon-movie:before { content: '\e815'; } /* '' */

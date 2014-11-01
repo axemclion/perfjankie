@@ -113,9 +113,21 @@
       "src": "fontawesome"
     },
     {
+      "uid": "1d2a6c3d9236b88b0f185c7c4530fa52",
+      "css": "flag",
+      "code": 59410,
+      "src": "entypo"
+    },
+    {
       "uid": "84a7262985600b683bbab0da9298776d",
       "css": "signal",
       "code": 59397,
+      "src": "entypo"
+    },
+    {
+      "uid": "8a1d446e5555e76f82ddb1c8b526f579",
+      "css": "flow-tree",
+      "code": 59400,
       "src": "entypo"
     },
     {

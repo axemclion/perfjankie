@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 		var apiDocs = new browserPerf.docs();
 		var regex = /(_avg|_max|_count)$/;
 		var doc = {
-			fps: {
+			frames_per_sec: {
 				type: 'total',
 				tags: ['Frames'],
 				unit: 'fps',

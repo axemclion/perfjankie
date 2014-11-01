@@ -36,7 +36,7 @@ angular
 		function($filter) {
 			return function(value, unit) {
 				var fraction = 0;
-				if (unit === 'ms') {
+				if (unit === 'ms' || unit === 'fps') {
 					fraction = 2;
 				}
 				if (value > 1000) {

@@ -14,24 +14,41 @@ angular
 				}
 			}
 
-			var link = function(scope, element, attrs) {
-				scope.$watch('data', function(val) {
-					if (!val) {
-						return;
+			var getFramesPerSec = function(val, metrics) {
+				var mft;
+				// Iterate over each candidate to calculate FPS
+				for (var i = 0; i < metrics.length; i++) {
+					if (val[metrics[i]]) {
+						mft = val[metrics[i]].sum / val[metrics[i]].count;
 					}
-					var tiles = [];
-					metricsList().then(function(metricsList) {
-						angular.forEach(['framesPerSec', 'firstPaint', 'ExpensivePaints', 'NodePerLayout_avg', 'ExpensiveEventHandlers', ], function(metric) {
-							if (typeof val[metric] === 'object') {
-								tiles.push({
-									metric: metric,
-									unit: metricsList[metric].unit,
-									value: val[metric].sum / val[metric].count
-								});
-							}
-						});
-						scope.tiles = tiles.slice(0, 4);
+					if (mft >= 10 && mft <= 60) {
+						break
+					} else {
+						delete mft;
+					}
+				}
+				if (mft) {
+					return {
+						sum: 1000 / mft,
+						count: 1
+					}
+				}
+			};
+
+			var prepareData = function(val) {
+				var tiles = [];
+				val.frames_per_sec = getFramesPerSec(val, ['mean_frame_time', 'meanFrameTime']);
+				return metricsList().then(function(metricsList) {
+					angular.forEach(['frames_per_sec', 'firstPaint', 'ExpensivePaints', 'NodePerLayout_avg', 'ExpensiveEventHandlers', ], function(metric) {
+						if (typeof val[metric] === 'object') {
+							tiles.push({
+								metric: metric,
+								unit: metricsList[metric].unit,
+								value: val[metric].sum / val[metric].count
+							});
+						}
 					});
+					return tiles;
 				});
 			};
 
@@ -41,7 +58,16 @@ angular
 				scope: {
 					data: "="
 				},
-				link: link,
+				link: function(scope, element, attrs) {
+					scope.$watch('data', function(val) {
+						if (!val) {
+							return;
+						}
+						prepareData(val).then(function(res) {
+							scope.tiles = res.slice(0, 4);
+						});
+					});
+				},
 				templateUrl: 'app/summary/tiles.tpl.html'
 			};
 		}

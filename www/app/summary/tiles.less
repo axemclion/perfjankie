@@ -1,45 +1,57 @@
 .tiles {
-		.panel {
-			&.panel-0 {
-				background: #428bca;
-				border-color: #428bca;
-				a {
-					color: #2a6496;
-				}
+	.panel {
+		&.panel-0 {
+			background: #428bca;
+			border-color: #428bca;
+			a {
+				color: #2a6496;
 			}
-			&.panel-1 {
-				background: #5cb85c;
-				border-color: #5cb85c;
-				a {
-					color: #5cb85c;
-				}
+		}
+		&.panel-1 {
+			background: #5cb85c;
+			border-color: #5cb85c;
+			a {
+				color: #5cb85c;
 			}
-			&.panel-2 {
-				background: #f0ad4e;
-				border-color: #f0ad4e;
-				a {
-					color: #f0ad4e;
-				}
+		}
+		&.panel-2 {
+			background: #f0ad4e;
+			border-color: #f0ad4e;
+			a {
+				color: #f0ad4e;
 			}
-			&.panel-3 {
-				background: #d9534f;
-				border-color: #d9534f;
-				a {
-					color: #d9534f;
-				}
+		}
+		&.panel-3 {
+			background: #d9534f;
+			border-color: #d9534f;
+			a {
+				color: #d9534f;
 			}
-			.panel-heading {
-				color: white;
-				.huge {
-					font-size: 3em;
+		}
+		.panel-heading {
+			color: white;
+			.huge {
+				font-size: 3em;
+			}
+			.unit {
+				margin-top: -3px;
+			}
+			.icon {
+				margin-left: -10px;
+				font-size: 4em;
+				&.icon-frames_per_sec:before {
+					content: '\e815';
 				}
-				.unit{
-					margin-top: -3px;
+				&.icon-ExpensivePaints:before{
+					content: '\e804';
 				}
-				.icon{
-					margin-left: -10px;
-					font-size: 4em;
+				&.icon-ExpensiveEventHandlers:before{
+					content: '\e80b';
+				}
+				&.icon-NodePerLayout_avg:before{
+					content: '\e808';
 				}
 			}
 		}
 	}
+}

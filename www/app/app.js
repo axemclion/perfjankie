@@ -7,8 +7,8 @@ angular
 			});
 		}
 	])
-	.controller('MainPageCtrl', ['$scope', '$routeParams',
-		function($scope, $routeParams) {
+	.controller('MainPageCtrl', ['$scope', '$location', '$routeParams',
+		function($scope, $location, $routeParams) {
 			$scope.$on('$routeChangeSuccess', function(scope, next, current) {
 				$scope.pagename = $routeParams.pagename;
 				$scope.browser = $routeParams.browser;
@@ -20,8 +20,14 @@ angular
 			});
 
 			$scope.$on('$routeChangeError', function(a, b, c, err) {
+				$scope.pageError = true;
 				$scope.pageLoading = false;
 			});
+
+			$scope.goHome = function() {
+				$location.url('/page-select');
+				document.location.reload();
+			};
 		}
 	])
 	.filter('formatMetric', function() {

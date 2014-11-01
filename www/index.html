@@ -27,11 +27,29 @@
 	<div class="container-fluid content-container">
 		<div class="row">
 			<div class="col-md-10 col-md-offset-2">
-				<div class="content" ng-view ng-hide="pageLoadingError"></div>
+				<div class="content" ng-view ng-hide="pageError"></div>
+				<div class="content" ng-show="pageError">
+					<div class="jumbotron error">
+						<h2>
+							<span class="icon icon-attention"></span>
+							Error loading page
+						</h2>
+						<p class="lead">
+							An error occured when trying to load this page.
+							<br/>
+							Please
+							<a onclick="document.location.reload()">refresh</a>
+							this page, 
+							or go back to the
+							<a ng-click="goHome()">home page</a>
+							.
+						</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	<!-- TODO Add ERROR when views don't load-->
+
 	<div class="page-loading" ng-show="pageLoading">
 		<div class="spin-container">
 			<span class="icon-spin5 animate-spin"></span>
@@ -59,5 +77,7 @@
 	<% _.each(scripts, function(script){ %>
 	<script type="text/javascript" src="<%= script%>"></script>
 	<% }); %>
-	/build --></body>
+	/build -->
+	<!-- -->
+</body>
 </html>

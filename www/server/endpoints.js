@@ -1,3 +1,7 @@
+if (typeof window.DB_BASE !== 'string') {
+	window.DB_BASE = '..';
+}
+
 angular
 	.module('Endpoints', [])
 	.factory('Resource', ['$http', '$q',
@@ -13,7 +17,7 @@ angular
 
 			var server = {
 				'/pagelist': function() {
-					return $http.get('../pagelist/_view/pages?group=true').then(function(resp) {
+					return $http.get(DB_BASE + '/pagelist/_view/pages?group=true').then(function(resp) {
 						var result = {};
 						angular.forEach(resp.data.rows, function(row) {
 							var res = rowsToObj(row, ['suite', 'pagename', 'browser'], 'runCount');
@@ -31,7 +35,7 @@ angular
 					return $q.when(window.METRICS_LIST);
 				},
 				'/runList': function(opts) {
-					return $http.get('../runs/_view/list', {
+					return $http.get(DB_BASE + '/runs/_view/list', {
 						params: {
 							endkey: JSON.stringify([opts.browser, opts.pagename, null]),
 							startkey: JSON.stringify([opts.browser, opts.pagename, {}]),
@@ -48,7 +52,7 @@ angular
 				},
 				'/runData': function(opts) {
 					opts.time = parseInt(opts.time, 10);
-					return $http.get('../runs/_view/data', {
+					return $http.get(DB_BASE + '/runs/_view/data', {
 						params: {
 							startkey: JSON.stringify([opts.browser, opts.pagename, opts.time, null]),
 							endkey: JSON.stringify([opts.browser, opts.pagename, opts.time, {}]),
@@ -75,7 +79,7 @@ angular
 					if (!isNaN(limit)) {
 						config.params.limit = limit;
 					}
-					return $http.get('../metrics_data/_view/stats', config).then(function(resp) {
+					return $http.get(DB_BASE + '/metrics_data/_view/stats', config).then(function(resp) {
 						var res = [];
 						angular.forEach(resp.data.rows, function(obj, index) {
 							obj.label = obj.key[4];

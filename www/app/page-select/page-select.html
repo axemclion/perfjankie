@@ -17,7 +17,7 @@
 						</div>
 						<ul class="list-group">
 							<li class="list-group-item" ng-repeat="val in browsers">
-								<a ng-href="#/summary?pagename={{page}}&browser={{val.browser}}">
+								<a ng-href="#/summary/{{page}}/{{val.browser}}">
 									<span class="icon-{{val.browser}}"></span>
 									{{val.browser}}
 									<span class="badge pull-right" title="Number of commits/deploys">{{val.runCount}}</span>

@@ -12,7 +12,7 @@ angular
 						return _metricsList = result;
 					});
 				}
-			}
+			};
 
 			var getFramesPerSec = function(val, metrics) {
 				var mft;
@@ -22,16 +22,16 @@ angular
 						mft = val[metrics[i]].sum / val[metrics[i]].count;
 					}
 					if (mft >= 10 && mft <= 60) {
-						break
+						break;
 					} else {
-						delete mft;
+						mft = null;
 					}
 				}
 				if (mft) {
 					return {
 						sum: 1000 / mft,
 						count: 1
-					}
+					};
 				}
 			};
 

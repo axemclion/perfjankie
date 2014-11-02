@@ -6,14 +6,12 @@
   "scripts": {
     "test": "grunt test"
   },
-  "author": "Parashuram <code@r.nparashuram.com>",
+  "author": "Parashuram <code@nparashuram.com>",
   "license": "BSD-2-Clause",
   "dependencies": {
     "browser-perf": "^1.0.2",
     "commander": "~2.3.0",
     "glob": "~4.0.6",
-    "grunt-autoprefixer": "^1.0.1",
-    "less": "^1.7.5",
     "nano": "~5.11.2",
     "q": "~1.0.1",
     "sauce-tunnel": "^2.1.0",
@@ -24,6 +22,7 @@
     "chai": "~1.9.1",
     "chai-as-promised": "^4.1.1",
     "grunt": "~0.4.5",
+    "grunt-autoprefixer": "^1.0.1",
     "grunt-connect-proxy": "^0.1.11",
     "grunt-contrib-clean": "~0.6.0",
     "grunt-contrib-concat": "^0.5.0",

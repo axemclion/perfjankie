@@ -1,4 +1,4 @@
-<div class="sidebar col-md-2 nav" ng-controller="SideBarCtrl as sidebar">
+<div class="sidebar col-md-2 nav" ng-controller="SideBarCtrl as sidebar" ng-cloak>
 	<div ng-if="!pagename || !browser" class="page-select">
 		<h4>Select a page to view metrics</h4>
 		<hr/>
@@ -48,12 +48,6 @@
 						</a>
 					</li>
 				</ul>
-			</li>
-			<li>
-				<a href="#/nav-metrics?pagename={{pagename}}&browser={{browser}}">
-					<span class = "icon-signal"></span>
-					Navigation Timings
-				</a>
 			</li>
 			<li ng-show="browser==='chrome'">
 				<a ng-click="subMenu=(subMenu==='js'?'':'js')">

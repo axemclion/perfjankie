@@ -26,7 +26,7 @@ angular
 
 			$scope.goHome = function() {
 				$location.url('/page-select');
-				document.location.reload();
+				window.document.location.reload();
 			};
 		}
 	])

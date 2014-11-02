@@ -44,7 +44,8 @@ angular
 							tiles.push({
 								metric: metric,
 								unit: metricsList[metric].unit,
-								value: val[metric].sum / val[metric].count
+								value: val[metric].sum / val[metric].count,
+								link: metric === 'frames_per_sec' ? 'meanFrameTime' : metric
 							});
 						}
 					});
@@ -56,7 +57,9 @@ angular
 				restrict: 'E',
 				transclude: true,
 				scope: {
-					data: "="
+					data: "=",
+					pagename: "=",
+					browser: "="
 				},
 				link: function(scope, element, attrs) {
 					scope.$watch('data', function(val) {

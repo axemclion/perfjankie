@@ -41,5 +41,8 @@ module.exports = function migrate(data, targetDbName) {
 	}).then(function() {
 		config.log.info('Updating views');
 		return require('../lib/couchViews.js')(config);
+	}).then(function() {
+		config.log.info('Updating site');
+		return require('../lib/couchSite.js')(config);
 	});
 };

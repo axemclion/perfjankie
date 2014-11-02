@@ -33,10 +33,13 @@ angular
 			});
 		}
 	])
-	.controller('SummaryCtrl', ['$routeParams', 'summary',
-		function($routeParams, summary) {
+	.controller('SummaryCtrl', ['$routeParams', '$location', 'summary',
+		function($routeParams, $location, summary) {
 			this.time = parseFloat($routeParams.time, 10);
 			this.runList = summary.runList;
 			this.data = summary.data;
+			this.showRun = function(pagename, browser, time) {
+				$location.url(['/summary', pagename, browser, time].join('/'));
+			};
 		}
 	]);

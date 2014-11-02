@@ -12,13 +12,19 @@
 	<div class="row">
 		<div class="col-lg-7 col-sm-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">Network</div>
+				<div class="panel-heading">
+					<span class="icon-signal"></span>
+					Network
+				</div>
 				<div class="panel-body">
 					<pj-network-timing-graph class="network-timing" data="summary.data"></pj-network-timing-graph>
 				</div>
 			</div>
 			<div class="panel panel-default">
-				<div class="panel-heading">Paint Cycle</div>
+				<div class="panel-heading">
+					<span class="icon-paintbucket"></span>
+					Paint Cycle
+				</div>
 				<div class="panel-body">
 					<pj-paint-cycle-graph data="summary.data">
 						<span class="graph-error">
@@ -34,16 +40,23 @@
 			</div>
 		</div>
 		<div class="col-lg-5 col-sm-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">Runs</div>
-				<div class="panel-body">
-					<div class="list-group">
-						<a class="list-group-item" ng-repeat="run in summary.runList" ng-class="{active:run.time===summary.time}" ng-href="#/summary/{{run.pagename}}/{{run.browser}}/{{run.time}}">
-							{{run.run}} [{{run.time}}]
-							<span class="badge pull-right" title="Number of commits/deploys">{{run.runCount}}</span>
-						</a>
-					</div>
+			<div class="panel panel-default test-runs">
+				<div class="panel-heading">
+					<span class="icon-flag"></span>
+					Test runs
 				</div>
+				<table class="table table-hover table-responsive table-bordered">
+					<tr>
+						<th>Deploy Tag</th>
+						<th class="text-center">Deploy Sequence</th>
+						<th class="text-right">#times test run</th>
+					</tr>
+					<tr ng-repeat="run in summary.runList" ng-class="{info:run.time===summary.time}" ng-click="summary.showRun(run.pagename,run.browser,run.time)">
+						<td>{{run.run}}</td>
+						<td class="text-center">{{run.time}}</td>
+						<td class="text-right">{{run.runCount}}</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>

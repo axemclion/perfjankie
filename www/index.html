@@ -15,7 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="main.css" />
 </head>
 
-<body ng-controller="MainPageCtrl">
+<body ng-controller="MainPageCtrl" ng-class="{'no-pj-brand': noPjBrand}">
 	<!-- build:include:dist app/main-page/navbar.html -->
 	<div ng-include="'app/main-page/navbar.html'"></div>
 	<!-- /build -->

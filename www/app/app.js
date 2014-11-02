@@ -28,6 +28,10 @@ angular
 				$location.url('/page-select');
 				window.document.location.reload();
 			};
+
+			if (window.location !== window.top.location) {
+				$scope.noPjBrand = true;
+			}
 		}
 	])
 	.filter('formatMetric', function() {

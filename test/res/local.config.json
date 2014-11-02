@@ -12,6 +12,6 @@
 		"server": "http://localhost:5984",
 		"username": "admin_user",
 		"pwd": "admin_pass",
-		"database": "perfslides"
+		"database": "perfjankie-test"
 	}
 }

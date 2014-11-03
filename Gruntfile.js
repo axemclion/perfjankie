@@ -212,7 +212,10 @@ module.exports = function(grunt) {
 				src: ['test/**/*.spec.js'],
 			}
 		},
-		clean: ['site', 'test.log']
+		clean: {
+			all: ['site', 'test.log'],
+			dist: ['site/jqplot.js', 'site/main.less', 'site/metrics.js']
+		}
 	});
 
 	require('load-grunt-tasks')(grunt);
@@ -234,7 +237,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('test', ['clean', 'mochaTest']);
 	grunt.registerTask('dev', ['metricsgen', 'concat:less', 'less:dev', 'autoprefixer', 'processhtml:dev', 'configureProxies:server', 'connect:dev', 'watch']);
 
-	grunt.registerTask('dist', ['jshint', 'concat', 'metricsgen', 'uglify', 'less:dist', 'autoprefixer', 'copy', 'processhtml:dist', 'htmlmin']);
+	grunt.registerTask('dist', ['jshint', 'concat', 'metricsgen', 'uglify', 'less:dist', 'autoprefixer', 'copy', 'processhtml:dist', 'htmlmin', 'clean:dist']);
 
 	grunt.registerTask('default', ['dev']);
 };

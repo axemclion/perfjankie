@@ -7,6 +7,9 @@
     "test": "grunt test",
     "prepublish": "grunt clean dist"
   },
+  "bin": {
+    "perfjankie": "lib/cli.js"
+  },
   "author": "Parashuram <code@nparashuram.com>",
   "license": "BSD-2-Clause",
   "dependencies": {

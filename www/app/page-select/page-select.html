@@ -4,7 +4,7 @@
 	<ul class="suites list-unstyled">
 		<li ng-repeat="(suite, pages) in pageselect.pagelist">
 			<h3>
-				<span class="fa fa-folder-open"></span>
+				<span class="icon-folder-open"></span>
 				{{suite}}
 			</h3>
 			<div class="row">
@@ -17,7 +17,7 @@
 						</div>
 						<ul class="list-group">
 							<li class="list-group-item" ng-repeat="val in browsers">
-								<a ng-href="#/summary/{{page}}/{{val.browser}}">
+								<a ng-href="#/summary?pagename={{page}}&browser={{val.browser}}">
 									<span class="icon-{{val.browser}}"></span>
 									{{val.browser}}
 									<span class="badge pull-right" title="Number of commits/deploys">{{val.runCount}}</span>

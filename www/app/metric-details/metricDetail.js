@@ -2,7 +2,7 @@ angular
 	.module('metricdetail', ['ngRoute', 'metricsGraphDetails', 'Backend'])
 	.config(['$routeProvider',
 		function($routeProvider) {
-			$routeProvider.when('/detail/:pagename/:browser/:metric', {
+			$routeProvider.when('/detail', {
 				templateUrl: 'app/metric-details/metric-detail.html',
 				controller: 'MetricDetailCtrl',
 				controllerAs: 'metric',

@@ -2,7 +2,7 @@ angular
 	.module('summary', ['ngRoute', 'paintCycleGraph', 'summaryTiles', 'networkTiming', 'Backend'])
 	.config(['$routeProvider',
 		function($routeProvider) {
-			$routeProvider.when('/summary/:pagename/:browser/:time?', {
+			$routeProvider.when('/summary', {
 				templateUrl: 'app/summary/summary.html',
 				controller: 'SummaryCtrl',
 				controllerAs: 'summary',

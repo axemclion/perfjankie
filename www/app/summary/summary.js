@@ -39,7 +39,7 @@ angular
 			this.runList = summary.runList;
 			this.data = summary.data;
 			this.showRun = function(pagename, browser, time) {
-				$location.url(['/summary', pagename, browser, time].join('/'));
+				$location.url(['/summary?pagename=', pagename, '&browser=', browser, '&time=', time].join(''));
 			};
 		}
 	]);

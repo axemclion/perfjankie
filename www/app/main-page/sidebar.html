@@ -26,7 +26,7 @@
 				</a>
 				<ul class="nav sub-menu" ng-show="subMenu==='paint'">
 					<li ng-repeat="metric in sidebar.categories.paint">
-						<a ng-href="#/detail/{{pagename}}/{{browser}}/{{metric}}">
+						<a ng-href="#/detail?pagename={{pagename}}&browser={{browser}}&metric={{metric}}">
 							<span class="icon-paintbucket"></span>
 							{{metric | formatMetric}}
 						</a>
@@ -42,7 +42,7 @@
 				</a>
 				<ul class="nav sub-menu" ng-show="subMenu==='content'">
 					<li ng-repeat="metric in sidebar.categories.content">
-						<a ng-href="#/detail/{{pagename}}/{{browser}}/{{metric}}">
+						<a ng-href="#/detail?pagename={{pagename}}&browser={{browser}}&metric={{metric}}">
 							<span class="icon-file-code"></span>
 							{{metric | formatMetric}}
 						</a>
@@ -58,7 +58,7 @@
 				</a>
 				<ul class="nav sub-menu" ng-show="subMenu==='js'">
 					<li ng-repeat="metric in sidebar.categories.js">
-						<a ng-href="#/detail/{{pagename}}/{{browser}}/{{metric}}">
+						<a ng-href="#/detail?pagename={{pagename}}&browser={{browser}}&metric={{metric}}">
 							<span class="icon-cog"></span>
 							{{metric | formatMetric}}
 						</a>

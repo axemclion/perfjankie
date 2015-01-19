@@ -31,7 +31,7 @@ module.exports = function(grunt) {
 
 		metricsgen: {
 			files: {
-				dest: 'site/metrics.js'
+				dest: 'bin-site/metrics.js'
 			}
 		},
 
@@ -39,11 +39,11 @@ module.exports = function(grunt) {
 			options: {
 				mangle: false,
 				sourceMap: true,
-				sourceMapName: 'site/main.js.map',
+				sourceMapName: 'bin-site/main.js.map',
 			},
 			js: {
 				files: {
-					'site/main.js': ['www/**/*.js', 'site/**/*.js']
+					'bin-site/main.js': ['www/**/*.js', 'bin-site/**/*.js']
 				}
 			}
 		},
@@ -53,18 +53,18 @@ module.exports = function(grunt) {
 				src: jqplot.map(function(file) {
 					return 'bower_components/jqplot-bower/dist/' + file;
 				}),
-				dest: 'site/jqplot.js'
+				dest: 'bin-site/jqplot.js'
 			},
 			less: {
 				src: ['bower_components/jqplot-bower/dist/jquery.jqplot.min.css', 'www/app/**/*.less', 'www/assets/css/*.css'],
-				dest: 'site/main.less'
+				dest: 'bin-site/main.less'
 			}
 		},
 
 		less: {
 			dev: {
 				files: {
-					'site/main.css': 'site/main.less'
+					'bin-site/main.css': 'bin-site/main.less'
 				}
 			},
 			dist: {
@@ -72,15 +72,15 @@ module.exports = function(grunt) {
 					compress: true
 				},
 				files: {
-					'site/main.css': 'site/main.less'
+					'bin-site/main.css': 'bin-site/main.less'
 				}
 			}
 		},
 
 		autoprefixer: {
 			less: {
-				src: 'site/main.css',
-				dest: 'site/main.css'
+				src: 'bin-site/main.css',
+				dest: 'bin-site/main.css'
 			}
 		},
 
@@ -89,17 +89,17 @@ module.exports = function(grunt) {
 				expand: true,
 				cwd: 'www/app',
 				src: ['**/*.html'],
-				dest: 'site/app'
+				dest: 'bin-site/app'
 			},
 			fonts: {
 				expand: true,
 				cwd: 'www/assets',
 				src: ['fonts/*.*'],
-				dest: 'site/assets'
+				dest: 'bin-site/assets'
 			},
 			endpoints: {
 				src: ['www/server/endpoints.js'],
-				dest: 'site/server/endpoints.js'
+				dest: 'bin-site/server/endpoints.js'
 			}
 		},
 
@@ -116,7 +116,7 @@ module.exports = function(grunt) {
 					}
 				},
 				files: {
-					'site/index.html': 'www/index.html'
+					'bin-site/index.html': 'www/index.html'
 				}
 			},
 			dist: {
@@ -126,7 +126,7 @@ module.exports = function(grunt) {
 					}
 				},
 				files: {
-					'site/index.html': 'www/index.html'
+					'bin-site/index.html': 'www/index.html'
 				}
 			}
 		},
@@ -139,7 +139,7 @@ module.exports = function(grunt) {
 					collapseBooleanAttributes: true
 				},
 				files: {
-					'site/index.html': 'site/index.html'
+					'bin-site/index.html': 'bin-site/index.html'
 				}
 			},
 		},
@@ -164,7 +164,7 @@ module.exports = function(grunt) {
 				options: {
 					hostname: '*',
 					port: 9000,
-					base: ['test/res', 'bower_components', 'site', 'www'],
+					base: ['test/res', 'bower_components', 'bin-site', 'www'],
 					livereload: true,
 					middleware: function(connect, options) {
 						var middlewares = [];
@@ -213,8 +213,8 @@ module.exports = function(grunt) {
 			}
 		},
 		clean: {
-			all: ['site', 'test.log'],
-			dist: ['site/jqplot.js', 'site/main.less', 'site/metrics.js']
+			all: ['bin-site', 'test.log'],
+			dist: ['bin-site/jqplot.js', 'bin-site/main.less', 'bin-site/metrics.js']
 		}
 	});
 

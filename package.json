@@ -1,6 +1,6 @@
 {
   "name": "perfjankie",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Browser Performance regression suite",
   "main": "lib/index.js",
   "scripts": {

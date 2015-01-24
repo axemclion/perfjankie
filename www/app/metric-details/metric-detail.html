@@ -1,6 +1,10 @@
 <div class="page metric-detail">
 	<h1 class = "page-header" ng-cloak>
 		{{metric.name | formatMetric}}
+		<a class="metric-help" title="{{metric.summary}}" ng-click="showHelp=!showHelp">
+			<span ng-hide="showHelp">?</span>
+			<span ng-show="showHelp">-</span>
+		</a>
 		<small class="page-details pull-right">
 			{{pagename}} (
 			<span title="{{browser}}" class="icon-{{browser}}"></span>
@@ -8,6 +12,23 @@
 			<a class="btn btn-xs btn-primary" href="#/page-select" title="Select a different page or browser">change</a>
 		</small>
 	</h1>
+	<div class="explanation" ng-show="showHelp">
+		<p class="metric-summary"> <em>Details:</em>
+			{{metric.metadata.summary}}
+			<br/> <em>Unit:</em>
+			{{metric.metadata.unit}}
+			|
+			<em>Source:</em>
+			{{metric.metadata.source}}
+			|
+			<em>Supported Browsers:</em>
+			<span ng-repeat="browser in metric.metadata.browsers">
+				{{browser}}
+				<span ng-if="!$last">,</span>
+			</span>
+		</p>
+		<p class="metric-details">{{metric.metadata.details}}</p>
+	</div>
 	<div class="graph-modifiers" ng-cloaak>
 		<div ng-show="1 < metric.stats.length " class="pull-left"> <strong>Stat Type :</strong>
 			<label class="radio-inline">
@@ -26,7 +47,7 @@
 			</label>
 		</div>
 	</div>
-	<pj-metrics-details-graph class="clearfix graph" style="height:{{metric.height}}px" data="metric.data" unit="metric.unit">
+	<pj-metrics-details-graph class="clearfix graph" style="height:{{metric.height}}px" data="metric.data" unit="metric.metadata.unit">
 		<span class="graph-error">
 			<h1>
 				{{data}}
@@ -36,5 +57,4 @@
 			Could not plot graph due to error in data
 		</span>
 	</pj-metrics-details-graph>
-	<!-- TODO Add description about metrics-->
 </div>

@@ -34,11 +34,7 @@ angular
 		function($routeParams, $scope, $location, data, metricsList) {
 			this.name = $routeParams.metric;
 			this.data = data;
-			var metric = metricsList[this.name];
-			if (metric) {
-				this.unit = metric.unit;
-				this.stats = metric.stats;
-			}
+			this.metadata = metricsList[this.name];
 
 			$scope.modifier = {
 				limit: $routeParams.limit,

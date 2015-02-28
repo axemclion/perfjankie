@@ -234,10 +234,9 @@ module.exports = function(grunt) {
 		});
 	});
 
-	grunt.registerTask('test', ['clean', 'mochaTest']);
 	grunt.registerTask('dev', ['metricsgen', 'concat:less', 'less:dev', 'autoprefixer', 'processhtml:dev', 'configureProxies:server', 'connect:dev', 'watch']);
-
 	grunt.registerTask('dist', ['jshint', 'concat', 'metricsgen', 'uglify', 'less:dist', 'autoprefixer', 'copy', 'processhtml:dist', 'htmlmin', 'clean:dist']);
+	grunt.registerTask('test', ['clean', 'dist', 'mochaTest']);
 
 	grunt.registerTask('default', ['dev']);
 };

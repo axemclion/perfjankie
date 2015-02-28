@@ -1,6 +1,6 @@
 {
   "name": "perfjankie",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Browser Performance regression suite",
   "main": "lib/index.js",
   "scripts": {
@@ -13,10 +13,10 @@
   "author": "Parashuram <code@nparashuram.com>",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "browser-perf": "^1.2.2",
+    "browser-perf": "^1.2.3",
     "commander": "~2.6.0",
-    "glob": "~4.4.0",
-    "nano": "~6.0.2",
+    "glob": "~4.4.1",
+    "nano": "~6.1.2",
     "q": "~1.2.0",
     "sauce-tunnel": "^2.2.2",
     "semver": "^4.3.1"

@@ -70,9 +70,10 @@ angular
 				'/metrics-data': function(opts) {
 					var config = {
 						params: {
-							startkey: JSON.stringify([opts.browser, opts.pagename, opts.metric, null]),
-							endkey: JSON.stringify([opts.browser, opts.pagename, opts.metric, {}]),
-							group: true
+							endkey: JSON.stringify([opts.browser, opts.pagename, opts.metric, null]),
+							startkey: JSON.stringify([opts.browser, opts.pagename, opts.metric, {}]),
+							group: true,
+							descending: true
 						}
 					};
 					var limit = parseInt(opts.limit, 10);

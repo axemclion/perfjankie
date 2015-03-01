@@ -114,7 +114,17 @@ You can also host the HTML/CSS/JS for displaying the results dashboard on not on
 This will ensure that all requests for data are made to the other CouchDB server. Also ensure that the CouchDB server has CORS turned on. 
 
 ## Login before running tests
+
 You can login a user, or perform other kinds of page setup using the [preScript](https://github.com/axemclion/browser-perf/wiki/Node-Module---API#prescript) or the [preScriptFile](https://github.com/axemclion/browser-perf/wiki/Node-Module---API#prescriptfile) options. Here is an [example](https://github.com/axemclion/browser-perf/wiki/FAQ#how-can-i-test-a-page-that-requires-login) of a login action that can be passed in the preScript option. 
+
+## Migrating data from older versions 
+If you have older data and want to move to the latest release of perfjankie, you may also have to migrate your data. You can migrate from older version of a database to a newer version using 
+
+```bash
+$ perfjankie --config-file=local.config.json --migrate=newDatabaseName
+```
+
+This simply transforms all the old data into a format that will work with the newer version of perfjankie. Your version of the database is stored under a document called `version`, and the version supported by your installed version of perfjankie is the key `dbVersion` in the `package.json`
 
 ## What does it measure? 
 

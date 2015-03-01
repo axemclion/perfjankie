@@ -87,7 +87,7 @@ perfjankie({
 
 ```
 
-Note that most of these options are similar to the options passed to browser-perf. Refer to the [browser-perf options](https://github.com/axemclion/browser-perf/wiki/Node-Module---API) for a mode detailed explanation.  
+Other options that can be passed include `preScript`, `actions`, `metrics`, `preScriptFile`, etc. Note that most of these options are similar to the options passed to browser-perf. Refer to the [browser-perf options](https://github.com/axemclion/browser-perf/wiki/Node-Module---API) for a mode detailed explanation. 
 
 ### Grunt Task
 To run perfjankie as a Grunt task, simple load task using `grunt.loadNpmTasks('perfjankie');`, define a `perfjankie` task and pass in all the options from above as options to the Grunt task. [Here](https://github.com/axemclion/perfslides/blob/38b4f6e246c5ab971ce2957ec78bb701dbbc3038/Gruntfile.js#L57) is an example. 
@@ -109,10 +109,12 @@ You can also host the HTML/CSS/JS for displaying the results dashboard on not on
 
 ```html
 <script type="text/javascript">window.DB_BASE="http://couchdb.server.url/databasename/_design";</script>
-``` 
-
+```
 
 This will ensure that all requests for data are made to the other CouchDB server. Also ensure that the CouchDB server has CORS turned on. 
+
+## Login before running tests
+You can login a user, or perform other kinds of page setup using the [preScript](https://github.com/axemclion/browser-perf/wiki/Node-Module---API#prescript) or the [preScriptFile](https://github.com/axemclion/browser-perf/wiki/Node-Module---API#prescriptfile) options. Here is an [example](https://github.com/axemclion/browser-perf/wiki/FAQ#how-can-i-test-a-page-that-requires-login) of a login action that can be passed in the preScript option. 
 
 ## What does it measure? 
 

@@ -8,13 +8,13 @@ angular
 				min: [],
 				xaxis: {}
 			};
-			angular.forEach(val, function(p) {
-				var xaxis = [p.label, p.key];
+			for (var i = val.length - 1; i >= 0; i--) {
+				var p = val[i];
 				result.series.push([p.key, p.value.sum / p.value.count, p.value.min, p.value.max]);
 				result.min.push([p.key, p.value.min]);
 				result.max.push([p.key, p.value.max]);
 				result.xaxis[p.key] = p.label;
-			});
+			};
 			return result;
 		}
 

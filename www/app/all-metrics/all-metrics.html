@@ -20,7 +20,7 @@
 					<h4 class="list-group-item-heading">{{name | formatMetric}}</h4>
 					<p class="list-group-item-text">{{metric.summary}}</p>
 					<div class="pull-left browser-icons">
-						<span class="icon-{{browser}}" title="{{browser}}" ng-class="{'disabled': metric.browsers.indexOf(browser) === -1}" ng-repeat="browser in ['chrome', 'safari', 'ie', 'firefox']"></span>
+						<span class="icon-{{browser}}" title="{{browser}}" ng-class="{'disabled': metric.browsers.indexOf(browser) === -1}" ng-repeat="browser in ['chrome', 'android', 'safari', 'ie', 'firefox']"></span>
 					</div>
 					<div class="pull-right">
 						<a class="btn btn-xs btn-info" ng-href="#/detail?pagename={{pagename}}&browser={{browser}}&metric={{name}}">

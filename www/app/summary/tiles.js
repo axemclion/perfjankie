@@ -17,11 +17,20 @@ angular
 			var prepareData = function(val) {
 				var tiles = [];
 				return metricsList().then(function(metricsList) {
+					function getMetricUnit(metric) {
+						for (var i = 0; i < metricsList.length; i++) {
+							if (metric === metricsList[i].name) {
+								return metricsList[i].unit;
+							}
+							return '';
+						}
+					}
+
 					angular.forEach(['frames_per_sec', 'framesPerSec_raf', 'firstPaint', 'ExpensivePaints', 'NodePerLayout_avg', 'ExpensiveEventHandlers', ], function(metric) {
 						if (typeof val[metric] === 'object') {
 							tiles.push({
 								metric: metric,
-								unit: metricsList[metric].unit,
+								unit: getMetricUnit(metric),
 								value: val[metric].sum / val[metric].count,
 								link: metric
 							});

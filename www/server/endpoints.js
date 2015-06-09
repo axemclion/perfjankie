@@ -51,7 +51,6 @@ angular
 					});
 				},
 				'/runData': function(opts) {
-					opts.time = parseInt(opts.time, 10);
 					return $http.get(window.DB_BASE + '/runs/_view/data', {
 						params: {
 							startkey: JSON.stringify([opts.browser, opts.pagename, opts.time, null]),

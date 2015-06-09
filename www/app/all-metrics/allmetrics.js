@@ -27,12 +27,12 @@ angular
 				if (!query) {
 					return input;
 				}
-				var result = {};
+				var result = [];
 				var regex = new RegExp(query, 'i');
 				var filter = $filter('formatMetric');
-				for (var key in input) {
-					if (regex.test(filter(key))) {
-						result[key] = input[key];
+				for (var i = 0; i < input.length; i++) {
+					if (regex.test(filter(input[i].name))) {
+						result.push(input[i]);
 					}
 				}
 				return result;

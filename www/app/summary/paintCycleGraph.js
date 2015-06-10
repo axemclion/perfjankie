@@ -4,7 +4,6 @@ angular
 		var id = 'paintCycle' + Math.floor(Math.random() * 10000);
 
 		function prepareData(data) {
-			// TODO - pickout loading, scripting, rendering, paint
 			var paints = [];
 			angular.forEach(['Layout', 'CompositeLayers', 'Paint', 'RecalculateStyles'], function(key) {
 				paints.push([key, data[key].sum]);
@@ -37,7 +36,7 @@ angular
 
 		function link(scope, element, attrs) {
 			scope.$watch('data', function(val) {
-				if (val) {
+				if (val && !angular.equals(val, {})) {
 					try {
 						drawGraph(id, prepareData(val));
 					} catch (e) {

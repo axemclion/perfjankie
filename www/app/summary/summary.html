@@ -1,41 +1,27 @@
 <div class="page summary">
 	<h1 class = "page-header">
-		Summary
+		<small>Summary of</small>
+		{{pagename}}
+		<small>on {{browser}}</small>
 		<small class="page-details pull-right">
-			{{pagename}} (
-			<span title="{{browser}}" class="icon-{{browser}}"></span>
-			)
 			<a class="btn btn-xs btn-primary" href="#/page-select" title="Select a different page or browser">change</a>
 		</small>
 	</h1>
-	<pj-summary-tiles data="summary.data" pagename="pagename" browser="browser"></pj-summary-tiles>
 	<div class="row">
 		<div class="col-lg-7 col-sm-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">
-					<span class="icon-signal"></span>
-					Network
+				<div class="panel-heading clearfix">
+					<span class="icon-movie"></span>
+					Frame Rate Trend 
+					<small class="pull-right">(higher is better)</small>
 				</div>
 				<div class="panel-body">
-					<pj-network-timing-graph class="network-timing" data="summary.data"></pj-network-timing-graph>
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<span class="icon-paintbucket"></span>
-					Paint Cycle
-				</div>
-				<div class="panel-body">
-					<pj-paint-cycle-graph data="summary.data">
+					<pj-metrics-details-graph class="clearfix graph" style="height:500px" data="summary.frameRateData" unit="'frames per second'">
 						<span class="graph-error">
-							<h1>
-								{{data}}
-								<span class="icon-attention"></span>
-								Error
-							</h1>
-							Could not plot graph due to error in data
+							<span class="icon-attention"></span>
+							Could not plot graph due to insufficient data
 						</span>
-					</pj-paint-cycle-graph>
+					</pj-metrics-details-graph>
 				</div>
 			</div>
 		</div>
@@ -48,15 +34,64 @@
 				<table class="table table-hover table-responsive table-bordered">
 					<tr>
 						<th>Deploy Tag</th>
-						<th class="text-center">Deploy Sequence</th>
 						<th class="text-right">#times test run</th>
 					</tr>
 					<tr ng-repeat="run in summary.runList" ng-class="{info:run.time===summary.time}" ng-click="summary.showRun(run.pagename,run.browser,run.time)">
 						<td>{{run.run}}</td>
-						<td class="text-center">{{run.time}}</td>
 						<td class="text-right">{{run.runCount}}</td>
 					</tr>
 				</table>
+			</div>
+		</div>
+	</div>
+	<!--div class = "tiles">
+		<div class="col-md-3 col-sm-6" ng-repeat="tile in summary.tiles">
+			<div class="panel" ng-class="'panel-' + $index">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<span class = "icon" ng-class="'icon-' + tile.metric"></span>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge">{{tile.value | formatMetricValue: tile.unit}}</div>
+							<div class="unit">{{tile.unit}}</div>
+						</div>
+					</div>
+				</div>
+				<a ng-href="#/detail?pagename={{pagename}}&browser={{browser}}&metric={{tile.metric}}">
+					<div class="panel-footer">
+						<span class="pull-left">{{tile.metric | formatMetric}}</span>
+						<span class="pull-right">&raquo;</span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div-->
+	<div class="row">
+		<div class="col-lg-5 col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<span class="icon-paintbucket"></span>
+					Paint Cycle <small><em>for selected run</em></small>
+				</div>
+				<pj-paint-cycle-graph data="summary.currentRunData">
+					<span class="graph-error">
+						<span class="icon-attention"></span>
+						Could not plot graph. This could be due to insufficient data
+					</span>
+				</pj-paint-cycle-graph>
+			</div>
+		</div>
+		<div class="col-lg-7 col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<span class="icon-signal"></span>
+					Network <small><em>for selected run</em></small>
+				</div>
+				<div class="panel-body">
+					<pj-network-timing-graph class="network-timing" data="summary.currentRunData"></pj-network-timing-graph>
+				</div>
 			</div>
 		</div>
 	</div>

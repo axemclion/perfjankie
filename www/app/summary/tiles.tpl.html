@@ -1,24 +1,22 @@
-<div class="tiles row">
-	<div class="col-md-3 col-sm-6" ng-repeat="tile in tiles">
-		<div class="panel" ng-class="'panel-' + $index">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-xs-3">
-						<span class = "icon" ng-class="'icon-' + tile.metric"></span>
-					</div>
-					<div class="col-xs-9 text-right">
-						<div class="huge">{{tile.value | formatMetricValue: tile.unit}}</div>
-						<div class="unit">{{tile.unit}}</div>
-					</div>
+<div class="col-md-3 col-sm-6" ng-repeat="tile in tiles">
+	<div class="panel" ng-class="'panel-' + $index">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col-xs-3">
+					<span class = "icon" ng-class="'icon-' + tile.metric"></span>
+				</div>
+				<div class="col-xs-9 text-right">
+					<div class="huge">{{tile.value | formatMetricValue: tile.unit}}</div>
+					<div class="unit">{{tile.unit}}</div>
 				</div>
 			</div>
-			<a ng-href="#/detail?pagename={{pagename}}&browser={{browser}}&metric={{tile.metric}}">
-				<div class="panel-footer">
-					<span class="pull-left">{{tile.metric | formatMetric}}</span>
-					<span class="pull-right">&raquo;</span>
-					<div class="clearfix"></div>
-				</div>
-			</a>
 		</div>
+		<a ng-href="#/detail?pagename={{pagename}}&browser={{browser}}&metric={{tile.metric}}">
+			<div class="panel-footer">
+				<span class="pull-left">{{tile.metric | formatMetric}}</span>
+				<span class="pull-right">&raquo;</span>
+				<div class="clearfix"></div>
+			</div>
+		</a>
 	</div>
 </div>

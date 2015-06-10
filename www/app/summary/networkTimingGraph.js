@@ -74,7 +74,7 @@ angular
 
 		function link(scope, element, attrs) {
 			scope.$watch('data', function(val) {
-				if (val) {
+				if (val && !angular.equals(val, {})) {
 					drawGraph(id, prepareData(val));
 				}
 			});

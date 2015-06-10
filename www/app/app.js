@@ -1,5 +1,5 @@
 angular
-	.module('perfjankie', ['ngRoute', 'sidebar', 'pageSelect', 'summary', 'navmetrics', 'allmetrics'])
+	.module('perfjankie', ['ngRoute', 'sidebar', 'pageSelect', 'summary', 'allmetrics'])
 	.config(['$routeProvider',
 		function($routeProvider) {
 			$routeProvider.otherwise({

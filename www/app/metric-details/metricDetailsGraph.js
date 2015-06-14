@@ -14,7 +14,7 @@ angular
 				result.min.push([p.key, p.value.min]);
 				result.max.push([p.key, p.value.max]);
 				result.xaxis[p.key] = p.label;
-			};
+			}
 			return result;
 		}
 

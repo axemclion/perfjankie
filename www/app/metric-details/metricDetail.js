@@ -14,7 +14,7 @@ angular
 					],
 					Data: ['Data', '$route',
 						function(Data, $route) {
-							$route.current.params.limit = $route.current.params.limit || 10;
+							$route.current.params.limit = $route.current.params.limit || 40;
 							$route.current.params.stat = $route.current.params.stat || '';
 
 							var params = $route.current.params;

@@ -11,8 +11,9 @@ angular
 				if (['chrome', 'safari', 'android'].indexOf(browser) !== -1) {
 					self.categories['Paint'] = ['Paint', 'Layout', 'RecalculateStyles', 'CompositeLayers'];
 					self.categories['Javascript'] = ['TimerInstall', 'TimerFire', 'EventDispatch', 'FunctionCall'];
+					self.categories['Frame Rates'].push('frames_per_sec', 'mean_frame_time');
 				}
-				if (browser !== 'safari'){
+				if (browser !== 'safari') {
 					self.categories['Network'] = ['domInteractive', 'domLoading'];
 				}
 			});

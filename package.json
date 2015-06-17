@@ -1,7 +1,7 @@
 {
   "name": "perfjankie",
   "version": "1.3.0",
-  "dbVersion": "0.3.0",
+  "dbVersion": "0.4.0",
   "description": "Browser Performance regression suite",
   "main": "lib/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   "author": "Parashuram <code@nparashuram.com>",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "browser-perf": "^1.2.9",
+    "browser-perf": "~1.3.0",
     "commander": "~2.8.1",
     "glob": "~5.0.10",
     "nano": "~6.1.3",

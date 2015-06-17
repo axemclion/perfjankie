@@ -9,7 +9,8 @@
     "prepublish": "grunt clean dist"
   },
   "bin": {
-    "perfjankie": "lib/cli.js"
+    "perfjankie": "lib/cli.js",
+    "perfjankie-dbmigrate": "migrations/cli.js"
   },
   "author": "Parashuram <code@nparashuram.com>",
   "license": "BSD-2-Clause",

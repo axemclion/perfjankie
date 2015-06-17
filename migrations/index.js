@@ -3,29 +3,30 @@ var glob = require('glob');
 var nano = require('nano');
 var Q = require('q');
 
+Q.longStackSupport = true;
+
 var dbInit = require('../lib/init.js');
 
-module.exports = function migrate(data, targetDbName) {
-	var config = require('../lib/options')(data);
+module.exports = function migrate(opts, oldDBName, newDBName) {
+	var config = require('../lib/options')(opts);
 	var server = nano(config.couch.server);
-	var currentDb = server.use(config.couch.database);
+	var oldDB = server.use(oldDBName);
 
 	config.couch.updateSite = true;
-	config.couch.oldDb = config.couch.database;
-	config.couch.database = targetDbName;
+	config.couch.database = newDBName;
 
 	return dbInit(config).then(function() {
-		config.log.info('Migrating from ', config.couch.oldDb, 'to', config.couch.database);
-		return Q.ninvoke(currentDb, 'get', 'version');
-	}).then(function(version) {
-		return version[0].version;
-	}, function() {
-		return '0.1.0';
-	}).then(function(currentVersion) {
+		config.log.info('Migrating from ', oldDBName, 'to', newDBName);
+		return Q.ninvoke(oldDB, 'get', 'version').then(function(version) {
+			return version[0].version;
+		}, function() {
+			return '0.1.0';
+		});
+	}).then(function(oldDBVersion) {
 		return glob.sync('migrate-*.js', {
 			cwd: __dirname
 		}).filter(function(file) {
-			return semver.lt(currentVersion, file.slice(8, -3));
+			return semver.lt(oldDBVersion, file.slice(8, -3));
 		}).sort(function(a, b) {
 			return semver.gt(a.slice(8, -3), b.slice(8, -3));
 		});
@@ -36,7 +37,7 @@ module.exports = function migrate(data, targetDbName) {
 		return files.map(function(file) {
 			var script = require('./' + file);
 			config.log.info('\nRunning migration - %s', file);
-			return script(currentDb, server.use(targetDbName), config);
+			return script(oldDB, server.use(newDBName), config);
 		}).reduce(Q.when, Q());
 	}).then(function() {
 		config.log.info('Updating views');

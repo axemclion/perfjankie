@@ -27,10 +27,6 @@ angular
 			this.runList = runList;
 			var self = this;
 
-			this.showRun = function(pagename, browser, time) {
-				$location.url(['/summary?pagename=', pagename, '&browser=', browser, '&time=', time].join(''));
-			};
-
 			this.tiles = [];
 			this.currentRunData = {};
 			var metric = 'framesPerSec_raf';

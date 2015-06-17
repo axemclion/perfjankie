@@ -1,9 +1,16 @@
-.summary {
+.summary{
 	.test-runs{
-		.table{
-			tr{
-				cursor: pointer;
+		.list-group-item{
+			border-radius: 0 !important;
+			border-left: none;
+			border-right: none;
+			&.heading{
+				border-bottom: SOLID 1px gray;
 			}
+		}
+		.content{
+			height: 490px;
+			overflow: scroll;
 		}
 	}
 }

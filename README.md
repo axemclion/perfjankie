@@ -52,7 +52,7 @@ perfjankie({
     // 1. Browsers perf tests ran
     // 2. Data has been saved in couchDB
     // err is not falsy even if update site fails. 
-  }
+  },
 
   /* OPTIONS PASSED TO BROWSER-PERF  */
   // Properties identifying the test environment */

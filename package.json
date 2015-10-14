@@ -21,7 +21,8 @@
     "nano": "~6.1.5",
     "q": "~1.4.1",
     "sauce-tunnel": "^2.2.3",
-    "semver": "^5.0.1"
+    "semver": "^5.0.1",
+    "serve-static": "^1.10.0"
   },
   "devDependencies": {
     "bunyan": "~1.4.0",

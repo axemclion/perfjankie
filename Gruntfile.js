@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 	var couchdb = require('./test/util').config({
 		log: 1
 	}).couch;
+	var serveStatic = require('serve-static');
 	var path = require('path');
 	var jqplot = [
 		'jquery.jqplot.min.js',
@@ -173,7 +174,7 @@ module.exports = function(grunt) {
 						}
 						middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest);
 						options.base.forEach(function(base) {
-							middlewares.push(connect.static(base));
+							middlewares.push(serveStatic(base));
 						});
 						return middlewares;
 					},

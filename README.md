@@ -41,8 +41,9 @@ perfjankie({
 
   /* Identifies where the data and the dashboard are saved */
   couch: {
-    server: 'http://localhost:5984',
-    database: 'performance',
+    server: 'http://localhost:5984',    
+    requestOptions : { "proxy" : "http://someproxy" }, // optional, e.g. useful for http basic auth, see Please check [request] for more information on the defaults. They support features like cookie jar, proxies, ssl, etc.
+    database: 'performance', 
     updateSite: !process.env.CI, // If true, updates the couchApp that shows the dashboard. Set to false in when running Continuous integration, run this the first time using command line. 
     onlyUpdateSite: false // No data to upload, just update the site. Recommended to do from dev box as couchDB instance may require special access to create views.
   },

@@ -4,3 +4,11 @@ bin/
 bin-site/
 *.log
 .DS_Store
+.idea/*
+.tmp/*
+dist/*
+_replicator/*
+_users/*
+pouch__all_dbs__/*
+version/*
+log.txt

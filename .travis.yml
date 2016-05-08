@@ -1,0 +1,25 @@
+sudo: false
+language: node_js
+node_js:
+  - "0.12"
+  - "4.0"
+  - "4.3"
+  - "4"
+  - "5.0"
+  - "5"
+  - "6"
+  - "stable"
+env:
+  - NPM_VERSION=2
+  - NPM_VERSION=3
+
+services: mongodb
+
+before_install:
+  - npm install -g npm@$NPM_VERSION
+before_script:
+  - npm install
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+script: npm test

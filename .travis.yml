@@ -17,6 +17,7 @@ services: mongodb
 
 before_install:
   - npm install -g npm@$NPM_VERSION
+  - npm install -g grunt-cli
 before_script:
   - npm install
   - "export DISPLAY=:99.0"

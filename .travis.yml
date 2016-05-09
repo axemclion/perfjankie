@@ -9,11 +9,12 @@ node_js:
   - "5"
   - "6"
   - "stable"
+  - "latest"
 env:
   - NPM_VERSION=2
   - NPM_VERSION=3
 
-services: mongodb
+services: couchdb
 
 before_install:
   - npm install -g npm@$NPM_VERSION

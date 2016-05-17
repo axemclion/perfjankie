@@ -132,3 +132,14 @@ Perfjankie measures page rendering times. It collects metrics like frame times, 
 * long, scrollable web pages (like a search result page, an article page, etc). The impact of changes to CSS, sticky headers and scrolling event handlers can be seen in the results. 
 * components (like bootstrap, jQuery UI components, ReactJS components, AngularJS components, etc). Component developers just have to place the component multiple times on a page and will know if they caused perf regressions as they continue developing the component. 
 For more information, see the documentation for [browser-perf](http://github.com/axemclion/browser-perf)
+
+# Development
+
+## Dev setup
+
+Any changes should be verified with unit tests, see `test`-folder.
+To run the tests you local couchdb installed with a database, see `test/res/local.config.json` for details:
+
+  1. start couchdb
+  2. start a local selenium grd: `java -jar node_modules/selenium-server/lib/runner/selenium-server-standalone-2.53.0.jar  -Dwebdriver.chrome.driver=$(pwd)/chromedriver/lib/chromedriver/chromedriver`
+  3. run tests via `npm test`

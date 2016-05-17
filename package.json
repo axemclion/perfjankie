@@ -5,7 +5,7 @@
   "description": "Browser Performance regression suite",
   "main": "lib/index.js",
   "scripts": {
-    "test": "grunt test",
+    "test": "bower install grunt test",
     "prepublish": "grunt clean dist"
   },
   "bin": {
@@ -25,6 +25,7 @@
     "serve-static": "^1.10.0"
   },
   "devDependencies": {
+    "bower": "^1.7.9",
     "bunyan": "~1.4.0",
     "chai": "~3.2.0",
     "chai-as-promised": "^5.1.0",

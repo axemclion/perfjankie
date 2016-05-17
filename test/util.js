@@ -23,7 +23,7 @@ module.exports = {
 				}]
 			}),
 			"couch": {
-				server: 'http://admin_user:admin_pass@localhost:5984',
+				server: 'http://localhost:5984',
 				database: 'perfjankie-test',
 				updateSite: true,
 				onlyUpdateSite: false

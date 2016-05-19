@@ -5,7 +5,7 @@
   "description": "Browser Performance regression suite",
   "main": "lib/index.js",
   "scripts": {
-    "test": "bower install grunt test",
+    "test": "bower install && grunt test",
     "prepublish": "grunt clean dist"
   },
   "bin": {

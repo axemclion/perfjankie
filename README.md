@@ -95,10 +95,15 @@ To run perfjankie as a Grunt task, simple load task using `grunt.loadNpmTasks('p
 
 ### Command line
 Run `perfjankie --help` to see a list of all the options. 
-Quick Note - to only update site the first time, run the following from the command line.
+Quick Note - to only update site the first time, run the following from the command line. You need to quote the URL to work with parameters, e.g. https://www.google.de/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=angular
 
 ```bash
-$ perfjankie --config-file=local.config.json --only-update-site
+$ perfjankie --config-file=local.config.json --only-update-site 'example.com'
+```
+Or without a config file
+
+```bash
+$ perfjankie --couch-server=http://localhost:5984 --couch-database=perfjankie-test --couch-user=admin_user --couch-pwd=admin_pass --name=Google 'https://www.google.de/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=angular'
 ```
 
 The config file can contain server configuration and can look like [this](https://github.com/axemclion/perfjankie/blob/master/test/res/local.config.json). 

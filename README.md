@@ -73,6 +73,8 @@ perfjankie({
 
   SAUCE_USERNAME: process.env.SAUCE_USERNAME, // If using Saucelabs
   SAUCE_ACCESSKEY: process.env.SAUCE_ACCESSKEY, // If using Saucelabs
+  
+  browserPerfRunner: false, // defaults to false, see usage below
 
   /* A way to log the information - can be bunyan, or grunt logs. */
   log: { // Expects the following methods,  
@@ -89,6 +91,34 @@ perfjankie({
 ```
 
 Other options that can be passed include `preScript`, `actions`, `metrics`, `preScriptFile`, etc. Note that most of these options are similar to the options passed to browser-perf. Refer to the [browser-perf options](https://github.com/axemclion/browser-perf/wiki/Node-Module---API) for a mode detailed explanation. 
+
+#### Defining a Runner
+
+In some rare cases, you may want to define a runner to work with perfjankie.  For example, you want your E2E test framework to integrate with perfjankie so you can check or track various performance metrics.
+
+Example:
+
+```
+/* ... */
+browserPerfRunner: {
+	// runner - instance of the runner created by browser-perf
+	// runnerDone - callback function for when you want to stop the runner
+    onStart: (runner, runnerDone) => {
+	    this.runner = runner;
+	    this.runnerDone = runnerDone;
+    }
+},
+/* ... */
+```
+
+When you want to stop the runner, you can execute something similar to the following:
+
+```
+this.runner.stop((err, metrics) => {
+    // Runner is done, now return control to perfjankie
+    this.runnerDone(err, metrics);
+});
+```
 
 ### Grunt Task
 To run perfjankie as a Grunt task, simple load task using `grunt.loadNpmTasks('perfjankie');`, define a `perfjankie` task and pass in all the options from above as options to the Grunt task. [Here](https://github.com/axemclion/perfslides/blob/38b4f6e246c5ab971ce2957ec78bb701dbbc3038/Gruntfile.js#L57) is an example. 

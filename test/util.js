@@ -23,7 +23,7 @@ module.exports = {
 				}]
 			}),
 			"couch": {
-				server: 'http://localhost:5984',
+				server: process.env.COUCHDB_URL || 'http://localhost:5984',
 				database: 'perfjankie-test',
 				updateSite: true,
 				onlyUpdateSite: false

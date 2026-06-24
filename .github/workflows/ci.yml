@@ -1,0 +1,39 @@
+name: CI
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      couchdb:
+        image: couchdb:3
+        env:
+          COUCHDB_USER: admin
+          COUCHDB_PASSWORD: password
+        ports:
+          - 5984:5984
+        options: >-
+          --health-cmd "curl -sf http://localhost:5984/"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - run: npm install --ignore-scripts
+      - name: Wait for CouchDB
+        run: |
+          until curl -sf http://admin:password@localhost:5984/_up; do sleep 2; done
+      - name: Set up CouchDB admin
+        run: |
+          curl -sf -X PUT http://localhost:5984/_node/nonode@nohost/_config/admins/admin \
+            -d '"password"' || true
+      - run: npm test
+        env:
+          COUCHDB_URL: http://admin:password@localhost:5984

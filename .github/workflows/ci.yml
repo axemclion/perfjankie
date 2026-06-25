@@ -16,7 +16,7 @@ jobs:
         ports:
           - 5984:5984
         options: >-
-          --health-cmd "curl -sf http://localhost:5984/"
+          --health-cmd "curl -sf http://admin:password@localhost:5984/"
           --health-interval 5s
           --health-timeout 3s
           --health-retries 10

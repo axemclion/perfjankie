@@ -26,6 +26,18 @@ jobs:
         with:
           node-version: '18'
       - run: npm install --ignore-scripts
+      - name: Build site assets
+        run: |
+          # lib/couchSite.js uploads bin-site/ (built from www/) as a design
+          # doc attachment; without it the multipart insert has nothing to
+          # send and the "should only update site" / "...save results"
+          # tests hang until the mocha timeout. This is exactly what
+          # `prepublish` already runs before every real npm publish - CI
+          # just never ran it before, so tests worked against an incomplete
+          # build. bower's registry.bower.io is defunct, but these
+          # dependencies resolve straight from GitHub, which still works.
+          npx bower install --config.interactive=false
+          npx grunt dist
       - name: Wait for CouchDB
         run: |
           until curl -sf http://admin:password@localhost:5984/_up; do sleep 2; done

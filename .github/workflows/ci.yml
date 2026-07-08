@@ -33,6 +33,14 @@ jobs:
         run: |
           curl -sf -X PUT http://localhost:5984/_node/nonode@nohost/_config/admins/admin \
             -d '"password"' || true
+      - name: Configure single-node cluster
+        run: |
+          # CouchDB 3.x defaults [cluster] n=3 server-side regardless of what
+          # the client requests on db creation, which a single-node service
+          # container can never satisfy ("Request to create N=3 DB but only
+          # 1 node(s)"). Drop it to 1 to match this CI container.
+          curl -sf -X PUT http://admin:password@localhost:5984/_node/nonode@nohost/_config/cluster/n \
+            -d '"1"'
       - run: npm test
         env:
           COUCHDB_URL: http://admin:password@localhost:5984

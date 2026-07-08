@@ -16,20 +16,20 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "browser-perf": "~1.4.0",
-    "commander": "~2.8.1",
-    "glob": "~5.0.14",
-    "nano": "~6.1.5",
-    "q": "~1.4.1",
+    "commander": "~15.0.0",
+    "glob": "~13.0.6",
+    "nano": "~11.0.6",
+    "q": "~1.5.1",
     "sauce-tunnel": "^2.2.3",
-    "semver": "^5.0.1",
-    "serve-static": "^1.10.0"
+    "semver": "^7.8.5",
+    "serve-static": "^2.2.1"
   },
   "devDependencies": {
-    "bunyan": "~1.5.1",
+    "bunyan": "~1.8.15",
     "bower": "^1.7.9",
-    "chai": "~3.2.0",
-    "chromedriver": "^2.21.2",
-    "dtrace-provider": "^0.6.0",
+    "chai": "~6.2.2",
+    "chromedriver": "^150.0.1",
+    "dtrace-provider": "^0.8.8",
     "grunt": "~1.6.2",
     "grunt-cli": "^1.5.0",
     "grunt-autoprefixer": "^3.0.4",
@@ -46,9 +46,9 @@
     "grunt-processhtml": "^0.4.4",
     "http-proxy": "^1.18.1",
     "load-grunt-tasks": "^5.1.0",
-    "mocha": "~2.2.5",
-    "selenium-server": "^2.53.0",
-    "sinon": "~1.15.4"
+    "mocha": "~11.7.6",
+    "selenium-server": "^3.141.59",
+    "sinon": "~22.0.0"
   },
   "keywords": [
     "browser-perf",

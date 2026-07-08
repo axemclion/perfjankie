@@ -15,6 +15,15 @@ updates:
       # module-system break, so stay on the 4.x line (the "legacy" dist-tag).
       - dependency-name: "chai"
         update-types: ["version-update:semver-major"]
+      # nano 10+ rewrote error handling: non-2xx responses now throw
+      # synchronously instead of calling back(err, res). Every lib/*.js
+      # call site uses the classic Node callback convention throughout
+      # this published package, not just tests - a major bump here needs
+      # a real audit of error handling across the whole codebase, not a
+      # version-number change. Not fixing a reported CVE either (nano
+      # was never flagged), just swept in by the "*" group pattern.
+      - dependency-name: "nano"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

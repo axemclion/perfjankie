@@ -172,7 +172,7 @@ module.exports = function(grunt) {
 						if (!Array.isArray(options.base)) {
 							options.base = [options.base];
 						}
-						middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest);
+						middlewares.push(require('./tasks/connect-proxy').proxyRequest);
 						options.base.forEach(function(base) {
 							middlewares.push(serveStatic(base));
 						});
@@ -221,6 +221,7 @@ module.exports = function(grunt) {
 
 	require('load-grunt-tasks')(grunt);
 	require('./tasks/metricsgen')(grunt);
+	require('./tasks/connect-proxy')(grunt);
 
 	grunt.registerTask('seedData', function() {
 		var done = this.async();

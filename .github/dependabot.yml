@@ -9,6 +9,12 @@ updates:
       dev-dependencies:
         patterns:
           - "*"
+    ignore:
+      # chai 5+ is ESM-only; test/index.spec.js uses CommonJS require().
+      # Not a peer-metadata mismatch like the grunt-* ones below, a real
+      # module-system break, so stay on the 4.x line (the "legacy" dist-tag).
+      - dependency-name: "chai"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

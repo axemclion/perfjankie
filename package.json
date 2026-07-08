@@ -27,7 +27,7 @@
   "devDependencies": {
     "bunyan": "~1.5.1",
     "bower": "^1.7.9",
-    "chai": "~3.2.0",
+    "chai": "^4.5.0",
     "chromedriver": "^2.21.2",
     "dtrace-provider": "^0.6.0",
     "grunt": "~1.6.2",

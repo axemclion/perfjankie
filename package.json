@@ -28,7 +28,7 @@
     "bunyan": "~1.8.15",
     "bower": "^1.7.9",
     "chai": "^4.5.0",
-    "chromedriver": "^151.0.0",
+    "chromedriver": "^152.0.0",
     "dtrace-provider": "^0.8.8",
     "grunt": "~1.6.2",
     "grunt-cli": "^1.5.0",
